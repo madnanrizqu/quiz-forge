@@ -26,7 +26,6 @@
     "@tanstack/router-plugin": "^1.132.0",
     "dayjs": "^1.11.20",
     "lexical": "^0.42.0",
-    "lucide-react": "^0.545.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
