@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Button } from './Button'
+import { Icon } from './icons'
 
 const meta = {
   title: 'Design System/Button',
@@ -24,6 +25,20 @@ export const Ghost: Story = {
   args: {
     variant: 'ghost',
     children: 'Cancel',
+  },
+}
+
+export const Soft: Story = {
+  args: {
+    variant: 'soft',
+  },
+}
+
+export const IconStory: Story = {
+  name: 'Icon',
+  args: {
+    variant: 'icon',
+    children: <Icon name="mi:add" />,
   },
 }
 

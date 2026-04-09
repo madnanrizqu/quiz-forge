@@ -20,6 +20,21 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
 
+export const WithoutTitle: Story = {
+  args: {
+    title: undefined,
+    description: 'This card has no title, only a description.',
+    children: (
+      <div className="flex flex-wrap items-center gap-3">
+        <Badge>Difficulty: Medium</Badge>
+        <Button variant="ghost" size="sm">
+          Action
+        </Button>
+      </div>
+    ),
+  },
+}
+
 export const WithActions: Story = {
   render: (args) => (
     <QuestionCard {...args}>

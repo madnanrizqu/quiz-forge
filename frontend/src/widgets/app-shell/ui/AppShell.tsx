@@ -1,72 +1,59 @@
 import { Link, Outlet } from '@tanstack/react-router'
-
-import { Badge, Button, Text } from '@/shared/ui'
+import { Button, Icon } from '@/shared/ui'
 
 export function AppShell() {
   return (
-    <div className="min-h-screen bg-surface text-on-surface">
-      <header className="sticky top-0 z-50 bg-surface/80 px-4 backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between py-4">
-          <Link to="/" className="no-underline">
-            <div className="flex items-center gap-3">
-              <span className="h-8 w-8 rounded-xl bg-primary-gradient" />
-              <div>
-                <Text className="m-0" variant="title-large">
-                  Sapphire Architectural
-                </Text>
-                <Text
-                  className="m-0"
-                  tone="on-surface-variant"
-                  variant="label-small"
-                >
-                  Quiz Builder
-                </Text>
-              </div>
-            </div>
+    <div className="min-h-screen bg-[#F9F9FF] text-on-surface">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-ghost-border">
+        <div className="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+          <Link
+            to="/"
+            className="text-2xl font-bold tracking-tight text-on-surface no-underline"
+          >
+            QuizForge
           </Link>
 
-          <nav className="flex items-center gap-3">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold">
             <Link
               to="/"
-              className="rounded-lg px-3 py-2 text-body-standard font-medium text-on-surface-variant no-underline transition-all duration-300 hover:bg-surface-container-low hover:text-on-surface"
-              activeProps={{
-                className:
-                  'rounded-lg bg-surface-container-low px-3 py-2 text-body-standard font-semibold text-on-surface no-underline',
-              }}
+              className="text-primary border-b-2 border-primary pb-1 no-underline"
             >
-              Home
+              Build
             </Link>
             <Link
-              to="/about"
-              className="rounded-lg px-3 py-2 text-body-standard font-medium text-on-surface-variant no-underline transition-all duration-300 hover:bg-surface-container-low hover:text-on-surface"
-              activeProps={{
-                className:
-                  'rounded-lg bg-surface-container-low px-3 py-2 text-body-standard font-semibold text-on-surface no-underline',
-              }}
+              to="/"
+              className="text-on-surface-variant hover:text-on-surface transition-colors pb-1 no-underline"
             >
-              About
+              Play
             </Link>
-            <Badge>Blueprint Mode</Badge>
           </nav>
+
+          <div className="flex items-center gap-4">
+            <Button size="sm" className="px-5 py-2.5 rounded-lg shadow-sm">
+              Save Quiz
+            </Button>
+          </div>
         </div>
       </header>
 
       <Outlet />
 
-      <footer className="px-4 pb-10 pt-8">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between rounded-xl bg-surface-container-low px-5 py-4">
-          <Text
-            className="m-0"
-            tone="on-surface-variant"
-            variant="body-standard"
-          >
-            Structured for fast iteration and consistent UI decisions.
-          </Text>
-          <Button variant="ghost" size="sm">
-            Design System v1
-          </Button>
-        </div>
-      </footer>
+      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 backdrop-blur-xl shadow-[0_-8px_30px_rgba(0,0,0,0.04)] md:hidden">
+        <Link
+          to="/"
+          className="flex flex-col items-center justify-center bg-primary-fixed text-primary-fixed-variant rounded-2xl px-6 py-2 transition-all no-underline"
+        >
+          <Icon name="mi:edit_note" />
+          <span className="text-xs font-medium">Builder</span>
+        </Link>
+        <Link
+          to="/"
+          className="flex flex-col items-center justify-center text-on-surface-variant px-6 py-2 hover:bg-surface-container transition-colors no-underline"
+        >
+          <Icon name="mi:play_circle" />
+          <span className="text-xs font-medium">Player</span>
+        </Link>
+      </nav>
     </div>
   )
 }
