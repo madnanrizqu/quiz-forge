@@ -1,12 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Badge, QuestionCard, Text } from '@/shared/ui'
 
-import { Badge, QuestionCard, Text } from '../components/ui'
-
-export const Route = createFileRoute('/about')({
-  component: About,
-})
-
-function About() {
+export function AboutPage() {
   return (
     <main className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-10 md:py-14">
       <section className="rounded-xl bg-surface-container-low p-6 md:p-8">

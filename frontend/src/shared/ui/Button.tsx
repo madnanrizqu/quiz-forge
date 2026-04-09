@@ -2,7 +2,7 @@ import { Slot } from '@radix-ui/react-slot'
 import { forwardRef } from 'react'
 import type { ButtonHTMLAttributes } from 'react'
 
-import { cx } from './cx'
+import { cx } from '@/shared/lib/cx'
 import { textVariantClasses } from './Text'
 
 type ButtonVariant = 'primary' | 'ghost'
@@ -43,8 +43,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : 'button'
 
     return (
-        <Comp
-          className={cx(
+      <Comp
+        className={cx(
           'inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-300',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2',
           'focus-visible:ring-offset-surface disabled:pointer-events-none disabled:opacity-50',

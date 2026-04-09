@@ -2,7 +2,7 @@ import * as LabelPrimitive from '@radix-ui/react-label'
 import { forwardRef } from 'react'
 import type { ComponentPropsWithoutRef, ElementRef } from 'react'
 
-import { cx } from './cx'
+import { cx } from '@/shared/lib/cx'
 import { textVariantClasses } from './Text'
 
 type LabelElement = ElementRef<typeof LabelPrimitive.Root>

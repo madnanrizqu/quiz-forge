@@ -1,10 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Badge, Button, Input, Label, QuestionCard, Text } from '@/shared/ui'
 
-import { Badge, Button, Input, Label, QuestionCard, Text } from '../components/ui'
-
-export const Route = createFileRoute('/')({ component: App })
-
-function App() {
+export function HomePage() {
   return (
     <main className="mx-auto grid w-full max-w-6xl gap-6 px-4 pb-12 pt-10 md:gap-8 md:pt-14">
       <section className="rounded-xl bg-surface-container-low p-6 md:p-8">
