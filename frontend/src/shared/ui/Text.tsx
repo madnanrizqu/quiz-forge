@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { cx } from '@/shared/lib/cx'
+import { cx } from '@/shared/lib'
 
 export type TextVariant =
   | 'display-h1'

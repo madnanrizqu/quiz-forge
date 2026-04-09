@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot'
 import type { HTMLAttributes } from 'react'
 
-import { cx } from '@/shared/lib/cx'
+import { cx } from '@/shared/lib'
 import { textVariantClasses } from './Text'
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {

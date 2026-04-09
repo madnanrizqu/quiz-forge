@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot'
 import type { HTMLAttributes } from 'react'
 
-import { cx } from '@/shared/lib/cx'
+import { cx } from '@/shared/lib'
 import { Text } from './Text'
 
 export interface QuestionCardProps extends HTMLAttributes<HTMLDivElement> {

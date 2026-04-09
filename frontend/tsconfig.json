@@ -4,6 +4,7 @@
     "**/*.tsx",
     "eslint.config.js",
     "prettier.config.js",
+    "steiger.config.js",
     "vite.config.js",
     ".storybook/*.ts"
   ],

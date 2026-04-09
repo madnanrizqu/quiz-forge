@@ -2,7 +2,7 @@ import { Slot } from '@radix-ui/react-slot'
 import { forwardRef } from 'react'
 import type { ButtonHTMLAttributes } from 'react'
 
-import { cx } from '@/shared/lib/cx'
+import { cx } from '@/shared/lib'
 import { textVariantClasses } from './Text'
 
 type ButtonVariant = 'primary' | 'ghost'
