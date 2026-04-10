@@ -2,12 +2,12 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop } from '@/widgets/header'
-import { PlayerPage } from '@/pages/player'
+import { LoadQuizPage } from '@/pages/load-quiz'
 
-export const Route = createFileRoute('/play/')({
+export const Route = createFileRoute('/load-quiz/')({
   component: () => (
     <AppShell header={<BuilderHeaderDesktop />}>
-      <PlayerPage />
+      <LoadQuizPage />
     </AppShell>
   ),
 })

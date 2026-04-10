@@ -5,7 +5,9 @@ export interface BuilderHeaderDesktopProps {
   showSaveQuiz?: boolean
 }
 
-export function BuilderHeaderDesktop({ showSaveQuiz = false }: BuilderHeaderDesktopProps) {
+export function BuilderHeaderDesktop({
+  showSaveQuiz = false,
+}: BuilderHeaderDesktopProps) {
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md h-15">
       <div className="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
@@ -31,7 +33,7 @@ export function BuilderHeaderDesktop({ showSaveQuiz = false }: BuilderHeaderDesk
             Build
           </Link>
           <Link
-            to="/play"
+            to="/load-quiz"
             activeProps={{
               className:
                 'text-primary border-b-2 border-primary pb-1 no-underline',

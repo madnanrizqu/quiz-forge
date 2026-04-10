@@ -19,7 +19,7 @@ export function BottomNavMobile() {
         <span className="text-xs font-medium">Builder</span>
       </Link>
       <Link
-        to="/play"
+        to="/load-quiz"
         activeProps={{
           className:
             'flex flex-col items-center justify-center bg-primary-fixed text-primary-fixed-variant rounded-2xl px-6 py-2 transition-all no-underline',

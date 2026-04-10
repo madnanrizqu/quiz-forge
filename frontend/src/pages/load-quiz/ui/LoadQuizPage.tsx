@@ -1,6 +1,6 @@
 import { Button, Icon, Input, Label, Text } from '@/shared/ui'
 
-export function PlayerPage() {
+export function LoadQuizPage() {
   return (
     <main className="min-h-[calc(100vh-72px)] relative overflow-hidden flex items-center justify-center">
       <div className="absolute top-20 left-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
