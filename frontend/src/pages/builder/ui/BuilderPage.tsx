@@ -9,6 +9,7 @@ import {
   Radio,
   Textarea,
 } from '@/shared/ui'
+import { CodeBlock } from '@/entities/quiz'
 
 export function BuilderPage() {
   return (
@@ -57,9 +58,7 @@ export function BuilderPage() {
               />
             </div>
 
-            <div className="bg-surface-container-low p-4 rounded-xl font-mono text-sm text-primary border border-primary-fixed/30 overflow-x-auto">
-              <pre>console.log(typeof null);</pre>
-            </div>
+            <CodeBlock code="console.log(typeof null);" />
 
             <div className="space-y-3">
               <Label className="block mb-2">Answer Choices</Label>

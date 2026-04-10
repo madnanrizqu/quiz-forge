@@ -1,95 +1,17 @@
-import { Link } from '@tanstack/react-router'
-import { Button, Icon } from '@/shared/ui'
-
-export function AppShell({
-  children,
-  showSaveQuiz = false,
-}: {
+export interface AppShellProps {
   children: React.ReactNode
-  showSaveQuiz?: boolean
-}) {
+  header: React.ReactNode
+  mobileNav?: React.ReactNode
+}
+
+export function AppShell({ children, header, mobileNav }: AppShellProps) {
   return (
     <div className="min-h-screen bg-surface-base text-on-surface">
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md min-h-15">
-        <div className="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-          <Link
-            to="/"
-            className="text-2xl font-bold tracking-tight text-on-surface no-underline"
-          >
-            QuizForge
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold">
-            <Link
-              to="/"
-              activeProps={{
-                className:
-                  'text-primary border-b-2 border-primary pb-1 no-underline',
-              }}
-              inactiveProps={{
-                className:
-                  'text-on-surface-variant hover:text-on-surface transition-colors pb-1 no-underline',
-              }}
-            >
-              Build
-            </Link>
-            <Link
-              to="/play"
-              activeProps={{
-                className:
-                  'text-primary border-b-2 border-primary pb-1 no-underline',
-              }}
-              inactiveProps={{
-                className:
-                  'text-on-surface-variant hover:text-on-surface transition-colors pb-1 no-underline',
-              }}
-            >
-              Play
-            </Link>
-          </nav>
-
-          {showSaveQuiz && (
-            <div className="flex items-center gap-4">
-              <Button size="sm" className="px-5 py-2.5 rounded-lg shadow-sm">
-                Save Quiz
-              </Button>
-            </div>
-          )}
-        </div>
-      </header>
+      {header}
 
       {children}
 
-      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 backdrop-blur-xl shadow-bottom-nav md:hidden">
-        <Link
-          to="/"
-          activeProps={{
-            className:
-              'flex flex-col items-center justify-center bg-primary-fixed text-primary-fixed-variant rounded-2xl px-6 py-2 transition-all no-underline',
-          }}
-          inactiveProps={{
-            className:
-              'flex flex-col items-center justify-center text-on-surface-variant px-6 py-2 hover:bg-surface-container transition-colors no-underline',
-          }}
-        >
-          <Icon name="mi:edit_note" />
-          <span className="text-xs font-medium">Builder</span>
-        </Link>
-        <Link
-          to="/play"
-          activeProps={{
-            className:
-              'flex flex-col items-center justify-center bg-primary-fixed text-primary-fixed-variant rounded-2xl px-6 py-2 transition-all no-underline',
-          }}
-          inactiveProps={{
-            className:
-              'flex flex-col items-center justify-center text-on-surface-variant px-6 py-2 hover:bg-surface-container transition-colors no-underline',
-          }}
-        >
-          <Icon name="mi:play_circle" />
-          <span className="text-xs font-medium">Player</span>
-        </Link>
-      </nav>
+      {mobileNav}
     </div>
   )
 }

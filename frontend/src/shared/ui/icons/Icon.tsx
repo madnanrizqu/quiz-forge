@@ -17,6 +17,8 @@ const iconRegistry = {
   'mi:play_circle': { kind: 'material' as const, name: 'play_circle' },
   'mi:fingerprint': { kind: 'material' as const, name: 'fingerprint' },
   'mi:arrow_forward': { kind: 'material' as const, name: 'arrow_forward' },
+  'mi:arrow_back': { kind: 'material' as const, name: 'arrow_back' },
+  'mi:timer': { kind: 'material' as const, name: 'timer' },
   'svg:chevron_down': { kind: 'svg' as const, ...chevronDown },
 }
 
