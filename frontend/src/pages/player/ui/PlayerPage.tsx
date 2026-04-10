@@ -7,14 +7,22 @@ export function PlayerPage() {
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-primary-fixed rounded-full blur-3xl" />
 
       <div className="relative z-10 flex flex-col items-center max-w-md w-full px-6">
-        <div className="bg-primary-fixed rounded-2xl p-4 mb-6">
-          <Icon name="mi:play_circle" size={48} color="var(--on-primary-fixed)" />
+        <div className="bg-primary-fixed rounded-xl p-4 mb-6 max-w-20 h-21.5">
+          <Icon
+            name="mi:play_circle"
+            size={48}
+            color="var(--on-primary-fixed)"
+          />
         </div>
 
         <Text variant="display-h1" className="text-center mb-2">
           Play Quiz
         </Text>
-        <Text variant="body-standard" tone="on-surface-variant" className="text-center mb-8">
+        <Text
+          variant="body-standard"
+          tone="on-surface-variant"
+          className="text-center mb-8"
+        >
           Enter a quiz ID to join and play
         </Text>
 

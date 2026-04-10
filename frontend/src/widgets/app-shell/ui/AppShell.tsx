@@ -9,8 +9,8 @@ export function AppShell({
   showSaveQuiz?: boolean
 }) {
   return (
-    <div className="min-h-screen bg-[#F9F9FF] text-on-surface">
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-ghost-border min-h-15">
+    <div className="min-h-screen bg-surface-base text-on-surface">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md min-h-15">
         <div className="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
           <Link
             to="/"
@@ -60,7 +60,7 @@ export function AppShell({
 
       {children}
 
-      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 backdrop-blur-xl shadow-[0_-8px_30px_rgba(0,0,0,0.04)] md:hidden">
+      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 backdrop-blur-xl shadow-bottom-nav md:hidden">
         <Link
           to="/"
           activeProps={{
