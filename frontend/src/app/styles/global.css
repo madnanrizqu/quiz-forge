@@ -129,6 +129,7 @@ html,
 body,
 #app {
   min-height: 100%;
+  scrollbar-gutter: stable;
 }
 
 body {

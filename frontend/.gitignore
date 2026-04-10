@@ -21,3 +21,6 @@ storybook-static
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Tanstack Router
+**/routeTree.gen.ts
