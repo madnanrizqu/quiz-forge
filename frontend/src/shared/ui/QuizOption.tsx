@@ -15,6 +15,7 @@ export const QuizOption = forwardRef<HTMLInputElement, QuizOptionProps>(
 
     return (
       <label
+        htmlFor={inputId}
         className={cx(
           'group relative flex items-center p-5 rounded-xl bg-surface hover:bg-surface-container-low transition-all duration-200 cursor-pointer border-2 border-transparent',
           'active:scale-[0.98]',

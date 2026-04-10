@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { QuizOption } from '@/shared/ui'
+import { MultipleChoiceInput } from './MultipleChoiceInput'
 import { ShortAnswerInput } from './ShortAnswerInput'
 import { QuestionType } from '../model/types'
 import type { QuizOptionData } from '../model/types'
@@ -16,16 +16,5 @@ export function AnswerSection({ questionType, options }: AnswerSectionProps) {
     return <ShortAnswerInput value={shortAnswer} onChange={setShortAnswer} />
   }
 
-  return (
-    <div className="space-y-4">
-      {options.map((option) => (
-        <QuizOption
-          key={option.id}
-          name="quiz_option"
-          value={option.id}
-          label={option.label}
-        />
-      ))}
-    </div>
-  )
+  return <MultipleChoiceInput options={options} />
 }
