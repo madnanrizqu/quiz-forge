@@ -1,16 +1,19 @@
-import { useState } from 'react'
-import { Button, Icon, QuestionCard, QuizOption, Text } from '@/shared/ui'
-import { CodeBlock } from '@/entities/quiz'
+import { Button, Icon, QuestionCard, Text } from '@/shared/ui'
+import { AnswerSection, CodeBlock } from '@/entities/quiz'
 import { AppShell } from '@/widgets/app-shell'
 import { PlayerHeaderDesktop } from '@/widgets/header'
-import { MOCK_QUIZ_PLAY_PROPS } from '../model'
+import { MOCK_QUIZZES } from '../model'
 
 interface PlayQuizPageProps {
   quizId: string
 }
 
-export function PlayQuizPage({ quizId: _quizId }: PlayQuizPageProps) {
-  const [progress] = useState(65)
+export function PlayQuizPage({ quizId }: PlayQuizPageProps) {
+  const quizData = MOCK_QUIZZES[quizId]
+
+  if (!quizData) {
+    return <div>Quiz not found</div>
+  }
 
   const {
     questionNumber,
@@ -19,13 +22,10 @@ export function PlayQuizPage({ quizId: _quizId }: PlayQuizPageProps) {
     questionText,
     codeSnippet,
     options,
-  } = MOCK_QUIZ_PLAY_PROPS
+  } = quizData
 
   return (
-    <AppShell
-      header={<PlayerHeaderDesktop progress={progress} />}
-      mobileNav={null}
-    >
+    <AppShell header={<PlayerHeaderDesktop progress={65} />} mobileNav={null}>
       <main className="max-w-4xl mx-auto px-6 py-12 md:py-20 min-h-[calc(100vh-80px)] flex flex-col justify-center">
         <section className="space-y-8">
           <div className="flex items-center justify-between">
@@ -64,16 +64,7 @@ export function PlayQuizPage({ quizId: _quizId }: PlayQuizPageProps) {
 
               {codeSnippet && <CodeBlock code={codeSnippet} />}
 
-              <div className="space-y-4">
-                {options.map((option) => (
-                  <QuizOption
-                    key={option.id}
-                    name="quiz_option"
-                    value={option.id}
-                    label={option.label}
-                  />
-                ))}
-              </div>
+              <AnswerSection questionType={questionType} options={options} />
             </div>
           </QuestionCard>
 
