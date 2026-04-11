@@ -7,3 +7,8 @@ export enum QuestionType {
   MultipleChoice = 'multiple-choice',
   ShortAnswer = 'short-answer',
 }
+
+export enum QuizState {
+  Active = 'active',
+  Completed = 'completed',
+}
