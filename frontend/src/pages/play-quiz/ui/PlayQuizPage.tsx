@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AppShell } from '@/widgets/app-shell'
 import { PlayerHeaderDesktop } from '@/widgets/header'
 import { QuizState } from '@/entities/quiz'
-import { MOCK_QUIZZES } from '../model'
+import { MOCK_QUIZZES, MOCK_QUIZ_RESULTS } from '../model'
 import { ActiveQuizState } from './ActiveQuizState'
 import { CompletedQuizState } from './CompletedQuizState'
 
@@ -12,13 +12,12 @@ interface PlayQuizPageProps {
 
 export function PlayQuizPage({ quizId }: PlayQuizPageProps) {
   const [quizState, setQuizState] = useState<QuizState>(QuizState.Active)
-  const [score, setScore] = useState(0)
   const [answer, setAnswer] = useState('')
   const quizData = MOCK_QUIZZES[quizId]
+  const quizResult = MOCK_QUIZ_RESULTS[quizId]
 
   const handleSubmit = () => {
     setQuizState(QuizState.Completed)
-    setScore(85)
   }
 
   return (
@@ -33,7 +32,7 @@ export function PlayQuizPage({ quizId }: PlayQuizPageProps) {
           />
         )}
         {quizState === QuizState.Completed && (
-          <CompletedQuizState quizId={quizId} score={score} />
+          <CompletedQuizState quizResult={quizResult} />
         )}
       </main>
     </AppShell>

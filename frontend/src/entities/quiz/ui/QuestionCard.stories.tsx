@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Badge } from '@/shared/ui'
-import { Button } from '@/shared/ui'
+import { Badge, Button } from '@/shared/ui'
 import { QuestionCard } from './QuestionCard'
 
 const meta = {

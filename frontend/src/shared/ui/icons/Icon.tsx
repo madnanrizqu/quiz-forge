@@ -21,6 +21,9 @@ const iconRegistry = {
   'mi:timer': { kind: 'material' as const, name: 'timer' },
   'mi:architecture': { kind: 'material' as const, name: 'architecture' },
   'mi:construction': { kind: 'material' as const, name: 'construction' },
+  'mi:emoji_events': { kind: 'material' as const, name: 'emoji_events' },
+  'mi:check_circle': { kind: 'material' as const, name: 'check_circle' },
+  'mi:cancel': { kind: 'material' as const, name: 'cancel' },
   'svg:chevron_down': { kind: 'svg' as const, ...chevronDown },
 }
 

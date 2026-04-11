@@ -12,3 +12,20 @@ export enum QuizState {
   Active = 'active',
   Completed = 'completed',
 }
+
+export interface QuestionResult {
+  questionNumber: number
+  questionText: string
+  isCorrect: boolean
+}
+
+export interface QuizResultData {
+  quizId: string
+  quizTitle: string
+  score: number
+  totalQuestions: number
+  timeSpent: string
+  tabSwitches: number
+  pastes: number
+  questions: QuestionResult[]
+}
