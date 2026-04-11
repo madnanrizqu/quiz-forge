@@ -30,12 +30,18 @@ export const quizOptions = (id: number) =>
     enabled: Number.isInteger(id) && id > 0,
   })
 
-export function useQuizzes() {
-  return useQuery(quizzesOptions())
+export function useQuizzes(options?: object) {
+  return useQuery({
+    ...quizzesOptions(),
+    ...options,
+  })
 }
 
-export function useQuiz(id: number) {
-  return useQuery(quizOptions(id))
+export function useQuiz(id: number, options?: object) {
+  return useQuery({
+    ...quizOptions(id),
+    ...options,
+  })
 }
 
 export function useCreateQuiz(
