@@ -19,6 +19,8 @@ const iconRegistry = {
   'mi:arrow_forward': { kind: 'material' as const, name: 'arrow_forward' },
   'mi:arrow_back': { kind: 'material' as const, name: 'arrow_back' },
   'mi:timer': { kind: 'material' as const, name: 'timer' },
+  'mi:architecture': { kind: 'material' as const, name: 'architecture' },
+  'mi:construction': { kind: 'material' as const, name: 'construction' },
   'svg:chevron_down': { kind: 'svg' as const, ...chevronDown },
 }
 
