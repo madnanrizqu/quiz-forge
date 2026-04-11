@@ -1,4 +1,4 @@
-import { QuizOption } from '@/shared/ui'
+import { QuizOption } from '@/entities/quiz/ui'
 import type { QuizOptionData } from '../model/types'
 
 export interface MultipleChoiceInputProps {

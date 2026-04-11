@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { QuizOption } from './QuizOption'
 
 const meta = {
-  title: 'Design System/QuizOption',
+  title: 'Entities/Quiz/QuizOption',
   component: QuizOption,
   tags: ['autodocs'],
   parameters: {

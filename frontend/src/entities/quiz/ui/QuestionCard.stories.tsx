@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { Badge } from './Badge'
-import { Button } from './Button'
+import { Badge } from '@/shared/ui'
+import { Button } from '@/shared/ui'
 import { QuestionCard } from './QuestionCard'
 
 const meta = {
-  title: 'Design System/QuestionCard',
+  title: 'Entities/Quiz/QuestionCard',
   component: QuestionCard,
   tags: ['autodocs'],
   args: {

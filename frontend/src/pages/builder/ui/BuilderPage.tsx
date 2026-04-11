@@ -4,12 +4,11 @@ import {
   Icon,
   Input,
   Label,
-  QuestionCard,
   Select,
   Radio,
   Textarea,
 } from '@/shared/ui'
-import { CodeBlock } from '@/entities/quiz'
+import { CodeBlock, QuestionCard } from '@/entities/quiz'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
 

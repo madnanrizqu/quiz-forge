@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Button, Icon, QuestionCard, Text } from '@/shared/ui'
+import { Button, Icon, Text } from '@/shared/ui'
+import { QuestionCard } from '@/entities/quiz/ui'
 import { AnswerSection, CodeBlock } from '@/entities/quiz'
 import { AppShell } from '@/widgets/app-shell'
 import { PlayerHeaderDesktop } from '@/widgets/header'
