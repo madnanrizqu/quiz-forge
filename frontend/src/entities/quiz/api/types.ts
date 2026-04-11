@@ -1,5 +1,5 @@
 // ==================== QUESTION TYPES ====================
-export type QuestionType = 'mcq' | 'short' | 'code'
+export type ApiQuestionType = 'mcq' | 'short' | 'code'
 
 // ==================== RESPONSE TYPES ====================
 
@@ -21,7 +21,7 @@ export interface QuizWithQuestionsResponse extends QuizResponse {
 export interface QuestionResponse {
   id: number
   quizId: number
-  type: QuestionType
+  type: ApiQuestionType
   prompt: string
   options?: string[]
   correctAnswer?: string | number
@@ -74,7 +74,7 @@ export interface UpdateQuizPayload {
 }
 
 export interface CreateQuestionPayload {
-  type: QuestionType
+  type: ApiQuestionType
   prompt: string
   options?: string[]
   correctAnswer?: string | number
@@ -82,7 +82,7 @@ export interface CreateQuestionPayload {
 }
 
 export interface UpdateQuestionPayload {
-  type?: QuestionType
+  type?: ApiQuestionType
   prompt?: string
   options?: string[] | null
   correctAnswer?: string | number

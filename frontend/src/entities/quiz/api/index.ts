@@ -1,3 +1,6 @@
 export * from './types'
 export * from './client'
 export * from './normalizers'
+export * from './quiz'
+export * from './question'
+export * from './attempt'
