@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Button, Icon, QuestionCard, Text } from '@/shared/ui'
 import { AnswerSection, CodeBlock } from '@/entities/quiz'
 import { AppShell } from '@/widgets/app-shell'
@@ -9,6 +10,7 @@ interface PlayQuizPageProps {
 }
 
 export function PlayQuizPage({ quizId }: PlayQuizPageProps) {
+  const [answer, setAnswer] = useState('')
   const quizData = MOCK_QUIZZES[quizId]
 
   if (!quizData) {
@@ -64,7 +66,12 @@ export function PlayQuizPage({ quizId }: PlayQuizPageProps) {
 
               {codeSnippet && <CodeBlock code={codeSnippet} />}
 
-              <AnswerSection questionType={questionType} options={options} />
+              <AnswerSection
+                questionType={questionType}
+                options={options}
+                answer={answer}
+                onSetAnswer={setAnswer}
+              />
             </div>
           </QuestionCard>
 

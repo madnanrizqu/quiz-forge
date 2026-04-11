@@ -3,9 +3,15 @@ import type { QuizOptionData } from '../model/types'
 
 export interface MultipleChoiceInputProps {
   options: QuizOptionData[]
+  value: string
+  onChange: (value: string) => void
 }
 
-export function MultipleChoiceInput({ options }: MultipleChoiceInputProps) {
+export function MultipleChoiceInput({
+  options,
+  value,
+  onChange,
+}: MultipleChoiceInputProps) {
   return (
     <fieldset className="space-y-4 border-0 p-0 m-0">
       <legend className="block text-sm font-semibold text-on-surface-variant mb-2 ml-1">
@@ -17,6 +23,8 @@ export function MultipleChoiceInput({ options }: MultipleChoiceInputProps) {
           name="quiz_option"
           value={option.id}
           label={option.label}
+          checked={option.id === value}
+          onChange={() => onChange(option.id)}
         />
       ))}
     </fieldset>
