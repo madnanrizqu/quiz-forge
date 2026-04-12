@@ -1,12 +1,20 @@
 import { Link } from '@tanstack/react-router'
-import { Button } from '@/shared/ui'
+import { Button, Icon } from '@/shared/ui'
 
 export interface BuilderHeaderDesktopProps {
   showSaveQuiz?: boolean
+  showPrevious?: boolean
+  onPrevious?: () => void
+  showBuildNav?: boolean
+  showPlayNav?: boolean
 }
 
 export function BuilderHeaderDesktop({
   showSaveQuiz = false,
+  showPrevious = false,
+  onPrevious,
+  showBuildNav = true,
+  showPlayNav = true,
 }: BuilderHeaderDesktopProps) {
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md h-15">
@@ -19,39 +27,56 @@ export function BuilderHeaderDesktop({
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-semibold">
-          <Link
-            to="/"
-            activeProps={{
-              className:
-                'text-primary border-b-2 border-primary pb-1 no-underline',
-            }}
-            inactiveProps={{
-              className:
-                'text-on-surface-variant hover:text-on-surface transition-colors pb-1 no-underline',
-            }}
-          >
-            Build
-          </Link>
-          <Link
-            to="/load-quiz"
-            activeProps={{
-              className:
-                'text-primary border-b-2 border-primary pb-1 no-underline',
-            }}
-            inactiveProps={{
-              className:
-                'text-on-surface-variant hover:text-on-surface transition-colors pb-1 no-underline',
-            }}
-          >
-            Play
-          </Link>
+          {showBuildNav && (
+            <Link
+              to="/"
+              activeProps={{
+                className:
+                  'text-primary border-b-2 border-primary pb-1 no-underline',
+              }}
+              inactiveProps={{
+                className:
+                  'text-on-surface-variant hover:text-on-surface transition-colors pb-1 no-underline',
+              }}
+            >
+              Build
+            </Link>
+          )}
+          {showPlayNav && (
+            <Link
+              to="/load-quiz"
+              activeProps={{
+                className:
+                  'text-primary border-b-2 border-primary pb-1 no-underline',
+              }}
+              inactiveProps={{
+                className:
+                  'text-on-surface-variant hover:text-on-surface transition-colors pb-1 no-underline',
+              }}
+            >
+              Play
+            </Link>
+          )}
         </nav>
 
-        {showSaveQuiz && (
+        {(showSaveQuiz || showPrevious) && (
           <div className="flex items-center gap-4">
-            <Button size="sm" className="px-5 py-2.5 rounded-lg shadow-sm">
-              Save Quiz
-            </Button>
+            {showPrevious && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onPrevious}
+                className="text-on-surface-variant hover:text-primary"
+              >
+                <Icon name="mi:arrow_back" size="sm" className="mr-1" />
+                Previous
+              </Button>
+            )}
+            {showSaveQuiz && (
+              <Button size="sm" className="px-5 py-2.5 rounded-lg shadow-sm">
+                Save Quiz
+              </Button>
+            )}
           </div>
         )}
       </div>

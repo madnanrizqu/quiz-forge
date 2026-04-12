@@ -7,6 +7,8 @@ import {
   Label,
   Select,
   Radio,
+  Stepper,
+  Text,
 } from '@/shared/ui'
 import { CodeBlock, QuestionCard } from '@/entities/quiz'
 import { AppShell } from '@/widgets/app-shell'
@@ -17,14 +19,23 @@ interface BuilderQuestionsStepPageProps {
   quizId: string
 }
 
-export function BuilderQuestionsStepPage({ quizId }: BuilderQuestionsStepPageProps) {
+export function BuilderQuestionsStepPage({
+  quizId,
+}: BuilderQuestionsStepPageProps) {
   const navigate = useNavigate()
   const quiz = getQuizById(quizId)
 
   if (!quiz) {
     return (
       <AppShell
-        header={<BuilderHeaderDesktop showSaveQuiz />}
+        header={
+          <BuilderHeaderDesktop
+            showSaveQuiz
+            showBuildNav={false}
+            showPlayNav={false}
+            showPrevious
+          />
+        }
         mobileNav={<BottomNavMobile />}
       >
         <main className="max-w-4xl mx-auto px-6 py-12">
@@ -36,10 +47,27 @@ export function BuilderQuestionsStepPage({ quizId }: BuilderQuestionsStepPagePro
 
   return (
     <AppShell
-      header={<BuilderHeaderDesktop showSaveQuiz />}
+      header={
+        <BuilderHeaderDesktop
+          showSaveQuiz
+          showBuildNav={false}
+          showPlayNav={false}
+          showPrevious
+          onPrevious={() => navigate({ to: '/' })}
+        />
+      }
       mobileNav={<BottomNavMobile />}
     >
       <main className="max-w-4xl mx-auto px-6 py-12 pb-32">
+        <div className="mb-10 space-y-2">
+          <Stepper currentStep={2} totalSteps={2} />
+          <Text tone="on-surface-variant" variant="body-standard">
+            Now that your quiz has a name and description, it&apos;s time to
+            build your questions. Add multiple choice or short answer formats to
+            challenge your learners.
+          </Text>
+        </div>
+
         <div className="space-y-8">
           <QuestionCard className="group relative">
             <div className="flex justify-between items-start mb-6">
@@ -136,17 +164,6 @@ export function BuilderQuestionsStepPage({ quizId }: BuilderQuestionsStepPagePro
           >
             <Icon name="mi:add_circle" className="transition-transform" />
             Add Question
-          </Button>
-        </div>
-
-        <div className="mt-8 flex justify-start">
-          <Button
-            variant="ghost"
-            size="md"
-            onClick={() => navigate({ to: '/' })}
-          >
-            <Icon name="mi:arrow_back" size="sm" className="mr-2" />
-            Back to Quiz Details
           </Button>
         </div>
       </main>
