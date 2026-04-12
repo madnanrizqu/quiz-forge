@@ -1,6 +1,6 @@
 import { Button, Icon, Text } from '@/shared/ui'
 import { QuestionCard, CodeSnippetInput } from '@/entities/quiz'
-import { PlayQuizAnswerSection } from '@/entities/quiz/ui/play-quiz'
+import { PlayerAnswerSection } from '@/entities/quiz/ui/play-quiz'
 import type { QuizPlayData } from '../model'
 
 interface ActiveQuizStateProps {
@@ -65,7 +65,7 @@ export function ActiveQuizState({
             <CodeSnippetInput disabled value={codeSnippet} />
           )}
 
-          <PlayQuizAnswerSection
+          <PlayerAnswerSection
             questionType={questionType}
             options={options}
             answer={answer}

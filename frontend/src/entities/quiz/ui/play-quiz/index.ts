@@ -1,4 +1,4 @@
-export { PlayQuizAnswerSection } from './PlayQuizAnswerSection'
-export { PlayQuizMultipleChoiceInput } from './PlayQuizMultipleChoiceInput'
-export { PlayQuizQuizOption } from './PlayQuizQuizOption'
-export { PlayQuizShortAnswerInput } from './PlayQuizShortAnswerInput'
+export { PlayerAnswerSection } from './PlayerAnswerSection'
+export { PlayerMultipleChoiceInput } from './PlayerMultipleChoiceInput'
+export { PlayerQuizOption } from './PlayerQuizOption'
+export { PlayerShortAnswerInput } from './PlayerShortAnswerInput'

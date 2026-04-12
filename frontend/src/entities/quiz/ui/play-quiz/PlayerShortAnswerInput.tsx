@@ -2,7 +2,7 @@ import { Input, Label } from '@/shared/ui'
 import { cx } from '@/shared/lib'
 import type { InputHTMLAttributes } from 'react'
 
-export interface PlayQuizShortAnswerInputProps extends Omit<
+export interface PlayerShortAnswerInputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'value' | 'onChange'
 > {
@@ -10,12 +10,12 @@ export interface PlayQuizShortAnswerInputProps extends Omit<
   onChange: (value: string) => void
 }
 
-export function PlayQuizShortAnswerInput({
+export function PlayerShortAnswerInput({
   value,
   onChange,
   className,
   ...props
-}: PlayQuizShortAnswerInputProps) {
+}: PlayerShortAnswerInputProps) {
   return (
     <div className="group relative">
       <Label htmlFor="answer-input" className="mb-2 ml-1">

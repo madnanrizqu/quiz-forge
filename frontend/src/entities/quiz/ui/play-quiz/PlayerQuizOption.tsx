@@ -4,14 +4,14 @@ import type { InputHTMLAttributes } from 'react'
 import { cx } from '@/shared/lib'
 import { Radio } from '@/shared/ui'
 
-export interface PlayQuizQuizOptionProps
+export interface PlayerQuizOptionProps
   extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
 
-export const PlayQuizQuizOption = forwardRef<
+export const PlayerQuizOption = forwardRef<
   HTMLInputElement,
-  PlayQuizQuizOptionProps
+  PlayerQuizOptionProps
 >(({ className, label, id, ...props }, ref) => {
   const inputId =
     id ?? `quiz-option-${label.toLowerCase().replace(/\s+/g, '-')}`
@@ -42,4 +42,4 @@ export const PlayQuizQuizOption = forwardRef<
   )
 })
 
-PlayQuizQuizOption.displayName = 'PlayQuizQuizOption'
+PlayerQuizOption.displayName = 'PlayerQuizOption'

@@ -1,27 +1,27 @@
-import { PlayQuizMultipleChoiceInput } from './PlayQuizMultipleChoiceInput'
-import { PlayQuizShortAnswerInput } from './PlayQuizShortAnswerInput'
+import { PlayerMultipleChoiceInput } from './PlayerMultipleChoiceInput'
+import { PlayerShortAnswerInput } from './PlayerShortAnswerInput'
 import { QuestionType } from '../../model/types'
 import type { QuizOptionData } from '../../model/types'
 
-export interface PlayQuizAnswerSectionProps {
+export interface PlayerAnswerSectionProps {
   questionType: QuestionType
   options: QuizOptionData[]
   answer: string
   onSetAnswer: (answer: string) => void
 }
 
-export function PlayQuizAnswerSection({
+export function PlayerAnswerSection({
   questionType,
   options,
   answer,
   onSetAnswer,
-}: PlayQuizAnswerSectionProps) {
+}: PlayerAnswerSectionProps) {
   if (questionType === QuestionType.ShortAnswer) {
-    return <PlayQuizShortAnswerInput value={answer} onChange={onSetAnswer} />
+    return <PlayerShortAnswerInput value={answer} onChange={onSetAnswer} />
   }
 
   return (
-    <PlayQuizMultipleChoiceInput
+    <PlayerMultipleChoiceInput
       options={options}
       value={answer}
       onChange={onSetAnswer}
