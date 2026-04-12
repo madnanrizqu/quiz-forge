@@ -4,13 +4,19 @@ import { useStartAttempt } from '@/entities/quiz'
 
 interface UseLoadQuizProps {
   onSuccess?: (attemptId: number, quizId: number) => void
+  initialQuizId?: string | number
 }
 
-export function useLoadQuiz({ onSuccess }: UseLoadQuizProps = {}) {
+function parseQuizId(value: string | number | undefined): string {
+  if (value === undefined || value === null) return ''
+  return String(value)
+}
+
+export function useLoadQuiz({ onSuccess, initialQuizId }: UseLoadQuizProps = {}) {
   const navigate = useNavigate()
   const startAttempt = useStartAttempt()
 
-  const [quizId, setQuizId] = useState('')
+  const [quizId, setQuizId] = useState(parseQuizId(initialQuizId))
 
   const loadQuiz = async (numericQuizId: number) => {
     try {

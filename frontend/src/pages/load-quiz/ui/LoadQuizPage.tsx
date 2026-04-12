@@ -1,10 +1,16 @@
+import { useLocation } from '@tanstack/react-router'
 import { Button, Icon, Input, Label, Text } from '@/shared/ui'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop } from '@/widgets/header'
 import { useLoadQuiz } from '../model'
 
 export function LoadQuizPage() {
-  const { quizId, setQuizId, handleSubmit, isPending, error } = useLoadQuiz()
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const searchQuizId = searchParams.get('quizId')
+  const { quizId, setQuizId, handleSubmit, isPending, error } = useLoadQuiz({
+    initialQuizId: searchQuizId ?? undefined,
+  })
 
   return (
     <AppShell header={<BuilderHeaderDesktop />}>

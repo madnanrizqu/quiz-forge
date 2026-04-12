@@ -3,15 +3,18 @@ import { useNavigate } from '@tanstack/react-router'
 import { createQuestionStore } from './store'
 import type { QuestionStore } from './store'
 import { validateQuestion, validateQuestions } from './questionValidation'
-import { useCreateQuestion, useQuiz, useUpdateQuiz, QuestionType } from '@/entities/quiz'
+import {
+  useCreateQuestion,
+  useQuiz,
+  useUpdateQuiz,
+  QuestionType,
+} from '@/entities/quiz'
 import type { QuizQuestion } from '@/entities/quiz'
 import type { ApiQuestionType } from '@/entities/quiz/api/types'
 
-function toApiPayload(
-  question: QuizQuestion,
-  position: number,
-) {
-  const type: ApiQuestionType = question.type === QuestionType.MultipleChoice ? 'mcq' : 'short'
+function toApiPayload(question: QuizQuestion, position: number) {
+  const type: ApiQuestionType =
+    question.type === QuestionType.MultipleChoice ? 'mcq' : 'short'
 
   let options: string[] | undefined
   let correctAnswer: string | number | undefined
@@ -82,7 +85,10 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
       clearSession()
 
       const timer = setTimeout(() => {
-        navigate({ to: '/load-quiz' })
+        navigate({
+          to: '/load-quiz',
+          search: { quizId: String(numericQuizId) },
+        })
       }, 2000)
       return () => clearTimeout(timer)
     }
@@ -163,7 +169,6 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
           markQuestionAsCreated(r.question.id, r.created!.id)
         })
       } else {
-        setIsSubmitting(false)
         setIsPublishing(true)
         try {
           await updateQuiz.mutateAsync({ isPublished: true })
