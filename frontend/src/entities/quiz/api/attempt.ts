@@ -7,7 +7,6 @@ import type {
   OkResponse,
   StartAttemptPayload,
   SubmitResponse,
-  TrackEventPayload,
 } from './types'
 
 export function useStartAttempt(
@@ -37,17 +36,6 @@ export function useSubmitAttempt(
 ) {
   return useMutation({
     mutationFn: () => quizApiClient.post<SubmitResponse>(`/attempts/${attemptId}/submit`),
-    ...options,
-  })
-}
-
-export function useTrackEvent(
-  attemptId: number,
-  options?: UseMutationOptions<OkResponse, Error, TrackEventPayload>
-) {
-  return useMutation({
-    mutationFn: (payload: TrackEventPayload) =>
-      quizApiClient.post<OkResponse>(`/attempts/${attemptId}/events`, payload),
     ...options,
   })
 }

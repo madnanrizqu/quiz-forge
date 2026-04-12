@@ -97,7 +97,3 @@ export interface AnswerPayload {
   questionId: number
   value: string | number
 }
-
-export interface TrackEventPayload {
-  event: string
-}
