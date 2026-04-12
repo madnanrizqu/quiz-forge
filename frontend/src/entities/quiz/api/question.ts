@@ -29,8 +29,7 @@ export function useCreateQuestion(
 }
 
 export function useUpdateQuestion(
-  questionId: number,
-  quizId: number,
+  { questionId, quizId }: { questionId: number; quizId: number },
   options?: UseMutationOptions<QuestionResponse, Error, UpdateQuestionPayload>,
 ) {
   const queryClient = useQueryClient()
@@ -50,8 +49,7 @@ export function useUpdateQuestion(
 }
 
 export function useDeleteQuestion(
-  questionId: number,
-  quizId: number,
+  { questionId, quizId }: { questionId: number; quizId: number },
   options?: UseMutationOptions<void, Error, void>,
 ) {
   const queryClient = useQueryClient()
