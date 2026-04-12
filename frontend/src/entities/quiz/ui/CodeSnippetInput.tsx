@@ -6,6 +6,7 @@ export interface CodeSnippetInputProps {
   onChange?: (value: string) => void
   defaultValue?: string
   defaultVisible?: boolean
+  disabled?: boolean
   className?: string
 }
 
@@ -14,6 +15,7 @@ export function CodeSnippetInput({
   onChange,
   defaultValue = '',
   defaultVisible = false,
+  disabled = false,
   className,
 }: CodeSnippetInputProps) {
   const isControlled = value !== undefined && onChange !== undefined
@@ -32,6 +34,19 @@ export function CodeSnippetInput({
   const handleDelete = () => {
     handleChange('')
     setInternalVisible(false)
+  }
+
+  if (disabled) {
+    if (!currentValue) {
+      return null
+    }
+    return (
+      <div className={`code-snippet-container ${className ?? ''}`}>
+        <div className="bg-surface-container-low p-4 rounded-xl font-mono text-sm text-primary border border-primary-fixed/30 overflow-x-auto">
+          <pre className="m-0">{currentValue}</pre>
+        </div>
+      </div>
+    )
   }
 
   if (!internalVisible && !currentValue) {

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { AnswerSection } from './AnswerSection'
-import { QuestionType } from '../model/types'
-import type { QuizOptionData } from '../model/types'
+import { QuestionType } from '../../model/types'
+import type { QuizOptionData } from '../../model/types'
 
 const mockOptions: QuizOptionData[] = [
   { id: '1', label: 'Vertical Integration' },

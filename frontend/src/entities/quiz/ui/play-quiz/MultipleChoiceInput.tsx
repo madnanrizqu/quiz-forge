@@ -1,5 +1,5 @@
-import { QuizOption } from '@/entities/quiz/ui'
-import type { QuizOptionData } from '../model/types'
+import { QuizOption } from '../QuizOption'
+import type { QuizOptionData } from '../../model/types'
 
 export interface MultipleChoiceInputProps {
   options: QuizOptionData[]

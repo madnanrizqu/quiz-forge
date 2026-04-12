@@ -1,7 +1,7 @@
 import { MultipleChoiceInput } from './MultipleChoiceInput'
 import { ShortAnswerInput } from './ShortAnswerInput'
-import { QuestionType } from '../model/types'
-import type { QuizOptionData } from '../model/types'
+import { QuestionType } from '../../model/types'
+import type { QuizOptionData } from '../../model/types'
 
 export interface AnswerSectionProps {
   questionType: QuestionType

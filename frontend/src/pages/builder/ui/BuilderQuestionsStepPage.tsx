@@ -1,16 +1,11 @@
 import { useNavigate } from '@tanstack/react-router'
+import { Button, Icon, Stepper, Text } from '@/shared/ui'
+import { CodeSnippetInput, QuestionCard, QuestionType } from '@/entities/quiz'
 import {
-  Badge,
-  Button,
-  Icon,
-  Input,
-  Label,
-  Select,
-  Radio,
-  Stepper,
-  Text,
-} from '@/shared/ui'
-import { CodeSnippetInput, QuestionCard } from '@/entities/quiz'
+  BuilderQuestionHeader,
+  BuilderQuestionPrompt,
+  BuilderAnswerSection,
+} from '@/entities/quiz/ui/build-quiz'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
 import { getQuizById } from '../model/mock-data'
@@ -70,25 +65,16 @@ export function BuilderQuestionsStepPage({
 
         <div className="space-y-8">
           <QuestionCard className="group relative">
-            <div className="flex justify-between items-start mb-6">
-              <Badge className="bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase tracking-wider text-xs">
-                Question 01
-              </Badge>
-              <Select>
-                <option>Multiple Choice</option>
-                <option>Short Answer</option>
-              </Select>
-            </div>
+            <BuilderQuestionHeader
+              questionNumber={1}
+              type={QuestionType.MultipleChoice}
+            />
 
             <div className="space-y-10">
               <div className="space-y-6">
-                <div>
-                  <Label className="block mb-2">Question Prompt</Label>
-                  <Input
-                    className="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/40 text-on-surface font-medium"
-                    defaultValue="What is the output of 'typeof null' in JavaScript?"
-                  />
-                </div>
+                <BuilderQuestionPrompt
+                  defaultValue="What is the output of 'typeof null' in JavaScript?"
+                />
 
                 <CodeSnippetInput
                   defaultVisible
@@ -96,71 +82,35 @@ export function BuilderQuestionsStepPage({
                 />
               </div>
 
-              <div className="space-y-3">
-                <Label className="block mb-2">Answer Choices</Label>
-                <div className="flex items-center gap-4 group/option">
-                  <Radio name="q1" defaultChecked />
-                  <Input
-                    className="flex-1 bg-surface-container-low h-12 text-sm font-medium"
-                    defaultValue="object"
-                  />
-                  <Button variant="icon" size="icon">
-                    <Icon name="mi:delete" />
-                  </Button>
-                </div>
-                <div className="flex items-center gap-4 group/option">
-                  <Radio name="q1" />
-                  <Input
-                    className="flex-1 bg-surface-container-low h-12 text-sm font-medium"
-                    defaultValue="null"
-                  />
-                  <Button variant="icon" size="icon">
-                    <Icon name="mi:delete" />
-                  </Button>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="mt-2 text-primary font-semibold text-sm -ml-2"
-                >
-                  <Icon name="mi:add" size="sm" className="mr-2" />
-                  Add Choice
-                </Button>
-              </div>
+              <BuilderAnswerSection
+                questionType={QuestionType.MultipleChoice}
+                choices={[
+                  { id: '1', text: 'object', isCorrect: true },
+                  { id: '2', text: 'null', isCorrect: false },
+                ]}
+                correctAnswerId="1"
+              />
             </div>
           </QuestionCard>
 
           <QuestionCard className="group relative">
-            <div className="flex justify-between items-start mb-6">
-              <Badge className="bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase tracking-wider text-xs">
-                Question 02
-              </Badge>
-              <Select defaultValue="Short Answer">
-                <option>Multiple Choice</option>
-                <option>Short Answer</option>
-              </Select>
-            </div>
+            <BuilderQuestionHeader
+              questionNumber={2}
+              type={QuestionType.ShortAnswer}
+            />
 
             <div className="space-y-10">
               <div className="space-y-6">
-                <div>
-                  <Label className="block mb-2">Question Prompt</Label>
-                  <Input
-                    className="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/40 text-on-surface"
-                    placeholder="Enter your question here..."
-                  />
-                </div>
+                <BuilderQuestionPrompt />
 
                 <CodeSnippetInput />
               </div>
 
-              <div>
-                <Label className="block mb-2">Correct Answer</Label>
-                <Input
-                  className="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/40 text-on-surface"
-                  placeholder="Type the literal answer here..."
-                />
-              </div>
+              <BuilderAnswerSection
+                questionType={QuestionType.ShortAnswer}
+                choices={[]}
+                shortAnswerValue=""
+              />
             </div>
           </QuestionCard>
         </div>
