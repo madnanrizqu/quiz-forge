@@ -8,10 +8,11 @@ import { useActiveQuiz } from '../model'
 
 interface ActiveQuizStateProps {
   quizId: string
+  attemptId: string
   onComplete: (answers: Record<string, string>) => void
 }
 
-export function ActiveQuizState({ quizId, onComplete }: ActiveQuizStateProps) {
+export function ActiveQuizState({ quizId, attemptId, onComplete }: ActiveQuizStateProps) {
   const {
     currentIndex,
     currentQuestion,
@@ -22,7 +23,7 @@ export function ActiveQuizState({ quizId, onComplete }: ActiveQuizStateProps) {
     handlePrevious,
     handleNext,
     handleSubmit,
-  } = useActiveQuiz({ quizId, onComplete })
+  } = useActiveQuiz({ quizId, attemptId, onComplete })
 
   return (
     <section className="space-y-8">

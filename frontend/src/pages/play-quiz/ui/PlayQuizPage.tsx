@@ -8,9 +8,10 @@ import { CompletedQuizState } from './CompletedQuizState'
 
 interface PlayQuizPageProps {
   quizId: string
+  attemptId: string
 }
 
-export function PlayQuizPage({ quizId }: PlayQuizPageProps) {
+export function PlayQuizPage({ quizId, attemptId }: PlayQuizPageProps) {
   const [quizState, setQuizState] = useState<QuizState>(QuizState.Active)
   const quizResult = MOCK_QUIZ_RESULTS[quizId]
 
@@ -20,6 +21,7 @@ export function PlayQuizPage({ quizId }: PlayQuizPageProps) {
         {quizState === QuizState.Active && (
           <ActiveQuizState
             quizId={quizId}
+            attemptId={attemptId}
             onComplete={() => setQuizState(QuizState.Completed)}
           />
         )}

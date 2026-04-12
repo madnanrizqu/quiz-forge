@@ -3,10 +3,11 @@ import { MOCK_QUIZZES } from './mock-data'
 
 interface UseActiveQuizProps {
   quizId: string
+  attemptId: string
   onComplete: (answers: Record<string, string>) => void
 }
 
-export function useActiveQuiz({ quizId, onComplete }: UseActiveQuizProps) {
+export function useActiveQuiz({ quizId, attemptId, onComplete }: UseActiveQuizProps) {
   const questions = MOCK_QUIZZES[quizId]
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
