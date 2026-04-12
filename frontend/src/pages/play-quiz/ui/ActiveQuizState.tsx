@@ -1,32 +1,44 @@
+import { useState } from 'react'
 import { Button, Icon, Text } from '@/shared/ui'
 import {
   CodeSnippetInput,
   PlayerAnswerSection,
   QuestionCard,
 } from '@/entities/quiz'
-import type { QuizPlayData } from '../model'
+import { MOCK_QUIZZES } from '../model'
 
 interface ActiveQuizStateProps {
-  quizData: QuizPlayData
-  answer: string
-  onSetAnswer: (answer: string) => void
-  onSubmit: () => void
+  quizId: string
+  onComplete: (answers: Record<string, string>) => void
 }
 
-export function ActiveQuizState({
-  quizData,
-  answer,
-  onSetAnswer,
-  onSubmit,
-}: ActiveQuizStateProps) {
-  const {
-    questionNumber,
-    totalQuestions,
-    questionType,
-    questionText,
-    codeSnippet,
-    options,
-  } = quizData
+export function ActiveQuizState({ quizId, onComplete }: ActiveQuizStateProps) {
+  const questions = MOCK_QUIZZES[quizId]
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [answers, setAnswers] = useState<Record<string, string>>({})
+
+  const currentQuestion = questions[currentIndex]
+  const isLastQuestion = currentIndex === questions.length - 1
+
+  const handleSetAnswer = (questionId: string, answer: string) => {
+    setAnswers((prev) => ({ ...prev, [questionId]: answer }))
+  }
+
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1)
+    }
+  }
+
+  const handleNext = () => {
+    if (currentIndex < questions.length - 1) {
+      setCurrentIndex((prev) => prev + 1)
+    }
+  }
+
+  const handleSubmit = () => {
+    onComplete(answers)
+  }
 
   return (
     <section className="space-y-8">
@@ -38,15 +50,15 @@ export function ActiveQuizState({
               tone="on-primary"
               className="font-bold m-0"
             >
-              {String(questionNumber).padStart(2, '0')}
+              {String(currentIndex + 1).padStart(2, '0')}
             </Text>
           </div>
           <div>
             <Text variant="body-standard" className="text-on-surface-variant">
-              Question {questionNumber} of {totalQuestions}
+              Question {currentIndex + 1} of {questions.length}
             </Text>
             <Text variant="label-small" className="text-outline uppercase">
-              {questionType}
+              {currentQuestion.questionType}
             </Text>
           </div>
         </div>
@@ -58,16 +70,23 @@ export function ActiveQuizState({
             variant="display-h1"
             className="text-on-surface tracking-tight leading-tight"
           >
-            {questionText}
+            {currentQuestion.questionText}
           </Text>
 
-          {codeSnippet && <CodeSnippetInput disabled value={codeSnippet} />}
+          {currentQuestion.codeSnippet && (
+            <CodeSnippetInput
+              disabled
+              defaultValue={currentQuestion.codeSnippet}
+            />
+          )}
 
           <PlayerAnswerSection
-            questionType={questionType}
-            options={options}
-            answer={answer}
-            onSetAnswer={onSetAnswer}
+            questionType={currentQuestion.questionType}
+            options={currentQuestion.options}
+            answer={answers[currentQuestion.quizId] || ''}
+            onSetAnswer={(answer) =>
+              handleSetAnswer(currentQuestion.quizId, answer)
+            }
           />
         </div>
       </QuestionCard>
@@ -76,28 +95,34 @@ export function ActiveQuizState({
         <div className="flex items-center gap-4 w-full sm:w-auto">
           <Button
             variant="ghost"
+            disabled={currentIndex === 0}
             className="flex-1 sm:flex-none flex items-center justify-center gap-2"
+            onClick={handlePrevious}
           >
             <Icon name="mi:arrow_back" />
             Previous
           </Button>
           <Button
             variant="ghost"
+            disabled={isLastQuestion}
             className="flex-1 sm:flex-none flex items-center justify-center gap-2"
+            onClick={handleNext}
           >
             Next
             <Icon name="mi:arrow_forward" />
           </Button>
         </div>
 
-        <Button
-          variant="primary"
-          size="lg"
-          className="w-full sm:w-auto"
-          onClick={onSubmit}
-        >
-          Submit Answers
-        </Button>
+        {isLastQuestion && (
+          <Button
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+            onClick={handleSubmit}
+          >
+            Submit Answers
+          </Button>
+        )}
       </div>
     </section>
   )
