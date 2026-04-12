@@ -1,11 +1,10 @@
-import { useState } from 'react'
 import { Button, Icon, Text } from '@/shared/ui'
 import {
   CodeSnippetInput,
   PlayerAnswerSection,
   QuestionCard,
 } from '@/entities/quiz'
-import { MOCK_QUIZZES } from '../model'
+import { useActiveQuiz } from '../model'
 
 interface ActiveQuizStateProps {
   quizId: string
@@ -13,32 +12,17 @@ interface ActiveQuizStateProps {
 }
 
 export function ActiveQuizState({ quizId, onComplete }: ActiveQuizStateProps) {
-  const questions = MOCK_QUIZZES[quizId]
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, string>>({})
-
-  const currentQuestion = questions[currentIndex]
-  const isLastQuestion = currentIndex === questions.length - 1
-
-  const handleSetAnswer = (questionId: string, answer: string) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: answer }))
-  }
-
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1)
-    }
-  }
-
-  const handleNext = () => {
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex((prev) => prev + 1)
-    }
-  }
-
-  const handleSubmit = () => {
-    onComplete(answers)
-  }
+  const {
+    currentIndex,
+    currentQuestion,
+    isLastQuestion,
+    totalQuestions,
+    answers,
+    handleSetAnswer,
+    handlePrevious,
+    handleNext,
+    handleSubmit,
+  } = useActiveQuiz({ quizId, onComplete })
 
   return (
     <section className="space-y-8">
@@ -55,7 +39,7 @@ export function ActiveQuizState({ quizId, onComplete }: ActiveQuizStateProps) {
           </div>
           <div>
             <Text variant="body-standard" className="text-on-surface-variant">
-              Question {currentIndex + 1} of {questions.length}
+              Question {currentIndex + 1} of {totalQuestions}
             </Text>
             <Text variant="label-small" className="text-outline uppercase">
               {currentQuestion.questionType}
