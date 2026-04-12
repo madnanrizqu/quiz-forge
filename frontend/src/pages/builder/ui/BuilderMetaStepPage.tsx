@@ -23,7 +23,7 @@ export function BuilderMetaStepPage() {
 
   return (
     <AppShell
-      header={<BuilderHeaderDesktop showSaveQuiz={false} />}
+      header={<BuilderHeaderDesktop showSubmitQuiz={false} />}
       mobileNav={<BottomNavMobile />}
     >
       <main className="max-w-4xl mx-auto px-6 py-12 pb-32">

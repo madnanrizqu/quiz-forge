@@ -21,12 +21,12 @@ export function BuilderQuestionsStepPage({
     <AppShell
       header={
         <BuilderHeaderDesktop
-          showSaveQuiz
+          showSubmitQuiz
           showBuildNav={false}
           showPlayNav={false}
           showPrevious
           onPrevious={() => navigate({ to: '/' })}
-          onSaveQuiz={() => {
+          onSubmitQuiz={() => {
             const result = validateQuestions(questions)
             handlers.setValidationErrors(result.errors)
           }}

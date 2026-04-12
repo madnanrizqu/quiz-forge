@@ -2,21 +2,21 @@ import { Link } from '@tanstack/react-router'
 import { Button, Icon } from '@/shared/ui'
 
 export interface BuilderHeaderDesktopProps {
-  showSaveQuiz?: boolean
+  showSubmitQuiz?: boolean
   showPrevious?: boolean
   onPrevious?: () => void
   showBuildNav?: boolean
   showPlayNav?: boolean
-  onSaveQuiz?: () => void
+  onSubmitQuiz?: () => void
 }
 
 export function BuilderHeaderDesktop({
-  showSaveQuiz = false,
+  showSubmitQuiz = false,
   showPrevious = false,
   onPrevious,
   showBuildNav = true,
   showPlayNav = true,
-  onSaveQuiz,
+  onSubmitQuiz,
 }: BuilderHeaderDesktopProps) {
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md h-15">
@@ -61,7 +61,7 @@ export function BuilderHeaderDesktop({
           )}
         </nav>
 
-        {(showSaveQuiz || showPrevious) && (
+        {(showSubmitQuiz || showPrevious) && (
           <div className="flex items-center gap-4">
             {showPrevious && (
               <Button
@@ -74,13 +74,13 @@ export function BuilderHeaderDesktop({
                 Previous
               </Button>
             )}
-            {showSaveQuiz && (
+            {showSubmitQuiz && (
               <Button
                 size="sm"
                 className="px-5 py-2.5 rounded-lg shadow-sm"
-                onClick={onSaveQuiz}
+                onClick={onSubmitQuiz}
               >
-                Save Quiz
+                Submit Quiz
               </Button>
             )}
           </div>
