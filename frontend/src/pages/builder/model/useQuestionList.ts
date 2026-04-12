@@ -3,8 +3,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { createQuestionStore } from './store'
 import type { QuestionStore } from './store'
 import { validateQuestion, validateQuestions } from './questionValidation'
-import { useCreateQuestion } from '@/entities/quiz/api'
-import { QuestionType } from '@/entities/quiz'
+import { useCreateQuestion, useQuiz, QuestionType } from '@/entities/quiz'
 import type { QuizQuestion } from '@/entities/quiz'
 import type { CreateQuestionPayload } from '@/entities/quiz/api'
 
@@ -60,6 +59,18 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
   const clearSession = store((state: QuestionStore) => state.clearSession)
 
   const createQuestion = useCreateQuestion(numericQuizId)
+
+  if (isNaN(numericQuizId) || numericQuizId <= 0) {
+    navigate({ to: '/404' })
+  }
+
+  const { isLoading, isError } = useQuiz(numericQuizId)
+
+  useEffect(() => {
+    if (isError) {
+      navigate({ to: '/404' })
+    }
+  }, [isError])
 
   useEffect(() => {
     if (isSuccess) {
@@ -173,6 +184,7 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
     isSubmitting,
     isSuccess,
     submitError,
+    isLoading,
     handlers: {
       handleQuestionUpdate,
       handleQuestionDelete,
