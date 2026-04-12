@@ -18,7 +18,7 @@ export function BuilderMetaStepPage() {
 
   return (
     <AppShell
-      header={<BuilderHeaderDesktop showSaveQuiz />}
+      header={<BuilderHeaderDesktop showSaveQuiz={false} />}
       mobileNav={<BottomNavMobile />}
     >
       <main className="max-w-4xl mx-auto px-6 py-12 pb-32">
@@ -26,7 +26,8 @@ export function BuilderMetaStepPage() {
           <div className="bg-surface-container-low p-8 rounded-2xl shadow-ambient space-y-6">
             <Stepper currentStep={1} totalSteps={2} />
             <Text variant="body-standard" tone="on-surface-variant">
-              Start by giving your quiz a name and a brief description. Once you are done, we will move on to building your questions.
+              Start by giving your quiz a name and a brief description. Once you
+              are done, we will move on to building your questions.
             </Text>
             <div>
               <Label className="block mb-2">Quiz Title</Label>
@@ -53,10 +54,18 @@ export function BuilderMetaStepPage() {
             variant="primary"
             size="lg"
             className="w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 group"
-            onClick={() => navigate({ to: '/build_quiz/$quizId', params: { quizId: quiz.id } })}
+            onClick={() =>
+              navigate({
+                to: '/build_quiz/$quizId',
+                params: { quizId: quiz.id },
+              })
+            }
           >
             Next: Build Questions
-            <Icon name="mi:arrow_forward" className="transition-transform group-hover:translate-x-1" />
+            <Icon
+              name="mi:arrow_forward"
+              className="transition-transform group-hover:translate-x-1"
+            />
           </Button>
         </div>
       </main>
