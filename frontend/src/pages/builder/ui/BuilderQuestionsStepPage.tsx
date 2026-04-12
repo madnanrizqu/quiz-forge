@@ -4,6 +4,7 @@ import { QuestionEditor, ValidationErrorList } from '@/pages/builder'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
 import { useQuestionList } from '../model/useQuestionList'
+import { SuccessCheckmark } from './SuccessCheckmark'
 
 interface BuilderQuestionsStepPageProps {
   quizId: string
@@ -15,8 +16,14 @@ export function BuilderQuestionsStepPage({
   const navigate = useNavigate()
   const numericQuizId = parseInt(quizId, 10)
 
-  const { questions, validationErrors, isSubmitting, submitError, handlers } =
-    useQuestionList(quizId, numericQuizId)
+  const {
+    questions,
+    validationErrors,
+    isSubmitting,
+    isSuccess,
+    submitError,
+    handlers,
+  } = useQuestionList(quizId, numericQuizId)
 
   return (
     <AppShell
@@ -35,10 +42,21 @@ export function BuilderQuestionsStepPage({
       {isSubmitting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-surface-container-lowest rounded-2xl p-8 flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-            <Text variant="body-standard" tone="on-surface">
-              Submitting questions...
-            </Text>
+            {isSuccess ? (
+              <>
+                <SuccessCheckmark size={48} className="text-success" />
+                <Text variant="body-standard" tone="on-surface">
+                  All questions submitted!
+                </Text>
+              </>
+            ) : (
+              <>
+                <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                <Text variant="body-standard" tone="on-surface">
+                  Submitting questions...
+                </Text>
+              </>
+            )}
           </div>
         </div>
       )}

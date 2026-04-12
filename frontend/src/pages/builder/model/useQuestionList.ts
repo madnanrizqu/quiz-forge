@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { createQuestionStore } from './store'
 import type { QuestionStore } from './store'
@@ -43,6 +43,7 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
     (state: QuestionStore) => state.validationErrors,
   )
   const isSubmitting = store((state: QuestionStore) => state.isSubmitting)
+  const isSuccess = store((state: QuestionStore) => state.isSuccess)
   const submitError = store((state: QuestionStore) => state.submitError)
   const updateQuestion = store((state: QuestionStore) => state.updateQuestion)
   const deleteQuestion = store((state: QuestionStore) => state.deleteQuestion)
@@ -51,12 +52,23 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
     (state: QuestionStore) => state.setValidationErrors,
   )
   const setIsSubmitting = store((state: QuestionStore) => state.setIsSubmitting)
+  const setIsSuccess = store((state: QuestionStore) => state.setIsSuccess)
   const setSubmitError = store((state: QuestionStore) => state.setSubmitError)
   const markQuestionAsCreated = store(
     (state: QuestionStore) => state.markQuestionAsCreated,
   )
 
   const createQuestion = useCreateQuestion(numericQuizId)
+
+  useEffect(() => {
+    if (isSuccess) {
+      const timer = setTimeout(() => {
+        navigate({ to: '/load-quiz' })
+        setIsSubmitting(false)
+      }, 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [isSuccess, navigate, setIsSubmitting])
 
   const handleQuestionUpdate = (
     id: string,
@@ -99,11 +111,6 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
         .map((q, index) => ({ question: q, index }))
         .filter(({ question }) => question.apiId === undefined)
 
-      if (questionsToCreate.length === 0) {
-        navigate({ to: '/load-quiz' })
-        return
-      }
-
       const results = await Promise.all(
         questionsToCreate.map(async ({ question, index }) => {
           const payload = toApiPayload(question, index)
@@ -132,18 +139,16 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
         setSubmitError(
           `Failed to submit: ${failedNumbers}. ${succeeded.length} question(s) submitted successfully.`,
         )
+        setIsSubmitting(false)
 
         succeeded.forEach((r) => {
           markQuestionAsCreated(r.question.id, r.created!.id)
         })
       } else {
-        // TODO: replace with real toast
-        setTimeout(() => {
-          alert('Success! All questions created!')
-          navigate({ to: '/load-quiz' })
-        }, 1500)
+        setIsSuccess(true)
       }
-    } finally {
+    } catch {
+      setSubmitError('An unexpected error occurred')
       setIsSubmitting(false)
     }
   }
@@ -164,6 +169,7 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
     questions,
     validationErrors,
     isSubmitting,
+    isSuccess,
     submitError,
     handlers: {
       handleQuestionUpdate,

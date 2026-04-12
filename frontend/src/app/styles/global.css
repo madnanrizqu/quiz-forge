@@ -204,3 +204,34 @@ h6 {
     'GRAD' 0,
     'opsz' 24;
 }
+
+@keyframes draw-circle {
+  0% {
+    stroke-dasharray: 0 151;
+    opacity: 1;
+  }
+  100% {
+    stroke-dasharray: 151 151;
+    opacity: 1;
+  }
+}
+
+@keyframes draw-check {
+  0% {
+    stroke-dasharray: 0 50;
+    opacity: 1;
+  }
+  100% {
+    stroke-dasharray: 50 50;
+    opacity: 1;
+  }
+}
+
+.animate-circle {
+  animation: draw-circle 0.4s ease-out forwards;
+}
+
+.animate-check {
+  animation: draw-check 0.3s ease-in 0.3s forwards;
+  opacity: 0;
+}

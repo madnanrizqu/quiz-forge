@@ -7,6 +7,7 @@ export interface QuestionStore {
   questions: QuizQuestion[]
   validationErrors: QuestionValidationError[]
   isSubmitting: boolean
+  isSuccess: boolean
   submitError: string | null
   updateQuestion: (id: string, updated: QuizQuestion) => void
   deleteQuestion: (id: string) => void
@@ -15,6 +16,7 @@ export interface QuestionStore {
   clearValidationErrors: () => void
   markQuestionAsCreated: (id: string, apiId: number) => void
   setIsSubmitting: (isSubmitting: boolean) => void
+  setIsSuccess: (isSuccess: boolean) => void
   setSubmitError: (error: string | null) => void
   clearSubmitError: () => void
 }
@@ -28,6 +30,7 @@ export function createQuestionStore(quizId: string) {
         questions: [createDefaultQuestion()],
         validationErrors: [],
         isSubmitting: false,
+        isSuccess: false,
         submitError: null,
         updateQuestion: (id, updated) =>
           set((state) => ({
@@ -58,6 +61,10 @@ export function createQuestionStore(quizId: string) {
         setIsSubmitting: (isSubmitting) =>
           set(() => ({
             isSubmitting,
+          })),
+        setIsSuccess: (isSuccess) =>
+          set(() => ({
+            isSuccess,
           })),
         setSubmitError: (error) =>
           set(() => ({
