@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { MOCK_QUIZZES } from './mock-data'
+import { useQuiz, toQuizPlayData } from '@/entities/quiz'
+import type { QuizPlayData } from '@/entities/quiz'
 
 interface UseActiveQuizProps {
   quizId: string
@@ -7,8 +8,10 @@ interface UseActiveQuizProps {
   onComplete: (answers: Record<string, string>) => void
 }
 
-export function useActiveQuiz({ quizId, attemptId, onComplete }: UseActiveQuizProps) {
-  const questions = MOCK_QUIZZES[quizId]
+export function useActiveQuiz({ quizId, attemptId: _attemptId, onComplete }: UseActiveQuizProps) {
+  const { data, isLoading, error } = useQuiz(Number(quizId))
+  const questions: QuizPlayData[] =
+    data?.questions.map((q) => toQuizPlayData(q, quizId)) ?? []
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
 
@@ -41,6 +44,8 @@ export function useActiveQuiz({ quizId, attemptId, onComplete }: UseActiveQuizPr
     isLastQuestion,
     totalQuestions: questions.length,
     answers,
+    isLoading,
+    error,
     handleSetAnswer,
     handlePrevious,
     handleNext,

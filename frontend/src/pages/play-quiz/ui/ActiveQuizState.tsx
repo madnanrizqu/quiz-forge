@@ -12,18 +12,60 @@ interface ActiveQuizStateProps {
   onComplete: (answers: Record<string, string>) => void
 }
 
-export function ActiveQuizState({ quizId, attemptId, onComplete }: ActiveQuizStateProps) {
+export function ActiveQuizState({
+  quizId,
+  attemptId,
+  onComplete,
+}: ActiveQuizStateProps) {
   const {
     currentIndex,
     currentQuestion,
     isLastQuestion,
     totalQuestions,
     answers,
+    isLoading,
+    error,
     handleSetAnswer,
     handlePrevious,
     handleNext,
     handleSubmit,
   } = useActiveQuiz({ quizId, attemptId, onComplete })
+
+  if (isLoading) {
+    return (
+      <section className="space-y-8">
+        <div className="flex items-center justify-center py-20">
+          <Text variant="body-standard" className="text-on-surface-variant">
+            Loading questions...
+          </Text>
+        </div>
+      </section>
+    )
+  }
+
+  if (error !== null) {
+    return (
+      <section className="space-y-8">
+        <div className="flex items-center justify-center py-20">
+          <Text variant="body-standard" className="text-error">
+            {error.message || 'Failed to load questions'}
+          </Text>
+        </div>
+      </section>
+    )
+  }
+
+  if (totalQuestions === 0) {
+    return (
+      <section className="space-y-8">
+        <div className="flex items-center justify-center py-20">
+          <Text variant="body-standard" className="text-on-surface-variant">
+            No questions available
+          </Text>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="space-y-8">
