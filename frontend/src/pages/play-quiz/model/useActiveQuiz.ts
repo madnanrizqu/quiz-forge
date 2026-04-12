@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useQuiz, toQuizPlayData } from '@/entities/quiz'
 import type { QuizPlayData } from '@/entities/quiz'
 
@@ -10,8 +10,10 @@ interface UseActiveQuizProps {
 
 export function useActiveQuiz({ quizId, attemptId: _attemptId, onComplete }: UseActiveQuizProps) {
   const { data, isLoading, error } = useQuiz(Number(quizId))
-  const questions: QuizPlayData[] =
-    data?.questions.map((q) => toQuizPlayData(q, quizId)) ?? []
+  const questions: QuizPlayData[] = useMemo(
+    () => data?.questions.map((q) => toQuizPlayData(q, quizId)) ?? [],
+    [data, quizId],
+  )
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
 
