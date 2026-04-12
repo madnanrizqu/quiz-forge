@@ -6,7 +6,7 @@ import { generateId, getQuestionInitialState } from './questionDefaults'
 interface QuestionEditorState {
   type: QuestionType
   prompt: string
-  code: string
+  code: string | undefined
   choices: QuizChoice[]
   correctAnswerId: string
   shortAnswer: string
@@ -15,7 +15,7 @@ interface QuestionEditorState {
 type QuestionEditorAction =
   | { type: 'SET_TYPE'; payload: QuestionType }
   | { type: 'SET_PROMPT'; payload: string }
-  | { type: 'SET_CODE'; payload: string }
+  | { type: 'SET_CODE'; payload: string | undefined }
   | { type: 'SET_CHOICE_TEXT'; payload: { choiceId: string; text: string } }
   | { type: 'SET_CORRECT_ANSWER'; payload: string }
   | { type: 'ADD_CHOICE' }
@@ -99,7 +99,7 @@ function buildQuestion(
     id: defaultId ?? generateId(),
     type: state.type,
     prompt: state.prompt,
-    code: state.code || undefined,
+    code: typeof state.code === 'string' ? state.code : undefined,
     ...(state.type === QuestionType.MultipleChoice
       ? { choices: state.choices }
       : { correctAnswer: state.shortAnswer }),
@@ -139,7 +139,7 @@ export function useQuestionEditor(
   )
 
   const handleCodeChange = useCallback(
-    (value: string) => {
+    (value: string | undefined) => {
       dispatch({ type: 'SET_CODE', payload: value })
     },
     [dispatch],

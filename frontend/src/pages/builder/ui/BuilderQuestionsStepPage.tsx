@@ -1,9 +1,10 @@
 import { useNavigate } from '@tanstack/react-router'
-import { Button, Icon, Stepper, Text } from '@/shared/ui'
-import { QuestionEditor } from '@/pages/builder'
+import { Button, Icon, NotificationBar, Stepper, Text } from '@/shared/ui'
+import { QuestionEditor, ValidationErrorList } from '@/pages/builder'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
 import { useQuestionList } from '../model/useQuestionList'
+import { validateQuestions } from '../model/questionValidation'
 
 interface BuilderQuestionsStepPageProps {
   quizId: string
@@ -14,7 +15,7 @@ export function BuilderQuestionsStepPage({
 }: BuilderQuestionsStepPageProps) {
   const navigate = useNavigate()
 
-  const { questions, handlers } = useQuestionList(quizId)
+  const { questions, validationErrors, handlers } = useQuestionList(quizId)
 
   return (
     <AppShell
@@ -25,18 +26,29 @@ export function BuilderQuestionsStepPage({
           showPlayNav={false}
           showPrevious
           onPrevious={() => navigate({ to: '/' })}
+          onSaveQuiz={() => {
+            const result = validateQuestions(questions)
+            handlers.setValidationErrors(result.errors)
+          }}
         />
       }
       mobileNav={<BottomNavMobile />}
     >
       <main className="max-w-4xl mx-auto px-6 py-12 pb-32">
-        <div className="mb-10 space-y-2">
+        <div className="mb-10 space-y-6">
           <Stepper currentStep={2} totalSteps={2} />
           <Text tone="on-surface-variant" variant="body-standard">
             Now that your quiz has a name and description, it&apos;s time to
             build your questions. Add multiple choice or short answer formats to
             challenge your learners.
           </Text>
+          {validationErrors.length > 0 && (
+            <NotificationBar
+              variant="error"
+              title="Questions need attention"
+              description={<ValidationErrorList errors={validationErrors} />}
+            />
+          )}
         </div>
 
         <div className="space-y-8">

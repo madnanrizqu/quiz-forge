@@ -7,6 +7,7 @@ export interface BuilderHeaderDesktopProps {
   onPrevious?: () => void
   showBuildNav?: boolean
   showPlayNav?: boolean
+  onSaveQuiz?: () => void
 }
 
 export function BuilderHeaderDesktop({
@@ -15,6 +16,7 @@ export function BuilderHeaderDesktop({
   onPrevious,
   showBuildNav = true,
   showPlayNav = true,
+  onSaveQuiz,
 }: BuilderHeaderDesktopProps) {
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md h-15">
@@ -73,7 +75,11 @@ export function BuilderHeaderDesktop({
               </Button>
             )}
             {showSaveQuiz && (
-              <Button size="sm" className="px-5 py-2.5 rounded-lg shadow-sm">
+              <Button
+                size="sm"
+                className="px-5 py-2.5 rounded-lg shadow-sm"
+                onClick={onSaveQuiz}
+              >
                 Save Quiz
               </Button>
             )}

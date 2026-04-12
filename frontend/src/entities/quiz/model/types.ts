@@ -51,3 +51,14 @@ export interface Quiz {
   description: string
   questions: QuizQuestion[]
 }
+
+export interface QuestionValidationError {
+  questionId: string
+  questionNumber: number
+  invalidFields: string[]
+}
+
+export interface ValidationResult {
+  isValid: boolean
+  errors: QuestionValidationError[]
+}

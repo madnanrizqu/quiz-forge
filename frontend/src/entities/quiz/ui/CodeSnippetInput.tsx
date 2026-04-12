@@ -3,7 +3,7 @@ import { Icon, Textarea } from '@/shared/ui'
 
 export interface CodeSnippetInputProps {
   value?: string
-  onChange?: (value: string) => void
+  onChange?: (value: string | undefined) => void
   defaultValue?: string
   defaultVisible?: boolean
   disabled?: boolean
@@ -20,19 +20,25 @@ export function CodeSnippetInput({
 }: CodeSnippetInputProps) {
   const isControlled = value !== undefined && onChange !== undefined
   const [internalVisible, setInternalVisible] = useState(defaultVisible)
-  const [internalValue, setInternalValue] = useState(defaultValue)
+  const [internalValue, setInternalValue] = useState<string | undefined>(
+    defaultValue,
+  )
 
   const currentValue = isControlled ? value : internalValue
-  const handleChange = (newValue: string) => {
+  const handleChange = (newValue: string | undefined) => {
     if (isControlled) {
       onChange(newValue)
     } else {
-      setInternalValue(newValue)
+      setInternalValue(newValue ?? '')
     }
   }
 
   const handleDelete = () => {
-    handleChange('')
+    if (isControlled) {
+      onChange(undefined)
+    } else {
+      setInternalValue(undefined)
+    }
     setInternalVisible(false)
   }
 
@@ -52,7 +58,10 @@ export function CodeSnippetInput({
   if (!internalVisible && !currentValue) {
     return (
       <button
-        onClick={() => setInternalVisible(true)}
+        onClick={() => {
+          onChange?.('')
+          setInternalVisible(true)
+        }}
         className="flex items-center gap-2 text-primary font-medium text-body-standard mb-3 transition-all duration-300 hover:-translate-y-px cursor-pointer"
       >
         <Icon name="mi:code_blocks" size={18} aria-hidden="true" />
