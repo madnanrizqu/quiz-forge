@@ -78,18 +78,4 @@ export function useUpdateQuiz(
   })
 }
 
-export function useDeleteQuiz(
-  id: number,
-  options?: UseMutationOptions<void, Error, void>
-) {
-  const queryClient = useQueryClient()
 
-  return useMutation({
-    mutationFn: () => quizApiClient.delete(`/quizzes/${id}`),
-    ...options,
-    onSuccess: (...args) => {
-      queryClient.invalidateQueries({ queryKey: quizKeys.all })
-      options?.onSuccess?.(...args)
-    },
-  })
-}
