@@ -1,6 +1,3 @@
-import { useNavigate } from '@tanstack/react-router'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Button,
   Icon,
@@ -12,33 +9,17 @@ import {
 } from '@/shared/ui'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
-import { builderMetaSchema } from '@/entities/quiz'
-import type { BuilderMetaFormData } from '@/entities/quiz'
-import { mockQuizzes } from '../model/mock-data'
+import { useBuilderMeta } from '../model/useBuilderMeta'
 
 export function BuilderMetaStepPage() {
-  const navigate = useNavigate()
-  const quiz = mockQuizzes[0]
-
   const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<BuilderMetaFormData>({
-    resolver: zodResolver(builderMetaSchema),
-    defaultValues: {
-      title: quiz.title,
-      description: quiz.description,
+    form: {
+      register,
+      handleSubmit,
+      formState: { errors },
     },
-  })
-
-  const onSubmit = (data: BuilderMetaFormData) => {
-    console.log('Form submitted:', data)
-    navigate({
-      to: '/build_quiz/$quizId',
-      params: { quizId: quiz.id },
-    })
-  }
+    createQuiz,
+  } = useBuilderMeta()
 
   return (
     <AppShell
@@ -53,7 +34,7 @@ export function BuilderMetaStepPage() {
               Start by giving your quiz a name and a brief description. Once you
               are done, we will move on to building your questions.
             </Text>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form className="space-y-6">
               <div>
                 <Label htmlFor="title" className="block mb-2">
                   Quiz Title
@@ -96,8 +77,8 @@ export function BuilderMetaStepPage() {
             variant="primary"
             size="lg"
             className="w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 group"
-            onClick={handleSubmit(onSubmit)}
-            disabled={isSubmitting}
+            onClick={handleSubmit}
+            disabled={createQuiz.isPending}
           >
             Next: Build Questions
             <Icon
