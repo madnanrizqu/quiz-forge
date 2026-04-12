@@ -3,7 +3,6 @@ import { Button, Icon, Stepper, Text } from '@/shared/ui'
 import { QuestionEditor } from '@/pages/builder'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
-import { getQuizById } from '../model/mock-data'
 import { useQuestionList } from '../model/useQuestionList'
 
 interface BuilderQuestionsStepPageProps {
@@ -14,29 +13,8 @@ export function BuilderQuestionsStepPage({
   quizId,
 }: BuilderQuestionsStepPageProps) {
   const navigate = useNavigate()
-  const quiz = getQuizById(quizId)
 
   const { questions, handlers } = useQuestionList(quizId)
-
-  if (!quiz) {
-    return (
-      <AppShell
-        header={
-          <BuilderHeaderDesktop
-            showSaveQuiz
-            showBuildNav={false}
-            showPlayNav={false}
-            showPrevious
-          />
-        }
-        mobileNav={<BottomNavMobile />}
-      >
-        <main className="max-w-4xl mx-auto px-6 py-12">
-          <p>Quiz not found</p>
-        </main>
-      </AppShell>
-    )
-  }
 
   return (
     <AppShell
