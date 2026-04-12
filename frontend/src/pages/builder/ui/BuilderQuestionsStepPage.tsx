@@ -10,7 +10,7 @@ import {
   Stepper,
   Text,
 } from '@/shared/ui'
-import { CodeBlock, QuestionCard } from '@/entities/quiz'
+import { CodeSnippetInput, QuestionCard } from '@/entities/quiz'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
 import { getQuizById } from '../model/mock-data'
@@ -80,16 +80,21 @@ export function BuilderQuestionsStepPage({
               </Select>
             </div>
 
-            <div className="space-y-6">
-              <div>
-                <Label className="block mb-2">Question Prompt</Label>
-                <Input
-                  className="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/40 text-on-surface font-medium"
-                  defaultValue="What is the output of 'typeof null' in JavaScript?"
+            <div className="space-y-10">
+              <div className="space-y-6">
+                <div>
+                  <Label className="block mb-2">Question Prompt</Label>
+                  <Input
+                    className="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/40 text-on-surface font-medium"
+                    defaultValue="What is the output of 'typeof null' in JavaScript?"
+                  />
+                </div>
+
+                <CodeSnippetInput
+                  defaultVisible
+                  value="console.log(typeof null);"
                 />
               </div>
-
-              <CodeBlock code="console.log(typeof null);" />
 
               <div className="space-y-3">
                 <Label className="block mb-2">Answer Choices</Label>
@@ -136,13 +141,17 @@ export function BuilderQuestionsStepPage({
               </Select>
             </div>
 
-            <div className="space-y-6">
-              <div>
-                <Label className="block mb-2">Question Prompt</Label>
-                <Input
-                  className="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/40 text-on-surface"
-                  placeholder="Enter your question here..."
-                />
+            <div className="space-y-10">
+              <div className="space-y-6">
+                <div>
+                  <Label className="block mb-2">Question Prompt</Label>
+                  <Input
+                    className="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/40 text-on-surface"
+                    placeholder="Enter your question here..."
+                  />
+                </div>
+
+                <CodeSnippetInput />
               </div>
 
               <div>

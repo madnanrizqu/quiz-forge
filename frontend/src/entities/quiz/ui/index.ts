@@ -1,5 +1,6 @@
 export { AnswerSection } from './AnswerSection'
 export { CodeBlock } from './CodeBlock'
+export { CodeSnippetInput } from './CodeSnippetInput'
 export { MultipleChoiceInput } from './MultipleChoiceInput'
 export { QuestionCard } from './QuestionCard'
 export { QuizOption } from './QuizOption'
