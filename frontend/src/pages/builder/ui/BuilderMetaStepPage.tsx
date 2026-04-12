@@ -34,7 +34,7 @@ export function BuilderMetaStepPage() {
               Start by giving your quiz a name and a brief description. Once you
               are done, we will move on to building your questions.
             </Text>
-            <form className="space-y-6">
+            <form id="builder-meta-form" onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <Label htmlFor="title" className="block mb-2">
                   Quiz Title
@@ -77,7 +77,8 @@ export function BuilderMetaStepPage() {
             variant="primary"
             size="lg"
             className="w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 group"
-            onClick={handleSubmit}
+            type="submit"
+            form="builder-meta-form"
             disabled={createQuiz.isPending}
           >
             Next: Build Questions
