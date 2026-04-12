@@ -3,6 +3,16 @@ export interface QuizOptionData {
   label: string
 }
 
+export interface QuizPlayData {
+  quizId: string
+  questionNumber: number
+  totalQuestions: number
+  questionType: QuestionType
+  questionText: string
+  codeSnippet?: string
+  options: QuizOptionData[]
+}
+
 export enum QuestionType {
   MultipleChoice = 'multiple-choice',
   ShortAnswer = 'short-answer',

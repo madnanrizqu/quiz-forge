@@ -1,15 +1,5 @@
 import { QuestionType } from '@/entities/quiz'
-import type { QuizOptionData, QuizResultData } from '@/entities/quiz'
-
-export interface QuizPlayData {
-  quizId: string
-  questionNumber: number
-  totalQuestions: number
-  questionType: QuestionType
-  questionText: string
-  codeSnippet?: string
-  options: QuizOptionData[]
-}
+import type { QuizResultData, QuizPlayData } from '@/entities/quiz'
 
 export const MOCK_QUIZZES: Record<string, QuizPlayData[]> = {
   'quiz-1': [
