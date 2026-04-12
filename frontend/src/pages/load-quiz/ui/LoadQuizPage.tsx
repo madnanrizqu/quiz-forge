@@ -40,7 +40,6 @@ export function LoadQuizPage() {
                 value={quizId}
                 onChange={(e) => setQuizId(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-                trailingIcon={<Icon name="mi:fingerprint" size={20} />}
               />
             </div>
 
@@ -57,11 +56,11 @@ export function LoadQuizPage() {
 
             <Button
               size="lg"
-              className="w-full"
+              className="w-full space-x-1"
               onClick={handleSubmit}
               disabled={isPending || !quizId}
             >
-              {isPending ? 'Loading...' : 'Load Quiz'}{' '}
+              <span>{isPending ? 'Loading...' : 'Play'} </span>
               {!isPending && <Icon name="mi:arrow_forward" />}
             </Button>
           </div>
