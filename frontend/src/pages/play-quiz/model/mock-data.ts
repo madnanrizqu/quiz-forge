@@ -6,7 +6,6 @@ export const MOCK_QUIZZES: Record<string, QuizPlayData[]> = {
     {
       quizId: 'quiz-1',
       questionNumber: 1,
-      totalQuestions: 3,
       questionType: QuestionType.MultipleChoice,
       questionText:
         'Which architectural principle refers to the ability of a system to handle a growing amount of work by adding resources to the system?',
@@ -21,7 +20,6 @@ export const MOCK_QUIZZES: Record<string, QuizPlayData[]> = {
     {
       quizId: 'quiz-1',
       questionNumber: 2,
-      totalQuestions: 3,
       questionType: QuestionType.ShortAnswer,
       questionText:
         'What is the primary purpose of a load balancer in a distributed system?',
@@ -31,7 +29,6 @@ export const MOCK_QUIZZES: Record<string, QuizPlayData[]> = {
     {
       quizId: 'quiz-1',
       questionNumber: 3,
-      totalQuestions: 3,
       questionType: QuestionType.MultipleChoice,
       questionText:
         'Which pattern describes the decomposition of a monolithic application into microservices?',
@@ -48,7 +45,6 @@ export const MOCK_QUIZZES: Record<string, QuizPlayData[]> = {
     {
       quizId: 'quiz-2',
       questionNumber: 1,
-      totalQuestions: 1,
       questionType: QuestionType.ShortAnswer,
       questionText:
         'Which architectural principle refers to the ability of a system to handle a growing amount of work by adding resources to the system?',

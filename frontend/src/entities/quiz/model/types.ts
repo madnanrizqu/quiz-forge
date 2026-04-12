@@ -6,7 +6,6 @@ export interface QuizOptionData {
 export interface QuizPlayData {
   quizId: string
   questionNumber: number
-  totalQuestions: number
   questionType: QuestionType
   questionText: string
   codeSnippet?: string
