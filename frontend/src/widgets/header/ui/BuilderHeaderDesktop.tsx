@@ -8,6 +8,7 @@ export interface BuilderHeaderDesktopProps {
   showBuildNav?: boolean
   showPlayNav?: boolean
   onSubmitQuiz?: () => void
+  disabled?: boolean
 }
 
 export function BuilderHeaderDesktop({
@@ -17,6 +18,7 @@ export function BuilderHeaderDesktop({
   showBuildNav = true,
   showPlayNav = true,
   onSubmitQuiz,
+  disabled,
 }: BuilderHeaderDesktopProps) {
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md h-15">
@@ -68,6 +70,7 @@ export function BuilderHeaderDesktop({
                 variant="ghost"
                 size="sm"
                 onClick={onPrevious}
+                disabled={disabled}
                 className="text-on-surface-variant hover:text-primary"
               >
                 <Icon name="mi:arrow_back" size="sm" className="mr-1" />
@@ -79,6 +82,7 @@ export function BuilderHeaderDesktop({
                 size="sm"
                 className="px-5 py-2.5 rounded-lg shadow-sm"
                 onClick={onSubmitQuiz}
+                disabled={disabled}
               >
                 Submit Quiz
               </Button>

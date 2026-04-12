@@ -3,15 +3,15 @@ import { useNavigate } from '@tanstack/react-router'
 import { createQuestionStore } from './store'
 import type { QuestionStore } from './store'
 import { validateQuestion, validateQuestions } from './questionValidation'
-import { useCreateQuestion, useQuiz, QuestionType } from '@/entities/quiz'
+import { useCreateQuestion, useQuiz, useUpdateQuiz, QuestionType } from '@/entities/quiz'
 import type { QuizQuestion } from '@/entities/quiz'
-import type { CreateQuestionPayload } from '@/entities/quiz/api'
+import type { ApiQuestionType } from '@/entities/quiz/api/types'
 
 function toApiPayload(
   question: QuizQuestion,
   position: number,
-): CreateQuestionPayload {
-  const type = question.type === QuestionType.MultipleChoice ? 'mcq' : 'short'
+) {
+  const type: ApiQuestionType = question.type === QuestionType.MultipleChoice ? 'mcq' : 'short'
 
   let options: string[] | undefined
   let correctAnswer: string | number | undefined
@@ -44,6 +44,8 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
   const isSubmitting = store((state: QuestionStore) => state.isSubmitting)
   const isSuccess = store((state: QuestionStore) => state.isSuccess)
   const submitError = store((state: QuestionStore) => state.submitError)
+  const isPublishing = store((state: QuestionStore) => state.isPublishing)
+  const publishError = store((state: QuestionStore) => state.publishError)
   const updateQuestion = store((state: QuestionStore) => state.updateQuestion)
   const deleteQuestion = store((state: QuestionStore) => state.deleteQuestion)
   const addQuestion = store((state: QuestionStore) => state.addQuestion)
@@ -53,12 +55,15 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
   const setIsSubmitting = store((state: QuestionStore) => state.setIsSubmitting)
   const setIsSuccess = store((state: QuestionStore) => state.setIsSuccess)
   const setSubmitError = store((state: QuestionStore) => state.setSubmitError)
+  const setIsPublishing = store((state: QuestionStore) => state.setIsPublishing)
+  const setPublishError = store((state: QuestionStore) => state.setPublishError)
   const markQuestionAsCreated = store(
     (state: QuestionStore) => state.markQuestionAsCreated,
   )
   const clearSession = store((state: QuestionStore) => state.clearSession)
 
   const createQuestion = useCreateQuestion(numericQuizId)
+  const updateQuiz = useUpdateQuiz(numericQuizId)
 
   if (isNaN(numericQuizId) || numericQuizId <= 0) {
     navigate({ to: '/404' })
@@ -158,7 +163,18 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
           markQuestionAsCreated(r.question.id, r.created!.id)
         })
       } else {
-        setIsSuccess(true)
+        setIsSubmitting(false)
+        setIsPublishing(true)
+        try {
+          await updateQuiz.mutateAsync({ isPublished: true })
+          setIsPublishing(false)
+          setIsSuccess(true)
+        } catch {
+          setIsPublishing(false)
+          setPublishError(
+            'Questions saved but failed to publish the quiz. Click retry to publish again.',
+          )
+        }
       }
     } catch {
       setSubmitError('An unexpected error occurred')
@@ -177,6 +193,21 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
     submit()
   }
 
+  const handlePublishRetry = async () => {
+    setPublishError(null)
+    setIsPublishing(true)
+    try {
+      await updateQuiz.mutateAsync({ isPublished: true })
+      setIsPublishing(false)
+      setIsSuccess(true)
+    } catch {
+      setIsPublishing(false)
+      setPublishError(
+        'Questions saved but failed to publish the quiz. Click retry to publish again.',
+      )
+    }
+  }
+
   return {
     store,
     questions,
@@ -184,6 +215,8 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
     isSubmitting,
     isSuccess,
     submitError,
+    isPublishing,
+    publishError,
     isLoading,
     handlers: {
       handleQuestionUpdate,
@@ -194,6 +227,7 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
       setSubmitError,
       markQuestionAsCreated,
       handleSubmitQuiz,
+      handlePublishRetry,
     },
   }
 }

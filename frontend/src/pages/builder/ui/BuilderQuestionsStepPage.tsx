@@ -22,6 +22,8 @@ export function BuilderQuestionsStepPage({
     isSubmitting,
     isSuccess,
     submitError,
+    isPublishing,
+    publishError,
     isLoading,
     handlers,
   } = useQuestionList(quizId, numericQuizId)
@@ -36,6 +38,7 @@ export function BuilderQuestionsStepPage({
           showPrevious
           onPrevious={() => navigate({ to: '/' })}
           onSubmitQuiz={handlers.handleSubmitQuiz}
+          disabled={Boolean(publishError)}
         />
       }
       mobileNav={<BottomNavMobile />}
@@ -56,6 +59,13 @@ export function BuilderQuestionsStepPage({
                 <SuccessCheckmark size={48} className="text-success" />
                 <Text variant="body-standard" tone="on-surface">
                   All questions submitted!
+                </Text>
+              </>
+            ) : isPublishing ? (
+              <>
+                <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                <Text variant="body-standard" tone="on-surface">
+                  Publishing quiz...
                 </Text>
               </>
             ) : (
@@ -92,11 +102,26 @@ export function BuilderQuestionsStepPage({
               description={submitError}
             />
           )}
+          {publishError && (
+            <NotificationBar
+              variant="error"
+              title="Publish failed"
+              description={
+                <div className="flex items-center gap-3">
+                  <span>{publishError}</span>
+                  <Button size="sm" onClick={handlers.handlePublishRetry}>
+                    Retry
+                  </Button>
+                </div>
+              }
+            />
+          )}
         </div>
 
         <div className="space-y-8">
           {questions.map((question, index) => (
             <QuestionEditor
+              disabled={Boolean(publishError)}
               key={question.id}
               defaultValue={question}
               onUpdate={(updated) =>
@@ -115,6 +140,7 @@ export function BuilderQuestionsStepPage({
             size="lg"
             className="w-full py-4 rounded-3xl font-bold flex items-center justify-center gap-2 group h-auto bg-surface-container-high"
             onClick={handlers.handleAddQuestion}
+            disabled={Boolean(publishError)}
           >
             <Icon name="mi:add_circle" className="transition-transform" />
             Add Question

@@ -9,6 +9,8 @@ export interface QuestionStore {
   isSubmitting: boolean
   isSuccess: boolean
   submitError: string | null
+  isPublishing: boolean
+  publishError: string | null
   updateQuestion: (id: string, updated: QuizQuestion) => void
   deleteQuestion: (id: string) => void
   addQuestion: () => void
@@ -18,6 +20,8 @@ export interface QuestionStore {
   setIsSubmitting: (isSubmitting: boolean) => void
   setIsSuccess: (isSuccess: boolean) => void
   setSubmitError: (error: string | null) => void
+  setIsPublishing: (isPublishing: boolean) => void
+  setPublishError: (error: string | null) => void
   clearSubmitError: () => void
   clearSession: () => void
 }
@@ -33,6 +37,8 @@ export function createQuestionStore(quizId: string) {
         isSubmitting: false,
         isSuccess: false,
         submitError: null,
+        isPublishing: false,
+        publishError: null,
         updateQuestion: (id, updated) =>
           set((state) => ({
             questions: state.questions.map((q) => (q.id === id ? updated : q)),
@@ -70,6 +76,14 @@ export function createQuestionStore(quizId: string) {
         setSubmitError: (error) =>
           set(() => ({
             submitError: error,
+          })),
+        setIsPublishing: (isPublishing) =>
+          set(() => ({
+            isPublishing,
+          })),
+        setPublishError: (error) =>
+          set(() => ({
+            publishError: error,
           })),
         clearSubmitError: () =>
           set(() => ({
