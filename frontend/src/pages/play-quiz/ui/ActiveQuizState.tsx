@@ -1,6 +1,9 @@
 import { Button, Icon, Text } from '@/shared/ui'
-import { QuestionCard, CodeSnippetInput } from '@/entities/quiz'
-import { PlayerAnswerSection } from '@/entities/quiz/ui/play-quiz'
+import {
+  CodeSnippetInput,
+  PlayerAnswerSection,
+  QuestionCard,
+} from '@/entities/quiz'
 import type { QuizPlayData } from '../model'
 
 interface ActiveQuizStateProps {
@@ -39,10 +42,7 @@ export function ActiveQuizState({
             </Text>
           </div>
           <div>
-            <Text
-              variant="body-standard"
-              className="text-on-surface-variant"
-            >
+            <Text variant="body-standard" className="text-on-surface-variant">
               Question {questionNumber} of {totalQuestions}
             </Text>
             <Text variant="label-small" className="text-outline uppercase">

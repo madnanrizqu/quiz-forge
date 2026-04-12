@@ -1,14 +1,10 @@
 import { useNavigate } from '@tanstack/react-router'
 import { Button, Icon, Stepper, Text } from '@/shared/ui'
-import { CodeSnippetInput, QuestionCard, QuestionType } from '@/entities/quiz'
-import {
-  BuilderQuestionHeader,
-  BuilderQuestionPrompt,
-  BuilderAnswerSection,
-} from '@/entities/quiz/ui/build-quiz'
+import { QuestionEditor } from '@/pages/builder'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
 import { getQuizById } from '../model/mock-data'
+import { useQuestionList } from '../model/useQuestionList'
 
 interface BuilderQuestionsStepPageProps {
   quizId: string
@@ -19,6 +15,8 @@ export function BuilderQuestionsStepPage({
 }: BuilderQuestionsStepPageProps) {
   const navigate = useNavigate()
   const quiz = getQuizById(quizId)
+
+  const { questions, handlers } = useQuestionList(quiz?.questions)
 
   if (!quiz) {
     return (
@@ -64,55 +62,18 @@ export function BuilderQuestionsStepPage({
         </div>
 
         <div className="space-y-8">
-          <QuestionCard className="group relative">
-            <BuilderQuestionHeader
-              questionNumber={1}
-              type={QuestionType.MultipleChoice}
+          {questions.map((question, index) => (
+            <QuestionEditor
+              key={question.id}
+              defaultValue={question}
+              onUpdate={(updated) =>
+                handlers.handleQuestionUpdate(question.id, updated)
+              }
+              onDelete={() => handlers.handleQuestionDelete(question.id)}
+              questionCount={questions.length}
+              questionNumber={index + 1}
             />
-
-            <div className="space-y-10">
-              <div className="space-y-6">
-                <BuilderQuestionPrompt
-                  defaultValue="What is the output of 'typeof null' in JavaScript?"
-                />
-
-                <CodeSnippetInput
-                  defaultVisible
-                  value="console.log(typeof null);"
-                />
-              </div>
-
-              <BuilderAnswerSection
-                questionType={QuestionType.MultipleChoice}
-                choices={[
-                  { id: '1', text: 'object', isCorrect: true },
-                  { id: '2', text: 'null', isCorrect: false },
-                ]}
-                correctAnswerId="1"
-              />
-            </div>
-          </QuestionCard>
-
-          <QuestionCard className="group relative">
-            <BuilderQuestionHeader
-              questionNumber={2}
-              type={QuestionType.ShortAnswer}
-            />
-
-            <div className="space-y-10">
-              <div className="space-y-6">
-                <BuilderQuestionPrompt />
-
-                <CodeSnippetInput />
-              </div>
-
-              <BuilderAnswerSection
-                questionType={QuestionType.ShortAnswer}
-                choices={[]}
-                shortAnswerValue=""
-              />
-            </div>
-          </QuestionCard>
+          ))}
         </div>
 
         <div className="mt-12 flex flex-col items-center gap-6">
@@ -120,6 +81,7 @@ export function BuilderQuestionsStepPage({
             variant="soft"
             size="lg"
             className="w-full py-4 rounded-3xl font-bold flex items-center justify-center gap-2 group h-auto bg-surface-container-high"
+            onClick={handlers.handleAddQuestion}
           >
             <Icon name="mi:add_circle" className="transition-transform" />
             Add Question

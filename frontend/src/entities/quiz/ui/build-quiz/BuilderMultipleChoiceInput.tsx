@@ -4,6 +4,7 @@ import type { QuizChoice } from '../../model/types'
 export interface BuilderMultipleChoiceInputProps {
   choices: QuizChoice[]
   correctAnswerId?: string
+  name: string
   onChoiceChange?: (choiceId: string, text: string) => void
   onCorrectAnswerChange?: (choiceId: string) => void
   onAddChoice?: () => void
@@ -13,6 +14,7 @@ export interface BuilderMultipleChoiceInputProps {
 export function BuilderMultipleChoiceInput({
   choices,
   correctAnswerId,
+  name,
   onChoiceChange,
   onCorrectAnswerChange,
   onAddChoice,
@@ -26,7 +28,7 @@ export function BuilderMultipleChoiceInput({
       {choices.map((choice) => (
         <div key={choice.id} className="flex items-center gap-4 group/option">
           <Radio
-            name="correct_answer"
+            name={name}
             checked={choice.id === correctAnswerId}
             onChange={() => onCorrectAnswerChange?.(choice.id)}
           />

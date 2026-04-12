@@ -15,6 +15,7 @@ const meta = {
   tags: ['autodocs'],
   args: {
     choices: mockChoices,
+    name: 'correct_answer',
   },
 } satisfies Meta<typeof BuilderMultipleChoiceInput>
 
@@ -27,5 +28,6 @@ export const WithCorrectAnswerSelected: Story = {
   args: {
     choices: mockChoices,
     correctAnswerId: '1',
+    name: 'correct_answer',
   },
 }

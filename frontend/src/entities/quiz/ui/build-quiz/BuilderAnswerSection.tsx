@@ -8,6 +8,7 @@ export interface BuilderAnswerSectionProps {
   choices: QuizChoice[]
   correctAnswerId?: string
   shortAnswerValue?: string
+  name?: string
   onTypeChange?: (type: QuestionType) => void
   onChoiceChange?: (choiceId: string, text: string) => void
   onCorrectAnswerChange?: (choiceId: string) => void
@@ -21,6 +22,7 @@ export function BuilderAnswerSection({
   choices,
   correctAnswerId,
   shortAnswerValue,
+  name,
   onChoiceChange,
   onCorrectAnswerChange,
   onAddChoice,
@@ -40,6 +42,7 @@ export function BuilderAnswerSection({
     <BuilderMultipleChoiceInput
       choices={choices}
       correctAnswerId={correctAnswerId}
+      name={name ?? 'correct_answer'}
       onChoiceChange={onChoiceChange}
       onCorrectAnswerChange={onCorrectAnswerChange}
       onAddChoice={onAddChoice}
