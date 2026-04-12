@@ -1,17 +1,17 @@
 import { QuizOption } from '../QuizOption'
 import type { QuizOptionData } from '../../model/types'
 
-export interface MultipleChoiceInputProps {
+export interface PlayQuizMultipleChoiceInputProps {
   options: QuizOptionData[]
   value: string
   onChange: (value: string) => void
 }
 
-export function MultipleChoiceInput({
+export function PlayQuizMultipleChoiceInput({
   options,
   value,
   onChange,
-}: MultipleChoiceInputProps) {
+}: PlayQuizMultipleChoiceInputProps) {
   return (
     <fieldset className="space-y-4 border-0 p-0 m-0">
       <legend className="block text-sm font-semibold text-on-surface-variant mb-2 ml-1">

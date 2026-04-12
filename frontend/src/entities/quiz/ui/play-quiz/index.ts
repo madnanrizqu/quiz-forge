@@ -1,4 +1,4 @@
-export { AnswerSection } from './AnswerSection'
-export { CodeBlock } from './CodeBlock'
-export { MultipleChoiceInput } from './MultipleChoiceInput'
-export { ShortAnswerInput } from './ShortAnswerInput'
+export { PlayQuizAnswerSection } from './PlayQuizAnswerSection'
+export { PlayQuizCodeBlock } from './PlayQuizCodeBlock'
+export { PlayQuizMultipleChoiceInput } from './PlayQuizMultipleChoiceInput'
+export { PlayQuizShortAnswerInput } from './PlayQuizShortAnswerInput'

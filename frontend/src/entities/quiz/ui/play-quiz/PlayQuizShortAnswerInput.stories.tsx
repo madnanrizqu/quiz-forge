@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { ShortAnswerInput } from './ShortAnswerInput'
+import { PlayQuizShortAnswerInput } from './PlayQuizShortAnswerInput'
 
 const meta = {
-  title: 'Entities/Quiz/Play Quiz/ShortAnswerInput',
-  component: ShortAnswerInput,
+  title: 'Entities/Quiz/Play Quiz/PlayQuizShortAnswerInput',
+  component: PlayQuizShortAnswerInput,
   tags: ['autodocs'],
-} satisfies Meta<typeof ShortAnswerInput>
+} satisfies Meta<typeof PlayQuizShortAnswerInput>
 
 export default meta
 type Story = StoryObj<typeof meta>

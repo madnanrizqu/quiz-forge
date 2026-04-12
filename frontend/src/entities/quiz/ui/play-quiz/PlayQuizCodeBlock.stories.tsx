@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { CodeBlock } from './CodeBlock'
+import { PlayQuizCodeBlock } from './PlayQuizCodeBlock'
 
 const meta = {
-  title: 'Entities/Quiz/Play Quiz/CodeBlock',
-  component: CodeBlock,
+  title: 'Entities/Quiz/Play Quiz/PlayQuizCodeBlock',
+  component: PlayQuizCodeBlock,
   tags: ['autodocs'],
-} satisfies Meta<typeof CodeBlock>
+} satisfies Meta<typeof PlayQuizCodeBlock>
 
 export default meta
 type Story = StoryObj<typeof meta>

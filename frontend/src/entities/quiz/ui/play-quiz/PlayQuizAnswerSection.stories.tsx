@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { AnswerSection } from './AnswerSection'
+import { PlayQuizAnswerSection } from './PlayQuizAnswerSection'
 import { QuestionType } from '../../model/types'
 import type { QuizOptionData } from '../../model/types'
 
@@ -12,10 +12,10 @@ const mockOptions: QuizOptionData[] = [
 ]
 
 const meta = {
-  title: 'Entities/Quiz/Play Quiz/AnswerSection',
-  component: AnswerSection,
+  title: 'Entities/Quiz/Play Quiz/PlayQuizAnswerSection',
+  component: PlayQuizAnswerSection,
   tags: ['autodocs'],
-} satisfies Meta<typeof AnswerSection>
+} satisfies Meta<typeof PlayQuizAnswerSection>
 
 export default meta
 type Story = StoryObj<typeof meta>
