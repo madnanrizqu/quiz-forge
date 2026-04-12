@@ -1,5 +1,5 @@
-import { QuizOption } from '../QuizOption'
 import type { QuizOptionData } from '../../model/types'
+import { PlayQuizQuizOption } from './PlayQuizQuizOption'
 
 export interface PlayQuizMultipleChoiceInputProps {
   options: QuizOptionData[]
@@ -18,7 +18,7 @@ export function PlayQuizMultipleChoiceInput({
         Your Answer
       </legend>
       {options.map((option) => (
-        <QuizOption
+        <PlayQuizQuizOption
           key={option.id}
           name="quiz_option"
           value={option.id}

@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-import { QuizOption } from './QuizOption'
+import { PlayQuizQuizOption } from './PlayQuizQuizOption'
 
 const meta = {
-  title: 'Entities/Quiz/QuizOption',
-  component: QuizOption,
+  title: 'Entities/Quiz/PlayQuiz/PlayQuizQuizOption',
+  component: PlayQuizQuizOption,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof QuizOption>
+} satisfies Meta<typeof PlayQuizQuizOption>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -36,10 +36,15 @@ export const MultipleChoice: Story = {
   },
   render: (args) => (
     <div className="flex flex-col gap-3 w-96">
-      <QuizOption {...args} label="Vertical Integration" value="1" />
-      <QuizOption {...args} label="Scalability" value="2" defaultChecked />
-      <QuizOption {...args} label="Redundancy" value="3" />
-      <QuizOption {...args} label="Encapsulation" value="4" />
+      <PlayQuizQuizOption {...args} label="Vertical Integration" value="1" />
+      <PlayQuizQuizOption
+        {...args}
+        label="Scalability"
+        value="2"
+        defaultChecked
+      />
+      <PlayQuizQuizOption {...args} label="Redundancy" value="3" />
+      <PlayQuizQuizOption {...args} label="Encapsulation" value="4" />
     </div>
   ),
 }
