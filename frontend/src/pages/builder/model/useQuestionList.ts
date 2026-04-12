@@ -57,18 +57,20 @@ export function useQuestionList(quizId: string, numericQuizId: number) {
   const markQuestionAsCreated = store(
     (state: QuestionStore) => state.markQuestionAsCreated,
   )
+  const clearSession = store((state: QuestionStore) => state.clearSession)
 
   const createQuestion = useCreateQuestion(numericQuizId)
 
   useEffect(() => {
     if (isSuccess) {
+      clearSession()
+
       const timer = setTimeout(() => {
         navigate({ to: '/load-quiz' })
-        setIsSubmitting(false)
       }, 2000)
       return () => clearTimeout(timer)
     }
-  }, [isSuccess, navigate, setIsSubmitting])
+  }, [isSuccess, navigate, clearSession])
 
   const handleQuestionUpdate = (
     id: string,

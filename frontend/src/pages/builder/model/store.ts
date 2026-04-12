@@ -19,6 +19,7 @@ export interface QuestionStore {
   setIsSuccess: (isSuccess: boolean) => void
   setSubmitError: (error: string | null) => void
   clearSubmitError: () => void
+  clearSession: () => void
 }
 
 export type QuestionStoreApi = ReturnType<typeof createQuestionStore>
@@ -74,6 +75,9 @@ export function createQuestionStore(quizId: string) {
           set(() => ({
             submitError: null,
           })),
+        clearSession: () => {
+          sessionStorage.removeItem(`quiz-builder-questions-${quizId}`)
+        },
       }),
       {
         name: `quiz-builder-questions-${quizId}`,
