@@ -15,6 +15,7 @@ import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoadQuizIndexRouteImport } from './routes/load-quiz.index'
 import { Route as PlayQuizIdRouteImport } from './routes/play.$quizId'
+import { Route as Build_quizQuizIdRouteImport } from './routes/build_quiz.$quizId'
 
 const R500Route = R500RouteImport.update({
   id: '/500',
@@ -46,12 +47,18 @@ const PlayQuizIdRoute = PlayQuizIdRouteImport.update({
   path: '/play/$quizId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Build_quizQuizIdRoute = Build_quizQuizIdRouteImport.update({
+  id: '/build_quiz/$quizId',
+  path: '/build_quiz/$quizId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/404': typeof R404Route
   '/500': typeof R500Route
+  '/build_quiz/$quizId': typeof Build_quizQuizIdRoute
   '/play/$quizId': typeof PlayQuizIdRoute
   '/load-quiz/': typeof LoadQuizIndexRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/$': typeof SplatRoute
   '/404': typeof R404Route
   '/500': typeof R500Route
+  '/build_quiz/$quizId': typeof Build_quizQuizIdRoute
   '/play/$quizId': typeof PlayQuizIdRoute
   '/load-quiz': typeof LoadQuizIndexRoute
 }
@@ -69,20 +77,36 @@ export interface FileRoutesById {
   '/$': typeof SplatRoute
   '/404': typeof R404Route
   '/500': typeof R500Route
+  '/build_quiz/$quizId': typeof Build_quizQuizIdRoute
   '/play/$quizId': typeof PlayQuizIdRoute
   '/load-quiz/': typeof LoadQuizIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$' | '/404' | '/500' | '/play/$quizId' | '/load-quiz/'
+  fullPaths:
+    | '/'
+    | '/$'
+    | '/404'
+    | '/500'
+    | '/build_quiz/$quizId'
+    | '/play/$quizId'
+    | '/load-quiz/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$' | '/404' | '/500' | '/play/$quizId' | '/load-quiz'
+  to:
+    | '/'
+    | '/$'
+    | '/404'
+    | '/500'
+    | '/build_quiz/$quizId'
+    | '/play/$quizId'
+    | '/load-quiz'
   id:
     | '__root__'
     | '/'
     | '/$'
     | '/404'
     | '/500'
+    | '/build_quiz/$quizId'
     | '/play/$quizId'
     | '/load-quiz/'
   fileRoutesById: FileRoutesById
@@ -92,6 +116,7 @@ export interface RootRouteChildren {
   SplatRoute: typeof SplatRoute
   R404Route: typeof R404Route
   R500Route: typeof R500Route
+  Build_quizQuizIdRoute: typeof Build_quizQuizIdRoute
   PlayQuizIdRoute: typeof PlayQuizIdRoute
   LoadQuizIndexRoute: typeof LoadQuizIndexRoute
 }
@@ -140,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlayQuizIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/build_quiz/$quizId': {
+      id: '/build_quiz/$quizId'
+      path: '/build_quiz/$quizId'
+      fullPath: '/build_quiz/$quizId'
+      preLoaderRoute: typeof Build_quizQuizIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -148,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   SplatRoute: SplatRoute,
   R404Route: R404Route,
   R500Route: R500Route,
+  Build_quizQuizIdRoute: Build_quizQuizIdRoute,
   PlayQuizIdRoute: PlayQuizIdRoute,
   LoadQuizIndexRoute: LoadQuizIndexRoute,
 }

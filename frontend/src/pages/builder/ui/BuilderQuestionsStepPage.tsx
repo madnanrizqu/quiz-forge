@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router'
 import {
   Badge,
   Button,
@@ -6,43 +7,40 @@ import {
   Label,
   Select,
   Radio,
-  Textarea,
 } from '@/shared/ui'
 import { CodeBlock, QuestionCard } from '@/entities/quiz'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
+import { getQuizById } from '../model/mock-data'
 
-export function BuilderPage() {
+interface BuilderQuestionsStepPageProps {
+  quizId: string
+}
+
+export function BuilderQuestionsStepPage({ quizId }: BuilderQuestionsStepPageProps) {
+  const navigate = useNavigate()
+  const quiz = getQuizById(quizId)
+
+  if (!quiz) {
+    return (
+      <AppShell
+        header={<BuilderHeaderDesktop showSaveQuiz />}
+        mobileNav={<BottomNavMobile />}
+      >
+        <main className="max-w-4xl mx-auto px-6 py-12">
+          <p>Quiz not found</p>
+        </main>
+      </AppShell>
+    )
+  }
+
   return (
     <AppShell
       header={<BuilderHeaderDesktop showSaveQuiz />}
       mobileNav={<BottomNavMobile />}
     >
       <main className="max-w-4xl mx-auto px-6 py-12 pb-32">
-        {/* Quiz Meta Section */}
-        <section className="mb-12">
-          <div className="bg-surface-container-high p-8 rounded-2xl shadow-ambient space-y-6">
-            <div>
-              <Label className="block mb-2">Quiz Title</Label>
-              <Input
-                className="w-full bg-surface-container-lowest border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-outline/50 transition-all text-lg font-semibold"
-                placeholder="e.g. Advanced JavaScript Patterns"
-              />
-            </div>
-            <div>
-              <Label className="block mb-2">Quiz Description</Label>
-              <Textarea
-                className="w-full bg-surface-container-lowest border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-outline/50 transition-all resize-none"
-                placeholder="Explain what this quiz covers..."
-                rows={3}
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Question List */}
         <div className="space-y-8">
-          {/* Question Card 1: Multiple Choice */}
           <QuestionCard className="group relative">
             <div className="flex justify-between items-start mb-6">
               <Badge className="bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase tracking-wider text-xs">
@@ -99,7 +97,6 @@ export function BuilderPage() {
             </div>
           </QuestionCard>
 
-          {/* Question Card 2: Short Answer */}
           <QuestionCard className="group relative">
             <div className="flex justify-between items-start mb-6">
               <Badge className="bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase tracking-wider text-xs">
@@ -139,6 +136,17 @@ export function BuilderPage() {
           >
             <Icon name="mi:add_circle" className="transition-transform" />
             Add Question
+          </Button>
+        </div>
+
+        <div className="mt-8 flex justify-start">
+          <Button
+            variant="ghost"
+            size="md"
+            onClick={() => navigate({ to: '/' })}
+          >
+            <Icon name="mi:arrow_back" size="sm" className="mr-2" />
+            Back to Quiz Details
           </Button>
         </div>
       </main>

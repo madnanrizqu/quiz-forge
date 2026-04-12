@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { BuilderPage } from '@/pages/builder'
+import { BuilderMetaStepPage } from '@/pages/builder'
 
 export const Route = createFileRoute('/')({
-  component: () => <BuilderPage />,
+  component: () => <BuilderMetaStepPage />,
 })
