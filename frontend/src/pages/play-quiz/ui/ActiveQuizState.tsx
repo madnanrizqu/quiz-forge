@@ -67,9 +67,9 @@ export function ActiveQuizState({ quizId, onComplete }: ActiveQuizStateProps) {
           <PlayerAnswerSection
             questionType={currentQuestion.questionType}
             options={currentQuestion.options}
-            answer={answers[currentQuestion.quizId] || ''}
+            answer={answers[currentQuestion.questionId] || ''}
             onSetAnswer={(answer) =>
-              handleSetAnswer(currentQuestion.quizId, answer)
+              handleSetAnswer(String(currentQuestion.questionId), answer)
             }
           />
         </div>
