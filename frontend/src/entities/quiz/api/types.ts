@@ -48,12 +48,20 @@ export interface SubmitResponse {
   details: Array<{ questionId: number; correct: boolean; expected?: string }>
 }
 
-export interface OkResponse { ok: true }
+export interface OkResponse {
+  ok: true
+}
 
 // ==================== PATH PARAMS ====================
-export interface QuizPathParams { id: number }
-export interface QuestionPathParams { id: number }
-export interface AttemptPathParams { id: number }
+export interface QuizPathParams {
+  id: number
+}
+export interface QuestionPathParams {
+  id: number
+}
+export interface AttemptPathParams {
+  id: number
+}
 
 // ==================== QUERY PARAMS ====================
 export interface EmptyQueryParams {}

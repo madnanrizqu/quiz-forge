@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient, queryOptions } from '@tanstack/react-query'
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  queryOptions,
+} from '@tanstack/react-query'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { quizApiClient } from './client'
 import type {
@@ -26,7 +31,8 @@ export const quizzesOptions = () =>
 export const quizOptions = (id: number) =>
   queryOptions({
     queryKey: quizKeys.detail(id),
-    queryFn: () => quizApiClient.get<QuizWithQuestionsResponse>(`/quizzes/${id}`),
+    queryFn: () =>
+      quizApiClient.get<QuizWithQuestionsResponse>(`/quizzes/${id}`),
     enabled: Number.isInteger(id) && id > 0,
   })
 
@@ -45,7 +51,7 @@ export function useQuiz(id: number, options?: object) {
 }
 
 export function useCreateQuiz(
-  options?: UseMutationOptions<QuizResponse, Error, CreateQuizPayload>
+  options?: UseMutationOptions<QuizResponse, Error, CreateQuizPayload>,
 ) {
   const queryClient = useQueryClient()
 
@@ -62,7 +68,7 @@ export function useCreateQuiz(
 
 export function useUpdateQuiz(
   id: number,
-  options?: UseMutationOptions<QuizResponse, Error, UpdateQuizPayload>
+  options?: UseMutationOptions<QuizResponse, Error, UpdateQuizPayload>,
 ) {
   const queryClient = useQueryClient()
 
@@ -77,5 +83,3 @@ export function useUpdateQuiz(
     },
   })
 }
-
-

@@ -152,8 +152,7 @@ export const MOCK_QUIZ_RESULTS: Record<string, QuizResultData> = {
       },
       {
         questionNumber: 8,
-        questionText:
-          'What is eventual consistency in distributed databases?',
+        questionText: 'What is eventual consistency in distributed databases?',
         isCorrect: true,
       },
     ],

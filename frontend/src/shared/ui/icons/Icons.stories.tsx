@@ -102,7 +102,9 @@ export const AllIcons: Story = {
       </div>
       <div className="flex flex-col items-center gap-2">
         <Icon name="svg:chevron_down" size="lg" />
-        <span className="text-xs text-on-surface-variant">svg:chevron_down</span>
+        <span className="text-xs text-on-surface-variant">
+          svg:chevron_down
+        </span>
       </div>
     </div>
   ),

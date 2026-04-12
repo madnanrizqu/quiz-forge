@@ -76,7 +76,11 @@ export function QuestionEditor({
           choices={choices}
           correctAnswerId={correctAnswerId}
           shortAnswerValue={shortAnswer}
-          name={defaultValue ? `correct_answer_${defaultValue.id}` : 'correct_answer'}
+          name={
+            defaultValue
+              ? `correct_answer_${defaultValue.id}`
+              : 'correct_answer'
+          }
           onChoiceChange={handlers.handleChoiceChange}
           onCorrectAnswerChange={handlers.handleCorrectAnswerChange}
           onAddChoice={handlers.handleAddChoice}

@@ -10,7 +10,11 @@ import type {
 } from './types'
 
 export function useStartAttempt(
-  options?: UseMutationOptions<AttemptWithQuizResponse, Error, StartAttemptPayload>
+  options?: UseMutationOptions<
+    AttemptWithQuizResponse,
+    Error,
+    StartAttemptPayload
+  >,
 ) {
   return useMutation({
     mutationFn: (payload: StartAttemptPayload) =>
@@ -21,7 +25,7 @@ export function useStartAttempt(
 
 export function useSubmitAnswer(
   attemptId: number,
-  options?: UseMutationOptions<OkResponse, Error, AnswerPayload>
+  options?: UseMutationOptions<OkResponse, Error, AnswerPayload>,
 ) {
   return useMutation({
     mutationFn: (payload: AnswerPayload) =>
@@ -32,10 +36,11 @@ export function useSubmitAnswer(
 
 export function useSubmitAttempt(
   attemptId: number,
-  options?: UseMutationOptions<SubmitResponse, Error, void>
+  options?: UseMutationOptions<SubmitResponse, Error, void>,
 ) {
   return useMutation({
-    mutationFn: () => quizApiClient.post<SubmitResponse>(`/attempts/${attemptId}/submit`),
+    mutationFn: () =>
+      quizApiClient.post<SubmitResponse>(`/attempts/${attemptId}/submit`),
     ...options,
   })
 }

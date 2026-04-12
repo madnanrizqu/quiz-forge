@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type {AxiosInstance} from 'axios';
+import type { AxiosInstance } from 'axios'
 import type { ApiClient } from './types'
 
 export class BaseApiClient implements ApiClient {

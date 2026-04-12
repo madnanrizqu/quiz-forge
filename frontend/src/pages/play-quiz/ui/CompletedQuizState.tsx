@@ -29,10 +29,7 @@ function QuestionReviewItem({
         >
           Question {String(question.questionNumber).padStart(2, '0')}
         </Text>
-        <Text
-          variant="title-large"
-          className="text-on-surface leading-snug"
-        >
+        <Text variant="title-large" className="text-on-surface leading-snug">
           {question.questionText}
         </Text>
       </div>
@@ -79,7 +76,6 @@ export function CompletedQuizState({
 
   return (
     <section className="relative space-y-12 md:space-y-16">
-
       <div className="text-center space-y-6">
         <div className="inline-flex items-center justify-center p-4 bg-surface-container rounded-full">
           <Icon name="mi:emoji_events" size={40} className="text-primary" />
@@ -164,7 +160,11 @@ export function CompletedQuizState({
             Time Spent
           </Text>
           <div className="flex items-center gap-2">
-            <Icon name="mi:timer" size={24} className="text-on-surface-variant" />
+            <Icon
+              name="mi:timer"
+              size={24}
+              className="text-on-surface-variant"
+            />
             <Text variant="headline-h2" className="text-on-surface">
               {timeSpent}
             </Text>

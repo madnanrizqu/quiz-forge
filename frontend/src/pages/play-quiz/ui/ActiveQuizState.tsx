@@ -61,9 +61,7 @@ export function ActiveQuizState({
             {questionText}
           </Text>
 
-          {codeSnippet && (
-            <CodeSnippetInput disabled value={codeSnippet} />
-          )}
+          {codeSnippet && <CodeSnippetInput disabled value={codeSnippet} />}
 
           <PlayerAnswerSection
             questionType={questionType}
@@ -92,7 +90,12 @@ export function ActiveQuizState({
           </Button>
         </div>
 
-        <Button variant="primary" size="lg" className="w-full sm:w-auto" onClick={onSubmit}>
+        <Button
+          variant="primary"
+          size="lg"
+          className="w-full sm:w-auto"
+          onClick={onSubmit}
+        >
           Submit Answers
         </Button>
       </div>

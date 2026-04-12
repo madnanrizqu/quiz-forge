@@ -4,8 +4,7 @@ import type { InputHTMLAttributes } from 'react'
 import { cx } from '@/shared/lib'
 import { Radio } from '@/shared/ui'
 
-export interface PlayerQuizOptionProps
-  extends InputHTMLAttributes<HTMLInputElement> {
+export interface PlayerQuizOptionProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
 }
 

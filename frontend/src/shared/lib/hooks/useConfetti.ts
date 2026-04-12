@@ -13,7 +13,9 @@ interface UseConfettiReturn {
   fire: () => void
 }
 
-export const useConfetti = (options: UseConfettiOptions = {}): UseConfettiReturn => {
+export const useConfetti = (
+  options: UseConfettiOptions = {},
+): UseConfettiReturn => {
   const {
     particleCount = 100,
     spread = 100,

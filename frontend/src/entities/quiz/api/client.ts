@@ -14,7 +14,7 @@ class QuizApiClient extends BaseApiClient {
 
     this.instance.interceptors.response.use(
       (res) => res,
-      (err) => this.handleError(err)
+      (err) => this.handleError(err),
     )
   }
 

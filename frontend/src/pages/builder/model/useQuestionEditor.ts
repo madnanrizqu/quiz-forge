@@ -1,10 +1,7 @@
 import { useCallback, useState } from 'react'
 import type { QuizChoice, QuizQuestion } from '@/entities/quiz'
 import { QuestionType } from '@/entities/quiz'
-import {
-  generateId,
-  getQuestionInitialState,
-} from './questionDefaults'
+import { generateId, getQuestionInitialState } from './questionDefaults'
 
 export function useQuestionEditor(
   defaultValue?: QuizQuestion,

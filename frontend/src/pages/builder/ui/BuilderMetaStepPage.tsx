@@ -34,7 +34,11 @@ export function BuilderMetaStepPage() {
               Start by giving your quiz a name and a brief description. Once you
               are done, we will move on to building your questions.
             </Text>
-            <form id="builder-meta-form" onSubmit={handleSubmit} className="space-y-6">
+            <form
+              id="builder-meta-form"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
               <div>
                 <Label htmlFor="title" className="block mb-2">
                   Quiz Title
