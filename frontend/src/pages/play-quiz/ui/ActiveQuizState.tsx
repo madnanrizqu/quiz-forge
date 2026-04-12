@@ -68,7 +68,7 @@ export function ActiveQuizState({
   }
 
   return (
-    <section className="space-y-8">
+    <section key={currentQuestion.questionId} className="space-y-8">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">

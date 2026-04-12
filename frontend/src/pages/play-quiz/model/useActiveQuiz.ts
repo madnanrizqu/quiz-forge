@@ -19,6 +19,7 @@ export function useActiveQuiz({
     () => data?.questions.map((q) => toQuizPlayData(q, quizId)) ?? [],
     [data, quizId],
   )
+
   const store = useMemo(
     () => createActiveQuizStore(quizId, attemptId),
     [quizId, attemptId],

@@ -8,6 +8,7 @@ import {
   useQuiz,
   useUpdateQuiz,
   QuestionType,
+  QUESTION_PROMPT_CODE_DELIMITER,
 } from '@/entities/quiz'
 import type { QuizQuestion } from '@/entities/quiz'
 import type { ApiQuestionType } from '@/entities/quiz/api/types'
@@ -29,7 +30,9 @@ function toApiPayload(question: QuizQuestion, position: number) {
 
   return {
     type,
-    prompt: question.prompt,
+    prompt: question.code
+      ? `${question.prompt}${QUESTION_PROMPT_CODE_DELIMITER}${question.code}`
+      : question.prompt,
     options,
     correctAnswer,
     position,
