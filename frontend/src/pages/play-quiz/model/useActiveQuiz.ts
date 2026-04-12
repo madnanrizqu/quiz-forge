@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useQuiz, toQuizPlayData } from '@/entities/quiz'
 import type { QuizPlayData } from '@/entities/quiz'
+import { createActiveQuizStore } from './store'
 
 interface UseActiveQuizProps {
   quizId: string
@@ -8,35 +9,36 @@ interface UseActiveQuizProps {
   onComplete: (answers: Record<string, string>) => void
 }
 
-export function useActiveQuiz({ quizId, attemptId: _attemptId, onComplete }: UseActiveQuizProps) {
+export function useActiveQuiz({ quizId, attemptId, onComplete }: UseActiveQuizProps) {
   const { data, isLoading, error } = useQuiz(Number(quizId))
   const questions: QuizPlayData[] = useMemo(
     () => data?.questions.map((q) => toQuizPlayData(q, quizId)) ?? [],
     [data, quizId],
   )
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, string>>({})
+  const store = useMemo(() => createActiveQuizStore(quizId, attemptId), [quizId, attemptId])
+  const { currentIndex, answers, setCurrentIndex, setAnswer, clearSession } = store()
 
   const currentQuestion = questions[currentIndex]
   const isLastQuestion = currentIndex === questions.length - 1
 
   const handleSetAnswer = (questionId: string, answer: string) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: answer }))
+    setAnswer(questionId, answer)
   }
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1)
+      setCurrentIndex(currentIndex - 1)
     }
   }
 
   const handleNext = () => {
     if (currentIndex < questions.length - 1) {
-      setCurrentIndex((prev) => prev + 1)
+      setCurrentIndex(currentIndex + 1)
     }
   }
 
   const handleSubmit = () => {
+    clearSession()
     onComplete(answers)
   }
 
