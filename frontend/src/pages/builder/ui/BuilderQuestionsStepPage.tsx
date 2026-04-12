@@ -16,7 +16,7 @@ export function BuilderQuestionsStepPage({
   const navigate = useNavigate()
   const quiz = getQuizById(quizId)
 
-  const { questions, handlers } = useQuestionList(quiz?.questions)
+  const { questions, handlers } = useQuestionList(quizId)
 
   if (!quiz) {
     return (

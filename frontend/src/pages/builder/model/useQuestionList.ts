@@ -1,32 +1,28 @@
-import { useCallback, useState } from 'react'
-import type { QuizQuestion } from '@/entities/quiz'
-import { createDefaultQuestion } from './questionDefaults'
+import { useMemo } from 'react'
+import { createQuestionStore } from './store'
+import type { QuestionStore } from './store'
 
-export function useQuestionList(initialQuestions?: QuizQuestion[]) {
-  const [questions, setQuestions] = useState<QuizQuestion[]>(() => {
-    if (initialQuestions && initialQuestions.length > 0) {
-      return initialQuestions
+export function useQuestionList(quizId: string) {
+  const store = useMemo(() => createQuestionStore(quizId), [quizId])
+
+  const questions = store((state: QuestionStore) => state.questions)
+  const updateQuestion = store((state: QuestionStore) => state.updateQuestion)
+  const deleteQuestion = store((state: QuestionStore) => state.deleteQuestion)
+  const addQuestion = store((state: QuestionStore) => state.addQuestion)
+
+  const handleQuestionUpdate = (id: string, updated: Parameters<typeof updateQuestion>[1]) => {
+    updateQuestion(id, updated)
+  }
+
+  const handleQuestionDelete = (id: string) => {
+    if (questions.length > 1) {
+      deleteQuestion(id)
     }
-    return [createDefaultQuestion()]
-  })
+  }
 
-  const handleQuestionUpdate = useCallback(
-    (id: string, updated: QuizQuestion) => {
-      setQuestions((prev) => prev.map((q) => (q.id === id ? updated : q)))
-    },
-    [],
-  )
-
-  const handleQuestionDelete = useCallback((id: string) => {
-    setQuestions((prev) => {
-      const filtered = prev.filter((q) => q.id !== id)
-      return filtered.length > 0 ? filtered : [createDefaultQuestion()]
-    })
-  }, [])
-
-  const handleAddQuestion = useCallback(() => {
-    setQuestions((prev) => [...prev, createDefaultQuestion()])
-  }, [])
+  const handleAddQuestion = () => {
+    addQuestion()
+  }
 
   return {
     questions,
