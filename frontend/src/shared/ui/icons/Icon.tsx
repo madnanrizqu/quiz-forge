@@ -24,6 +24,7 @@ const iconRegistry = {
   'mi:emoji_events': { kind: 'material' as const, name: 'emoji_events' },
   'mi:check_circle': { kind: 'material' as const, name: 'check_circle' },
   'mi:cancel': { kind: 'material' as const, name: 'cancel' },
+  'mi:warning': { kind: 'material' as const, name: 'warning' },
   'svg:chevron_down': { kind: 'svg' as const, ...chevronDown },
 }
 

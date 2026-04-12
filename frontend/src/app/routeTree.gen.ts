@@ -9,12 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as R500RouteImport } from './routes/500'
+import { Route as R404RouteImport } from './routes/404'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoadQuizIndexRouteImport } from './routes/load-quiz.index'
-import { Route as ApiTestIndexRouteImport } from './routes/api-test.index'
 import { Route as PlayQuizIdRouteImport } from './routes/play.$quizId'
 
+const R500Route = R500RouteImport.update({
+  id: '/500',
+  path: '/500',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const R404Route = R404RouteImport.update({
+  id: '/404',
+  path: '/404',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SplatRoute = SplatRouteImport.update({
   id: '/$',
   path: '/$',
@@ -30,11 +41,6 @@ const LoadQuizIndexRoute = LoadQuizIndexRouteImport.update({
   path: '/load-quiz/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiTestIndexRoute = ApiTestIndexRouteImport.update({
-  id: '/api-test/',
-  path: '/api-test/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PlayQuizIdRoute = PlayQuizIdRouteImport.update({
   id: '/play/$quizId',
   path: '/play/$quizId',
@@ -44,43 +50,68 @@ const PlayQuizIdRoute = PlayQuizIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/404': typeof R404Route
+  '/500': typeof R500Route
   '/play/$quizId': typeof PlayQuizIdRoute
-  '/api-test/': typeof ApiTestIndexRoute
   '/load-quiz/': typeof LoadQuizIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/404': typeof R404Route
+  '/500': typeof R500Route
   '/play/$quizId': typeof PlayQuizIdRoute
-  '/api-test': typeof ApiTestIndexRoute
   '/load-quiz': typeof LoadQuizIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/404': typeof R404Route
+  '/500': typeof R500Route
   '/play/$quizId': typeof PlayQuizIdRoute
-  '/api-test/': typeof ApiTestIndexRoute
   '/load-quiz/': typeof LoadQuizIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$' | '/play/$quizId' | '/api-test/' | '/load-quiz/'
+  fullPaths: '/' | '/$' | '/404' | '/500' | '/play/$quizId' | '/load-quiz/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$' | '/play/$quizId' | '/api-test' | '/load-quiz'
-  id: '__root__' | '/' | '/$' | '/play/$quizId' | '/api-test/' | '/load-quiz/'
+  to: '/' | '/$' | '/404' | '/500' | '/play/$quizId' | '/load-quiz'
+  id:
+    | '__root__'
+    | '/'
+    | '/$'
+    | '/404'
+    | '/500'
+    | '/play/$quizId'
+    | '/load-quiz/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
+  R404Route: typeof R404Route
+  R500Route: typeof R500Route
   PlayQuizIdRoute: typeof PlayQuizIdRoute
-  ApiTestIndexRoute: typeof ApiTestIndexRoute
   LoadQuizIndexRoute: typeof LoadQuizIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/500': {
+      id: '/500'
+      path: '/500'
+      fullPath: '/500'
+      preLoaderRoute: typeof R500RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$': {
       id: '/$'
       path: '/$'
@@ -102,13 +133,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoadQuizIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api-test/': {
-      id: '/api-test/'
-      path: '/api-test'
-      fullPath: '/api-test/'
-      preLoaderRoute: typeof ApiTestIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/play/$quizId': {
       id: '/play/$quizId'
       path: '/play/$quizId'
@@ -122,8 +146,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
+  R404Route: R404Route,
+  R500Route: R500Route,
   PlayQuizIdRoute: PlayQuizIdRoute,
-  ApiTestIndexRoute: ApiTestIndexRoute,
   LoadQuizIndexRoute: LoadQuizIndexRoute,
 }
 export const routeTree = rootRouteImport
