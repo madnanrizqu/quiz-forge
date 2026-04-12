@@ -11,7 +11,7 @@ const mockOptions: QuizOptionData[] = [
 ]
 
 const meta = {
-  title: 'Entities/Quiz/MultipleChoiceInput',
+  title: 'Entities/Quiz/Play Quiz/MultipleChoiceInput',
   component: MultipleChoiceInput,
   tags: ['autodocs'],
 } satisfies Meta<typeof MultipleChoiceInput>

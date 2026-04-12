@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { CodeBlock } from './CodeBlock'
 
 const meta = {
-  title: 'Entities/Quiz/CodeBlock',
+  title: 'Entities/Quiz/Play Quiz/CodeBlock',
   component: CodeBlock,
   tags: ['autodocs'],
 } satisfies Meta<typeof CodeBlock>

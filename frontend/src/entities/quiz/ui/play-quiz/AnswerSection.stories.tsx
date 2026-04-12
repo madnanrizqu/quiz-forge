@@ -12,7 +12,7 @@ const mockOptions: QuizOptionData[] = [
 ]
 
 const meta = {
-  title: 'Entities/Quiz/AnswerSection',
+  title: 'Entities/Quiz/Play Quiz/AnswerSection',
   component: AnswerSection,
   tags: ['autodocs'],
 } satisfies Meta<typeof AnswerSection>
