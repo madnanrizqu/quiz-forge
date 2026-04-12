@@ -6,6 +6,7 @@ export interface NotificationBarProps {
   title: string
   description?: ReactNode
   variant?: 'error' | 'success' | 'info' | 'warning'
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
   className?: string
 }
 
@@ -44,12 +45,15 @@ export function NotificationBar({
   title,
   description,
   variant = 'error',
+  headingLevel = 3,
   className,
 }: NotificationBarProps) {
   const styles = variantStyles[variant]
 
   return (
     <div
+      role="alert"
+      aria-live="polite"
       className={cx(
         styles.bg,
         styles.border,
@@ -57,9 +61,11 @@ export function NotificationBar({
         className,
       )}
     >
-      <Icon name={styles.icon} className={cx(styles.text, 'mt-0.5')} />
+      <Icon name={styles.icon} aria-hidden="true" className={cx(styles.text, 'mt-0.5')} />
       <div className="space-y-1">
-        <p className={cx('text-sm font-semibold', styles.text)}>{title}</p>
+        <p role="heading" aria-level={headingLevel} className={cx('text-sm font-semibold', styles.text)}>
+          {title}
+        </p>
         {description && (
           <div className={cx('text-sm', styles.descriptionText)}>{description}</div>
         )}
