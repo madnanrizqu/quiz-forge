@@ -9,14 +9,22 @@ interface UseActiveQuizProps {
   onComplete: (answers: Record<string, string>) => void
 }
 
-export function useActiveQuiz({ quizId, attemptId, onComplete }: UseActiveQuizProps) {
+export function useActiveQuiz({
+  quizId,
+  attemptId,
+  onComplete,
+}: UseActiveQuizProps) {
   const { data, isLoading, error } = useQuiz(Number(quizId))
   const questions: QuizPlayData[] = useMemo(
     () => data?.questions.map((q) => toQuizPlayData(q, quizId)) ?? [],
     [data, quizId],
   )
-  const store = useMemo(() => createActiveQuizStore(quizId, attemptId), [quizId, attemptId])
-  const { currentIndex, answers, setCurrentIndex, setAnswer, clearSession } = store()
+  const store = useMemo(
+    () => createActiveQuizStore(quizId, attemptId),
+    [quizId, attemptId],
+  )
+  const { currentIndex, answers, setCurrentIndex, setAnswer, clearSession } =
+    store()
 
   const currentQuestion = questions[currentIndex]
   const isLastQuestion = currentIndex === questions.length - 1

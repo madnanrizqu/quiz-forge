@@ -61,13 +61,23 @@ export function NotificationBar({
         className,
       )}
     >
-      <Icon name={styles.icon} aria-hidden="true" className={cx(styles.text, 'mt-0.5')} />
+      <Icon
+        name={styles.icon}
+        aria-hidden="true"
+        className={cx(styles.text, 'mt-0.5')}
+      />
       <div className="space-y-1">
-        <p role="heading" aria-level={headingLevel} className={cx('text-sm font-semibold', styles.text)}>
+        <p
+          role="heading"
+          aria-level={headingLevel}
+          className={cx('text-sm font-semibold', styles.text)}
+        >
           {title}
         </p>
         {description && (
-          <div className={cx('text-sm', styles.descriptionText)}>{description}</div>
+          <div className={cx('text-sm', styles.descriptionText)}>
+            {description}
+          </div>
         )}
       </div>
     </div>

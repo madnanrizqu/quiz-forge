@@ -26,7 +26,7 @@ export type QuestionStoreApi = ReturnType<typeof createQuestionStore>
 
 export function createQuestionStore(quizId: string) {
   return create<QuestionStore>()(
-      persist(
+    persist(
       (set) => ({
         questions: [createDefaultQuestion()],
         validationErrors: [],
@@ -56,7 +56,7 @@ export function createQuestionStore(quizId: string) {
         markQuestionAsCreated: (id, apiId) =>
           set((state) => ({
             questions: state.questions.map((q) =>
-              q.id === id ? { ...q, apiId } : q
+              q.id === id ? { ...q, apiId } : q,
             ),
           })),
         setIsSubmitting: (isSubmitting) =>
@@ -82,7 +82,7 @@ export function createQuestionStore(quizId: string) {
       {
         name: `quiz-builder-questions-${quizId}`,
         storage: createJSONStorage(() => sessionStorage),
-      }
-    )
+      },
+    ),
   )
 }

@@ -33,6 +33,7 @@ export const UncontrolledWithCode: Story = {
 export const Controlled: Story = {
   args: {
     value: 'const fibonacci = (n) => { /* ... */ };',
-    onChange: (value: string | undefined) => console.log('Code changed:', value),
+    onChange: (value: string | undefined) =>
+      console.log('Code changed:', value),
   },
 }

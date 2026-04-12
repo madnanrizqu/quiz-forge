@@ -3,7 +3,10 @@ interface SuccessCheckmarkProps {
   className?: string
 }
 
-export function SuccessCheckmark({ size = 48, className }: SuccessCheckmarkProps) {
+export function SuccessCheckmark({
+  size = 48,
+  className,
+}: SuccessCheckmarkProps) {
   return (
     <svg
       className={className}
