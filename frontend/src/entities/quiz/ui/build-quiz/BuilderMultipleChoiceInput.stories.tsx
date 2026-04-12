@@ -31,3 +31,12 @@ export const WithCorrectAnswerSelected: Story = {
     name: 'correct_answer',
   },
 }
+
+export const Disabled: Story = {
+  args: {
+    choices: mockChoices,
+    correctAnswerId: '1',
+    name: 'correct_answer',
+    disabled: true,
+  },
+}

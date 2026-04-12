@@ -50,3 +50,21 @@ export const ShortAnswerWithValue: Story = {
     shortAnswerValue: 'Paris',
   },
 }
+
+export const MultipleChoiceDisabled: Story = {
+  args: {
+    questionType: QuestionType.MultipleChoice,
+    choices: mockChoices,
+    correctAnswerId: '1',
+    disabled: true,
+  },
+}
+
+export const ShortAnswerDisabled: Story = {
+  args: {
+    questionType: QuestionType.ShortAnswer,
+    choices: [],
+    shortAnswerValue: 'Paris',
+    disabled: true,
+  },
+}

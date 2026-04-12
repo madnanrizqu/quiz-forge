@@ -3,11 +3,13 @@ import { Input, Label } from '@/shared/ui'
 export interface BuilderShortAnswerInputProps {
   value?: string
   onChange?: (value: string) => void
+  disabled?: boolean
 }
 
 export function BuilderShortAnswerInput({
   value,
   onChange,
+  disabled,
 }: BuilderShortAnswerInputProps) {
   return (
     <div>
@@ -17,6 +19,7 @@ export function BuilderShortAnswerInput({
         placeholder="Type the literal answer here..."
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
+        disabled={disabled}
       />
     </div>
   )

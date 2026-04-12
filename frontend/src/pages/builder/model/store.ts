@@ -6,19 +6,29 @@ import { createDefaultQuestion } from './questionDefaults'
 export interface QuestionStore {
   questions: QuizQuestion[]
   validationErrors: QuestionValidationError[]
+  isSubmitting: boolean
+  submitError: string | null
   updateQuestion: (id: string, updated: QuizQuestion) => void
   deleteQuestion: (id: string) => void
   addQuestion: () => void
   setValidationErrors: (errors: QuestionValidationError[]) => void
   clearValidationErrors: () => void
+  markQuestionAsCreated: (id: string, apiId: number) => void
+  setIsSubmitting: (isSubmitting: boolean) => void
+  setSubmitError: (error: string | null) => void
+  clearSubmitError: () => void
 }
+
+export type QuestionStoreApi = ReturnType<typeof createQuestionStore>
 
 export function createQuestionStore(quizId: string) {
   return create<QuestionStore>()(
-    persist(
+      persist(
       (set) => ({
         questions: [createDefaultQuestion()],
         validationErrors: [],
+        isSubmitting: false,
+        submitError: null,
         updateQuestion: (id, updated) =>
           set((state) => ({
             questions: state.questions.map((q) => (q.id === id ? updated : q)),
@@ -38,6 +48,24 @@ export function createQuestionStore(quizId: string) {
         clearValidationErrors: () =>
           set(() => ({
             validationErrors: [],
+          })),
+        markQuestionAsCreated: (id, apiId) =>
+          set((state) => ({
+            questions: state.questions.map((q) =>
+              q.id === id ? { ...q, apiId } : q
+            ),
+          })),
+        setIsSubmitting: (isSubmitting) =>
+          set(() => ({
+            isSubmitting,
+          })),
+        setSubmitError: (error) =>
+          set(() => ({
+            submitError: error,
+          })),
+        clearSubmitError: () =>
+          set(() => ({
+            submitError: null,
           })),
       }),
       {

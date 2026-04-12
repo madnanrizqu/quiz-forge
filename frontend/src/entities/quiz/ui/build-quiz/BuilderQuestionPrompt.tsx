@@ -6,6 +6,7 @@ export interface BuilderQuestionPromptProps {
   onChange?: (value: string) => void
   defaultValue?: string
   placeholder?: string
+  disabled?: boolean
 }
 
 export function BuilderQuestionPrompt({
@@ -13,6 +14,7 @@ export function BuilderQuestionPrompt({
   onChange,
   defaultValue = '',
   placeholder = 'Enter your question here...',
+  disabled,
 }: BuilderQuestionPromptProps) {
   const isControlled = value !== undefined && onChange !== undefined
   const [internalValue, setInternalValue] = useState(defaultValue)
@@ -34,6 +36,7 @@ export function BuilderQuestionPrompt({
         placeholder={placeholder}
         value={currentValue}
         onChange={(e) => handleChange(e.target.value)}
+        disabled={disabled}
       />
     </div>
   )

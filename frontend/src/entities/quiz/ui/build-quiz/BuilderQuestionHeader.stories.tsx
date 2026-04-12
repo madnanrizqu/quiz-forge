@@ -39,3 +39,11 @@ export const WithTypeChangeHandler: Story = {
     onTypeChange: (type) => console.log('Type changed to:', type),
   },
 }
+
+export const Disabled: Story = {
+  args: {
+    questionNumber: 4,
+    type: QuestionType.MultipleChoice,
+    disabled: true,
+  },
+}

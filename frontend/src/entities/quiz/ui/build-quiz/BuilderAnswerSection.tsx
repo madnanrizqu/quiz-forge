@@ -15,6 +15,7 @@ export interface BuilderAnswerSectionProps {
   onAddChoice?: () => void
   onDeleteChoice?: (choiceId: string) => void
   onShortAnswerChange?: (value: string) => void
+  disabled?: boolean
 }
 
 export function BuilderAnswerSection({
@@ -28,12 +29,14 @@ export function BuilderAnswerSection({
   onAddChoice,
   onDeleteChoice,
   onShortAnswerChange,
+  disabled,
 }: BuilderAnswerSectionProps) {
   if (questionType === QuestionType.ShortAnswer) {
     return (
       <BuilderShortAnswerInput
         value={shortAnswerValue}
         onChange={onShortAnswerChange}
+        disabled={disabled}
       />
     )
   }
@@ -47,6 +50,7 @@ export function BuilderAnswerSection({
       onCorrectAnswerChange={onCorrectAnswerChange}
       onAddChoice={onAddChoice}
       onDeleteChoice={onDeleteChoice}
+      disabled={disabled}
     />
   )
 }

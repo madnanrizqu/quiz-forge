@@ -43,6 +43,7 @@ export interface QuizQuestion {
   code?: string
   choices?: QuizChoice[]
   correctAnswer?: string
+  apiId?: number
 }
 
 export interface Quiz {

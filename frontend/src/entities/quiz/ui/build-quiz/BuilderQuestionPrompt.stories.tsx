@@ -34,3 +34,10 @@ export const WithPlaceholder: Story = {
     placeholder: 'Type your question here...',
   },
 }
+
+export const Disabled: Story = {
+  args: {
+    value: 'This question is disabled',
+    disabled: true,
+  },
+}

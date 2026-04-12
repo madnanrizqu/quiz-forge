@@ -46,3 +46,9 @@ export const WithActions: Story = {
     </QuestionCard>
   ),
 }
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+}

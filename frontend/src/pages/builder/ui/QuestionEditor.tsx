@@ -15,6 +15,7 @@ export interface QuestionEditorProps {
   onDelete?: () => void
   questionCount?: number
   questionNumber?: number
+  disabled?: boolean
 }
 
 export function QuestionEditor({
@@ -23,7 +24,10 @@ export function QuestionEditor({
   onDelete,
   questionCount,
   questionNumber,
+  disabled = false,
 }: QuestionEditorProps) {
+  const isSubmitted = defaultValue?.apiId !== undefined
+
   const {
     type,
     prompt,
@@ -35,8 +39,8 @@ export function QuestionEditor({
   } = useQuestionEditor(defaultValue, onUpdate)
 
   return (
-    <QuestionCard className="group relative">
-      {(questionCount === undefined || questionCount > 1) && (
+    <QuestionCard className="group relative" disabled={isSubmitted}>
+      {!isSubmitted && (questionCount === undefined || questionCount > 1) && (
         <div className="absolute top-4 right-4 z-10">
           <Button
             variant="icon"
@@ -54,6 +58,7 @@ export function QuestionEditor({
         questionNumber={questionNumber ?? 1}
         type={type}
         onTypeChange={handlers.handleTypeChange}
+        disabled={disabled || isSubmitted}
       />
 
       <div className="space-y-10">
@@ -62,12 +67,14 @@ export function QuestionEditor({
             value={prompt}
             onChange={handlers.handlePromptChange}
             defaultValue={prompt}
+            disabled={disabled || isSubmitted}
           />
 
           <CodeSnippetInput
             value={code}
             onChange={handlers.handleCodeChange}
             defaultValue={code}
+            disabled={disabled || isSubmitted}
           />
         </div>
 
@@ -86,8 +93,18 @@ export function QuestionEditor({
           onAddChoice={handlers.handleAddChoice}
           onDeleteChoice={handlers.handleDeleteChoice}
           onShortAnswerChange={handlers.handleShortAnswerChange}
+          disabled={disabled || isSubmitted}
         />
       </div>
+
+      {isSubmitted && (
+        <div className="mt-4 flex items-center gap-2 px-3 py-2 rounded-lg bg-success-container">
+          <Icon name="mi:check_circle" className="text-success" size={16} />
+          <span className="text-label-small font-semibold text-on-success-container">
+            Already created
+          </span>
+        </div>
+      )}
     </QuestionCard>
   )
 }

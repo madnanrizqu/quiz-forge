@@ -8,12 +8,14 @@ export interface QuestionCardProps extends HTMLAttributes<HTMLDivElement> {
   asChild?: boolean
   title?: string
   description?: string
+  disabled?: boolean
 }
 
 export function QuestionCard({
   title,
   description,
   asChild = false,
+  disabled = false,
   className,
   children,
   ...props
@@ -24,7 +26,9 @@ export function QuestionCard({
     <Comp
       className={cx(
         'relative overflow-hidden rounded-2xl bg-surface-container-lowest p-6 md:p-8',
-        'outline-1 outline-ghost-border shadow-[0_12px_40px_rgba(20,28,43,0.06)] transition-all duration-300 hover:-translate-y-1',
+        'outline-1 outline-ghost-border shadow-[0_12px_40px_rgba(20,28,43,0.06)] transition-all duration-300',
+        !disabled && 'hover:-translate-y-1',
+        disabled && 'opacity-60 pointer-events-none',
         className,
       )}
       {...props}

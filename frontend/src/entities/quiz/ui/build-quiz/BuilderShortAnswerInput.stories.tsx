@@ -18,3 +18,10 @@ export const WithValue: Story = {
     value: 'Paris',
   },
 }
+
+export const Disabled: Story = {
+  args: {
+    value: 'Paris',
+    disabled: true,
+  },
+}
