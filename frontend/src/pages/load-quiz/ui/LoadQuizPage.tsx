@@ -1,8 +1,11 @@
 import { Button, Icon, Input, Label, Text } from '@/shared/ui'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop } from '@/widgets/header'
+import { useLoadQuiz } from '../model'
 
 export function LoadQuizPage() {
+  const { quizId, setQuizId, handleSubmit, isPending, error } = useLoadQuiz()
+
   return (
     <AppShell header={<BuilderHeaderDesktop />}>
       <main className="min-h-[calc(100vh-72px)] relative overflow-hidden flex items-center justify-center">
@@ -33,12 +36,33 @@ export function LoadQuizPage() {
             <div className="mb-6">
               <Label className="block mb-2">Quiz ID</Label>
               <Input
-                placeholder="e.g. abc123xyz"
+                placeholder="e.g. 123"
+                value={quizId}
+                onChange={(e) => setQuizId(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
                 trailingIcon={<Icon name="mi:fingerprint" size={20} />}
               />
             </div>
-            <Button size="lg" className="w-full">
-              Load Quiz <Icon name="mi:arrow_forward" />
+
+            {error && (
+              <Text
+                variant="label-small"
+                tone="on-surface"
+                className="mb-4 text-error"
+              >
+                {error.message ||
+                  'Failed to load quiz. Please check the quiz ID.'}
+              </Text>
+            )}
+
+            <Button
+              size="lg"
+              className="w-full"
+              onClick={handleSubmit}
+              disabled={isPending || !quizId}
+            >
+              {isPending ? 'Loading...' : 'Load Quiz'}{' '}
+              {!isPending && <Icon name="mi:arrow_forward" />}
             </Button>
           </div>
 
