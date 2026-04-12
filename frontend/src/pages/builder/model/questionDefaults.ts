@@ -40,7 +40,7 @@ export function getQuestionInitialState(defaultValue?: QuizQuestion) {
   return {
     type: defaultValue?.type ?? QuestionType.MultipleChoice,
     prompt: defaultValue?.prompt ?? '',
-    code: defaultValue?.code ?? '',
+    code: defaultValue?.code,
     choices: defaultValue?.choices ?? DEFAULT_CHOICES,
     correctAnswerId: getInitialCorrectAnswerId(defaultValue?.choices),
     shortAnswer: defaultValue?.correctAnswer ?? '',
