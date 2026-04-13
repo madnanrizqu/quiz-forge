@@ -6,7 +6,7 @@ import { createActiveQuizStore } from './store'
 interface UseActiveQuizProps {
   quizId: string
   attemptId: string
-  onComplete: (answers: Record<string, string>) => void
+  onComplete?: (answers: Record<string, string>) => void
 }
 
 export function useActiveQuiz({
@@ -29,6 +29,11 @@ export function useActiveQuiz({
 
   const currentQuestion = questions[currentIndex]
   const isLastQuestion = currentIndex === questions.length - 1
+  const allQuestionsAnswered =
+    questions.length > 0 &&
+    questions.every(
+      (q) => answers[q.questionId] && answers[q.questionId] !== '',
+    )
 
   const handleSetAnswer = (questionId: string, answer: string) => {
     setAnswer(questionId, answer)
@@ -47,16 +52,28 @@ export function useActiveQuiz({
   }
 
   const handleSubmit = () => {
+    if (!onComplete) return
+
     clearSession()
     onComplete(answers)
   }
+
+  const answeredCount = Object.keys(answers).filter(
+    (k) => answers[k] !== '',
+  ).length
+  const progress =
+    questions.length > 0
+      ? Math.round((answeredCount / questions.length) * 100)
+      : 0
 
   return {
     currentIndex,
     currentQuestion,
     isLastQuestion,
+    allQuestionsAnswered,
     totalQuestions: questions.length,
     answers,
+    progress,
     isLoading,
     error,
     handleSetAnswer,

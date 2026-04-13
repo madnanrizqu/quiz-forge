@@ -21,6 +21,7 @@ export function ActiveQuizState({
     currentIndex,
     currentQuestion,
     isLastQuestion,
+    allQuestionsAnswered,
     totalQuestions,
     answers,
     isLoading,
@@ -144,6 +145,7 @@ export function ActiveQuizState({
           <Button
             variant="primary"
             size="lg"
+            disabled={!allQuestionsAnswered}
             className="w-full sm:w-auto"
             onClick={handleSubmit}
           >
