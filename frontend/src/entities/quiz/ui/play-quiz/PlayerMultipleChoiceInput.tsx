@@ -3,8 +3,8 @@ import { PlayerQuizOption } from './PlayerQuizOption'
 
 export interface PlayerMultipleChoiceInputProps {
   options: QuizOptionData[]
-  value: string
-  onChange: (value: string) => void
+  value: number
+  onChange: (value: number) => void
 }
 
 export function PlayerMultipleChoiceInput({
@@ -17,14 +17,14 @@ export function PlayerMultipleChoiceInput({
       <legend className="block text-sm font-semibold text-on-surface-variant mb-2 ml-1">
         Your Answer
       </legend>
-      {options.map((option) => (
+      {options.map((option, index) => (
         <PlayerQuizOption
           key={option.id}
           name="quiz_option"
-          value={option.id}
+          value={index}
           label={option.label}
-          checked={option.id === value}
-          onChange={() => onChange(option.id)}
+          checked={index === value}
+          onChange={() => onChange(index)}
         />
       ))}
     </fieldset>

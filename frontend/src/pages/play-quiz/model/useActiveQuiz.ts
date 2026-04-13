@@ -1,5 +1,10 @@
 import { useCallback, useMemo, useState } from 'react'
-import { useQuiz, toQuizPlayData, toQuizResultData } from '@/entities/quiz'
+import {
+  useQuiz,
+  toQuizPlayData,
+  toQuizResultData,
+  QuestionType,
+} from '@/entities/quiz'
 import type { QuizPlayData, QuizResultData } from '@/entities/quiz'
 import { createActiveQuizStore } from './store'
 import { useSubmitAnswer, useSubmitAttempt } from '@/entities/quiz/api/attempt'
@@ -105,7 +110,7 @@ export function useActiveQuiz({
       (q) => answers[q.questionId] && answers[q.questionId] !== '',
     )
 
-  const handleSetAnswer = (questionId: string, answer: string) => {
+  const handleSetAnswer = (questionId: string, answer: string | number) => {
     setAnswer(questionId, answer)
   }
 
@@ -128,13 +133,18 @@ export function useActiveQuiz({
       submitError: null,
     }))
 
-    const answerEntries = Object.entries(answers).map(
-      ([questionId, value]) => ({
-        questionId: Number(questionId),
-        value,
+    const answerEntries = Object.entries(answers).map(([questionId, value]) => {
+      const numericQuestionId = Number(questionId)
+      const question = questions.find((q) => q.questionId === numericQuestionId)
+      return {
+        questionId: numericQuestionId,
+        value:
+          question?.questionType === QuestionType.MultipleChoice
+            ? Number(value)
+            : value,
         id: questionId,
-      }),
-    )
+      }
+    })
 
     const results = await Promise.allSettled(
       answerEntries.map((entry) =>
@@ -173,13 +183,18 @@ export function useActiveQuiz({
       submitError: null,
     }))
 
-    const answerEntries = Object.entries(answers).map(
-      ([questionId, value]) => ({
-        questionId: Number(questionId),
-        value,
+    const answerEntries = Object.entries(answers).map(([questionId, value]) => {
+      const numericQuestionId = Number(questionId)
+      const question = questions.find((q) => q.questionId === numericQuestionId)
+      return {
+        questionId: numericQuestionId,
+        value:
+          question?.questionType === QuestionType.MultipleChoice
+            ? Number(value)
+            : value,
         id: questionId,
-      }),
-    )
+      }
+    })
 
     const failedEntries = answerEntries.filter((entry) =>
       submitAnswerState.failedAnswerIds.has(entry.id),

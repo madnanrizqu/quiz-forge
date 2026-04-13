@@ -6,8 +6,8 @@ import type { QuizOptionData } from '../../model/types'
 export interface PlayerAnswerSectionProps {
   questionType: QuestionType
   options: QuizOptionData[]
-  answer: string
-  onSetAnswer: (answer: string) => void
+  answer: number | string
+  onSetAnswer: (answer: string | number) => void
 }
 
 export function PlayerAnswerSection({
@@ -17,13 +17,15 @@ export function PlayerAnswerSection({
   onSetAnswer,
 }: PlayerAnswerSectionProps) {
   if (questionType === QuestionType.ShortAnswer) {
-    return <PlayerShortAnswerInput value={answer} onChange={onSetAnswer} />
+    return (
+      <PlayerShortAnswerInput value={String(answer)} onChange={onSetAnswer} />
+    )
   }
 
   return (
     <PlayerMultipleChoiceInput
       options={options}
-      value={answer}
+      value={Number(answer)}
       onChange={onSetAnswer}
     />
   )

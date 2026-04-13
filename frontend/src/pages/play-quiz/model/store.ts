@@ -4,9 +4,9 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 
 interface PlayQuizStore {
   currentIndex: number
-  answers: Record<string, string>
+  answers: Record<string, number | string>
   setCurrentIndex: (index: number) => void
-  setAnswer: (questionId: string, answer: string) => void
+  setAnswer: (questionId: string, answer: number | string) => void
   clearSession: () => void
 }
 
