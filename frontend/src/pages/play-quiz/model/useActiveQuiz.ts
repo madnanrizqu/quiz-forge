@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   useQuiz,
   toQuizPlayData,
@@ -42,8 +42,17 @@ export function useActiveQuiz({
     () => createActiveQuizStore(quizId, attemptId),
     [quizId, attemptId],
   )
-  const { currentIndex, answers, setCurrentIndex, setAnswer, clearSession } =
-    store()
+  const {
+    currentIndex,
+    answers,
+    tabSwitches,
+    pastes,
+    setCurrentIndex,
+    setAnswer,
+    incrementTabSwitches,
+    incrementPastes,
+    clearSession,
+  } = store()
 
   const [submitAnswerState, setSubmitAnswerState] = useState<SubmitAnswerState>(
     {
@@ -60,6 +69,16 @@ export function useActiveQuiz({
       isSubmitted: false,
     })
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        incrementTabSwitches()
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+  }, [incrementTabSwitches])
+
   const numericAttemptId = Number(attemptId)
   const submitAnswerMutation = useSubmitAnswer(numericAttemptId)
   const submitAttemptMutation = useSubmitAttempt(numericAttemptId)
@@ -75,6 +94,8 @@ export function useActiveQuiz({
         quizId,
         quizTitle: data?.title ?? '',
         questions,
+        tabSwitches,
+        pastes,
       })
 
       onComplete(result)
@@ -99,6 +120,8 @@ export function useActiveQuiz({
     data?.title,
     questions,
     quizId,
+    tabSwitches,
+    pastes,
     onComplete,
   ])
 
@@ -110,6 +133,10 @@ export function useActiveQuiz({
   const handleSetAnswer = (questionId: string, answer: string | number) => {
     setAnswer(questionId, answer)
   }
+
+  const handlePaste = useCallback(() => {
+    incrementPastes()
+  }, [incrementPastes])
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
@@ -264,6 +291,7 @@ export function useActiveQuiz({
     submitAnswerState,
     submitAttemptState,
     handleSetAnswer,
+    handlePaste,
     handlePrevious,
     handleNext,
     handlersSubmitAnswers,

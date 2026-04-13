@@ -36,6 +36,7 @@ export function ActiveQuizState({
     submitAnswerState,
     submitAttemptState,
     handleSetAnswer,
+    handlePaste,
     handlePrevious,
     handleNext,
     handlersSubmitAnswers,
@@ -150,6 +151,7 @@ export function ActiveQuizState({
               onSetAnswer={(answer) =>
                 handleSetAnswer(String(currentQuestion.questionId), answer)
               }
+              onPaste={handlePaste}
             />
           </div>
         </QuestionCard>

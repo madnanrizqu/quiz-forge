@@ -37,6 +37,8 @@ export function toQuizResultData(
     quizId: string
     quizTitle: string
     questions: QuizPlayData[]
+    tabSwitches?: number
+    pastes?: number
   },
 ): QuizResultData {
   return {
@@ -45,8 +47,8 @@ export function toQuizResultData(
     score: response.score,
     totalQuestions: context.questions.length,
     timeSpent: '0:00',
-    tabSwitches: 0,
-    pastes: 0,
+    tabSwitches: context.tabSwitches ?? 0,
+    pastes: context.pastes ?? 0,
     questions: response.details.map((detail) => {
       const question = context.questions.find(
         (q) => q.questionId === detail.questionId,

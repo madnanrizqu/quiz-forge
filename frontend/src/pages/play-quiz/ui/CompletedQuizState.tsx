@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Button, Icon, Text } from '@/shared/ui'
+import { Badge, Button, Icon, Text } from '@/shared/ui'
 import type { QuizResultData, QuestionResult } from '@/entities/quiz'
 import { calculatePerformance } from '../model'
 import { useConfetti } from '@/shared/lib/hooks'
@@ -36,8 +36,8 @@ function QuestionReviewItem({
       <div
         className={`flex items-center gap-2 px-4 py-2 rounded-full shrink-0 ${
           question.isCorrect
-            ? 'bg-emerald-50 text-emerald-700'
-            : 'bg-error/10 text-error'
+            ? 'bg-success-container text-on-success-container'
+            : 'bg-error-container text-on-error-container'
         }`}
       >
         <Icon
@@ -109,32 +109,38 @@ export function CompletedQuizState({ quizResult }: CompletedQuizStateProps) {
           </div>
         </div>
 
-        {(tabSwitches > 0 || pastes > 0) && (
-          <div className="flex flex-wrap justify-center items-center gap-3 mt-8">
-            <Text
-              variant="label-small"
-              className="text-on-surface-variant uppercase tracking-widest mr-2"
-            >
-              Proctoring Log:
-            </Text>
-            {tabSwitches > 0 && (
-              <div className="flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1.5 rounded-full">
-                <Icon name="mi:construction" size={16} />
-                <Text variant="body-standard" className="font-bold">
-                  {tabSwitches} tab switches
-                </Text>
-              </div>
-            )}
-            {pastes > 0 && (
-              <div className="flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1.5 rounded-full">
-                <Icon name="mi:construction" size={16} />
-                <Text variant="body-standard" className="font-bold">
-                  {pastes} pastes
-                </Text>
-              </div>
-            )}
-          </div>
-        )}
+        <div className="flex flex-wrap justify-center items-center gap-3 mt-8">
+          <Text
+            variant="label-small"
+            className="text-on-surface-variant uppercase tracking-widest mr-2"
+          >
+            Integrity Tracker
+          </Text>
+          <Text
+            variant="body-small"
+            className="text-on-surface-variant italic"
+          >
+            (for informational purposes only)
+          </Text>
+          {tabSwitches > 0 && (
+            <Badge className="bg-warning-container text-on-warning-container">
+              <Icon name="mi:tab" size={14} className="mr-1" />
+              {tabSwitches} tab switch{tabSwitches > 1 ? 'es' : ''}
+            </Badge>
+          )}
+          {pastes > 0 && (
+            <Badge className="bg-warning-container text-on-warning-container">
+              <Icon name="mi:content_paste" size={14} className="mr-1" />
+              {pastes} past{pastes > 1 ? 'es' : ''}
+            </Badge>
+          )}
+          {tabSwitches === 0 && pastes === 0 && (
+            <Badge className="bg-success-container text-on-success-container">
+              <Icon name="mi:verified" size={14} className="mr-1" />
+              No issues detected
+            </Badge>
+          )}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

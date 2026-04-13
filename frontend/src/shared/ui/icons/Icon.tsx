@@ -29,6 +29,9 @@ const iconRegistry = {
   'mi:report': { kind: 'material' as const, name: 'report' },
   'mi:code': { kind: 'material' as const, name: 'code' },
   'mi:code_blocks': { kind: 'material' as const, name: 'code_blocks' },
+  'mi:tab': { kind: 'material' as const, name: 'tab' },
+  'mi:content_paste': { kind: 'material' as const, name: 'content_paste' },
+  'mi:verified': { kind: 'material' as const, name: 'verified' },
   'svg:chevron_down': { kind: 'svg' as const, ...chevronDown },
 }
 

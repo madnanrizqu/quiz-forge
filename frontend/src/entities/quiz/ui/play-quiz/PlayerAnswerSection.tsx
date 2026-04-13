@@ -1,3 +1,4 @@
+import type { ClipboardEventHandler } from 'react'
 import { PlayerMultipleChoiceInput } from './PlayerMultipleChoiceInput'
 import { PlayerShortAnswerInput } from './PlayerShortAnswerInput'
 import { QuestionType } from '../../model/types'
@@ -8,6 +9,7 @@ export interface PlayerAnswerSectionProps {
   options: QuizOptionData[]
   answer: number | string
   onSetAnswer: (answer: string | number) => void
+  onPaste?: ClipboardEventHandler<HTMLInputElement>
 }
 
 export function PlayerAnswerSection({
@@ -15,10 +17,15 @@ export function PlayerAnswerSection({
   options,
   answer,
   onSetAnswer,
+  onPaste,
 }: PlayerAnswerSectionProps) {
   if (questionType === QuestionType.ShortAnswer) {
     return (
-      <PlayerShortAnswerInput value={String(answer)} onChange={onSetAnswer} />
+      <PlayerShortAnswerInput
+        value={String(answer)}
+        onChange={onSetAnswer}
+        onPaste={onPaste}
+      />
     )
   }
 
