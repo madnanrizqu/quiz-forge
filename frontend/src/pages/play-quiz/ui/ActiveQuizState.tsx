@@ -1,4 +1,10 @@
-import { Button, Icon, NotificationBar, SuccessCheckmark, Text } from '@/shared/ui'
+import {
+  Button,
+  Icon,
+  NotificationBar,
+  SuccessCheckmark,
+  Text,
+} from '@/shared/ui'
 import {
   CodeSnippetInput,
   PlayerAnswerSection,
@@ -26,14 +32,11 @@ export function ActiveQuizState({
     answers,
     isLoading,
     error,
-    isSubmitting,
-    submitError,
-    isSubmitted,
+    submitAnswerState,
     handleSetAnswer,
     handlePrevious,
     handleNext,
-    handleSubmit,
-    handleRetry,
+    handlersSubmitAnswers,
   } = useActiveQuiz({ quizId, attemptId, onComplete })
 
   if (isLoading) {
@@ -74,7 +77,7 @@ export function ActiveQuizState({
 
   return (
     <>
-      {isSubmitting && (
+      {submitAnswerState.isSubmitting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-surface-container-lowest rounded-2xl p-8 flex flex-col items-center gap-4">
             <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -85,7 +88,7 @@ export function ActiveQuizState({
         </div>
       )}
 
-      {isSubmitted && (
+      {submitAnswerState.isSubmitted && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-surface-container-lowest rounded-2xl p-8 flex flex-col items-center gap-4">
             <SuccessCheckmark size={48} className="text-success" />
@@ -146,14 +149,17 @@ export function ActiveQuizState({
           </div>
         </QuestionCard>
 
-        {submitError && (
+        {submitAnswerState.submitError && (
           <NotificationBar
             variant="error"
             title="Submission failed"
             description={
               <div className="flex items-center gap-3">
-                <span>{submitError}</span>
-                <Button size="sm" onClick={handleRetry}>
+                <span>{submitAnswerState.submitError}</span>
+                <Button
+                  size="sm"
+                  onClick={handlersSubmitAnswers.handleRetryAnswers}
+                >
                   Retry
                 </Button>
               </div>
@@ -187,9 +193,9 @@ export function ActiveQuizState({
             <Button
               variant="primary"
               size="lg"
-              disabled={!allQuestionsAnswered || isSubmitting}
+              disabled={!allQuestionsAnswered || submitAnswerState.isSubmitting}
               className="w-full sm:w-auto"
-              onClick={handleSubmit}
+              onClick={handlersSubmitAnswers.handleSubmitAnswers}
             >
               Submit Answers
             </Button>

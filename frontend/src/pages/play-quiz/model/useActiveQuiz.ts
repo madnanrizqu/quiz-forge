@@ -10,6 +10,13 @@ interface UseActiveQuizProps {
   onComplete?: (answers: Record<string, string>) => void
 }
 
+interface SubmitAnswerState {
+  isSubmitting: boolean
+  submitError: string | null
+  failedAnswerIds: Set<string>
+  isSubmitted: boolean
+}
+
 export function useActiveQuiz({
   quizId,
   attemptId,
@@ -28,10 +35,12 @@ export function useActiveQuiz({
   const { currentIndex, answers, setCurrentIndex, setAnswer, clearSession } =
     store()
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
-  const [failedAnswerIds, setFailedAnswerIds] = useState<Set<string>>(new Set())
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitAnswerState, setSubmitAnswerState] = useState<SubmitAnswerState>({
+    isSubmitting: false,
+    submitError: null,
+    failedAnswerIds: new Set(),
+    isSubmitted: false,
+  })
 
   const numericAttemptId = Number(attemptId)
   const submitAnswerMutation = useSubmitAnswer(numericAttemptId)
@@ -60,9 +69,8 @@ export function useActiveQuiz({
     }
   }
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true)
-    setSubmitError(null)
+  const handleSubmitAnswers = async () => {
+    setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: true, submitError: null }))
 
     const answerEntries = Object.entries(answers).map(
       ([questionId, value]) => ({
@@ -85,21 +93,21 @@ export function useActiveQuiz({
       .filter((_, index) => results[index].status === 'rejected')
       .map((entry) => entry.id)
 
-    setFailedAnswerIds(new Set(failedIds))
-
     if (failedIds.length > 0) {
-      setSubmitError('Failed to submit some answers. Click retry to try again.')
-      setIsSubmitting(false)
+      setSubmitAnswerState((prev) => ({
+        ...prev,
+        isSubmitting: false,
+        submitError: 'Failed to submit some answers. Click retry to try again.',
+        failedAnswerIds: new Set(failedIds),
+      }))
     } else {
       clearSession()
-      setIsSubmitting(false)
-      setIsSubmitted(true)
+      setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: false, isSubmitted: true }))
     }
   }
 
-  const handleRetry = async () => {
-    setIsSubmitting(true)
-    setSubmitError(null)
+  const handleRetryAnswers = async () => {
+    setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: true, submitError: null }))
 
     const answerEntries = Object.entries(answers).map(
       ([questionId, value]) => ({
@@ -110,13 +118,12 @@ export function useActiveQuiz({
     )
 
     const failedEntries = answerEntries.filter((entry) =>
-      failedAnswerIds.has(entry.id),
+      submitAnswerState.failedAnswerIds.has(entry.id),
     )
 
     if (failedEntries.length === 0) {
       clearSession()
-      setIsSubmitting(false)
-      setIsSubmitted(true)
+      setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: false, isSubmitted: true }))
       return
     }
 
@@ -133,16 +140,22 @@ export function useActiveQuiz({
       .filter((_, index) => results[index].status === 'rejected')
       .map((entry) => entry.id)
 
-    setFailedAnswerIds(new Set(remainingFailedIds))
-
     if (remainingFailedIds.length > 0) {
-      setSubmitError('Failed to submit some answers. Click retry to try again.')
-      setIsSubmitting(false)
+      setSubmitAnswerState((prev) => ({
+        ...prev,
+        isSubmitting: false,
+        submitError: 'Failed to submit some answers. Click retry to try again.',
+        failedAnswerIds: new Set(remainingFailedIds),
+      }))
     } else {
       clearSession()
-      setIsSubmitting(false)
-      setIsSubmitted(true)
+      setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: false, isSubmitted: true }))
     }
+  }
+
+  const handlersSubmitAnswers = {
+    handleSubmitAnswers,
+    handleRetryAnswers,
   }
 
   const answeredCount = Object.keys(answers).filter(
@@ -163,14 +176,10 @@ export function useActiveQuiz({
     progress,
     isLoading,
     error,
-    isSubmitting,
-    submitError,
-    failedAnswerIds,
-    isSubmitted,
+    submitAnswerState,
     handleSetAnswer,
     handlePrevious,
     handleNext,
-    handleSubmit,
-    handleRetry,
+    handlersSubmitAnswers,
   }
 }
