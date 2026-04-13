@@ -18,6 +18,10 @@ cp .env.example .env
 npm run dev
 ```
 
+The frontend connects to the backend at `http://localhost:4000` by default (configured in `frontend/src/entities/quiz/api/client.ts`).
+
+Start the backend first — see `backend/README.md` for instructions.
+
 ## Available Scripts
 
 | Command             | Description                      |
@@ -31,13 +35,7 @@ npm run dev
 
 App runs at [http://localhost:3000](http://localhost:3000).
 
-## Backend
-
-The frontend connects to the backend at `http://localhost:4000` by default (configured in `frontend/src/entities/quiz/api/client.ts`).
-
-Start the backend first — see `backend/README.md` for instructions.
-
-## Architecture
+## Architectural Decisions
 
 ### Stack & Rationale
 
@@ -49,6 +47,12 @@ Start the backend first — see `backend/README.md` for instructions.
 | Styling          | Tailwind CSS          | Rapid UI development, consistent design tokens, zero runtime overhead             |
 | Forms            | React Hook Form + Zod | Type-safe validation, minimal re-renders, great DX                                |
 | UI Primitives    | Radix UI              | Headless (no style conflicts), accessible by default, fully customizable          |     |
+
+### Design System
+
+Refer to [frontend/DESIGN.md](./frontend/DESIGN.md) for the full design system documentation. It defines our visual language, component specs, and the "Sapphire Architectural" aesthetic. Storybook (`npm run storybook`) serves as the living component showroom.
+
+A design system was created to keep the product visually cohesive as it scales — ensuring every screen feels like part of the same product rather than independently built features. It accelerates development by giving engineers documented components to reference, aligns designers and developers through a shared source of truth, and helps new team members onboard faster by learning established patterns rather than inferring intent from disparate implementations.
 
 ### Structure (Feature-Sliced Design)
 
@@ -80,7 +84,7 @@ Example flows:
 - **Builder**: Questions created via `Promise.all` → if some fail, remaining are marked and user can retry
 - **Player**: Answers submitted via `Promise.allSettled` → failed answers tracked and can be retried
 
-### Anti-Cheat Design
+## Anti-Cheat Design
 
 The quiz player records behavior events (tab switches, paste attempts, window blur, devtools opened, etc.) rather than blocking actions.
 
