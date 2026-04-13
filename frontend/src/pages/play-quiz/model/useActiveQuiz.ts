@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useQuiz, toQuizPlayData } from '@/entities/quiz'
 import type { QuizPlayData } from '@/entities/quiz'
 import { createActiveQuizStore } from './store'
-import { useSubmitAnswer } from '@/entities/quiz/api/attempt'
+import { useSubmitAnswer, useSubmitAttempt } from '@/entities/quiz/api/attempt'
 
 interface UseActiveQuizProps {
   quizId: string
@@ -14,6 +14,11 @@ interface SubmitAnswerState {
   isSubmitting: boolean
   submitError: string | null
   failedAnswerIds: Set<string>
+}
+
+interface SubmitAttemptState {
+  isSubmitting: boolean
+  submitAttemptError: string | null
   isSubmitted: boolean
 }
 
@@ -35,15 +40,43 @@ export function useActiveQuiz({
   const { currentIndex, answers, setCurrentIndex, setAnswer, clearSession } =
     store()
 
-  const [submitAnswerState, setSubmitAnswerState] = useState<SubmitAnswerState>({
-    isSubmitting: false,
-    submitError: null,
-    failedAnswerIds: new Set(),
-    isSubmitted: false,
-  })
+  const [submitAnswerState, setSubmitAnswerState] = useState<SubmitAnswerState>(
+    {
+      isSubmitting: false,
+      submitError: null,
+      failedAnswerIds: new Set(),
+    },
+  )
+
+  const [submitAttemptState, setSubmitAttemptState] =
+    useState<SubmitAttemptState>({
+      isSubmitting: false,
+      submitAttemptError: null,
+      isSubmitted: false,
+    })
 
   const numericAttemptId = Number(attemptId)
   const submitAnswerMutation = useSubmitAnswer(numericAttemptId)
+  const submitAttemptMutation = useSubmitAttempt(numericAttemptId)
+
+  const submitAttempt = useCallback(async () => {
+    try {
+      await submitAttemptMutation.mutateAsync()
+      clearSession()
+      setSubmitAttemptState((prev) => ({
+        ...prev,
+        isSubmitting: false,
+        isSubmitted: true,
+      }))
+    } catch {
+      setSubmitAttemptState((prev) => ({
+        ...prev,
+        isSubmitting: false,
+        isAttemptSubmitted: false,
+        submitAttemptError: 'Failed to submit attempt. Click retry to try again.',
+      }))
+    }
+  }, [submitAttemptMutation, clearSession])
 
   const currentQuestion = questions[currentIndex]
   const isLastQuestion = currentIndex === questions.length - 1
@@ -70,7 +103,11 @@ export function useActiveQuiz({
   }
 
   const handleSubmitAnswers = async () => {
-    setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: true, submitError: null }))
+    setSubmitAnswerState((prev) => ({
+      ...prev,
+      isSubmitting: true,
+      submitError: null,
+    }))
 
     const answerEntries = Object.entries(answers).map(
       ([questionId, value]) => ({
@@ -101,13 +138,21 @@ export function useActiveQuiz({
         failedAnswerIds: new Set(failedIds),
       }))
     } else {
-      clearSession()
-      setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: false, isSubmitted: true }))
+      setSubmitAttemptState((prev) => ({
+        ...prev,
+        isSubmitting: true,
+        submitAttemptError: null,
+      }))
+      await submitAttempt()
     }
   }
 
   const handleRetryAnswers = async () => {
-    setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: true, submitError: null }))
+    setSubmitAnswerState((prev) => ({
+      ...prev,
+      isSubmitting: true,
+      submitError: null,
+    }))
 
     const answerEntries = Object.entries(answers).map(
       ([questionId, value]) => ({
@@ -122,8 +167,12 @@ export function useActiveQuiz({
     )
 
     if (failedEntries.length === 0) {
-      clearSession()
-      setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: false, isSubmitted: true }))
+      setSubmitAttemptState((prev) => ({
+        ...prev,
+        isSubmitting: true,
+        submitAttemptError: null,
+      }))
+      await submitAttempt()
       return
     }
 
@@ -148,14 +197,28 @@ export function useActiveQuiz({
         failedAnswerIds: new Set(remainingFailedIds),
       }))
     } else {
-      clearSession()
-      setSubmitAnswerState((prev) => ({ ...prev, isSubmitting: false, isSubmitted: true }))
+      setSubmitAttemptState((prev) => ({
+        ...prev,
+        isSubmitting: true,
+        submitAttemptError: null,
+      }))
+      await submitAttempt()
     }
+  }
+
+  const handleRetrySubmitAttempt = async () => {
+    setSubmitAttemptState((prev) => ({
+      ...prev,
+      isSubmitting: true,
+      submitAttemptError: null,
+    }))
+    await submitAttempt()
   }
 
   const handlersSubmitAnswers = {
     handleSubmitAnswers,
     handleRetryAnswers,
+    handleRetrySubmitAttempt,
   }
 
   const answeredCount = Object.keys(answers).filter(
@@ -177,6 +240,7 @@ export function useActiveQuiz({
     isLoading,
     error,
     submitAnswerState,
+    submitAttemptState,
     handleSetAnswer,
     handlePrevious,
     handleNext,

@@ -33,6 +33,7 @@ export function ActiveQuizState({
     isLoading,
     error,
     submitAnswerState,
+    submitAttemptState,
     handleSetAnswer,
     handlePrevious,
     handleNext,
@@ -77,18 +78,20 @@ export function ActiveQuizState({
 
   return (
     <>
-      {submitAnswerState.isSubmitting && (
+      {(submitAnswerState.isSubmitting || submitAttemptState.isSubmitting) && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-surface-container-lowest rounded-2xl p-8 flex flex-col items-center gap-4">
             <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
             <Text variant="body-standard" tone="on-surface">
-              Submitting answers...
+              {submitAttemptState.isSubmitting
+                ? 'Submitting quiz...'
+                : 'Submitting answers...'}
             </Text>
           </div>
         </div>
       )}
 
-      {submitAnswerState.isSubmitted && (
+      {submitAttemptState.isSubmitted && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-surface-container-lowest rounded-2xl p-8 flex flex-col items-center gap-4">
             <SuccessCheckmark size={48} className="text-success" />
@@ -152,13 +155,31 @@ export function ActiveQuizState({
         {submitAnswerState.submitError && (
           <NotificationBar
             variant="error"
-            title="Submission failed"
+            title="Answer submission failed"
             description={
               <div className="flex items-center gap-3">
                 <span>{submitAnswerState.submitError}</span>
                 <Button
                   size="sm"
                   onClick={handlersSubmitAnswers.handleRetryAnswers}
+                >
+                  Retry
+                </Button>
+              </div>
+            }
+          />
+        )}
+
+        {submitAttemptState.submitAttemptError && (
+          <NotificationBar
+            variant="error"
+            title="Attempt submission failed"
+            description={
+              <div className="flex items-center gap-3">
+                <span>{submitAttemptState.submitAttemptError}</span>
+                <Button
+                  size="sm"
+                  onClick={handlersSubmitAnswers.handleRetrySubmitAttempt}
                 >
                   Retry
                 </Button>
@@ -193,7 +214,11 @@ export function ActiveQuizState({
             <Button
               variant="primary"
               size="lg"
-              disabled={!allQuestionsAnswered || submitAnswerState.isSubmitting}
+              disabled={
+                !allQuestionsAnswered ||
+                submitAnswerState.isSubmitting ||
+                submitAttemptState.isSubmitting
+              }
               className="w-full sm:w-auto"
               onClick={handlersSubmitAnswers.handleSubmitAnswers}
             >
