@@ -3,10 +3,10 @@ import { Button, Icon, Text } from '@/shared/ui'
 import type { QuizResultData, QuestionResult } from '@/entities/quiz'
 import { calculatePerformance } from '../model'
 import { useConfetti } from '@/shared/lib/hooks'
+import { useNavigate } from '@tanstack/react-router'
 
 interface CompletedQuizStateProps {
   quizResult: QuizResultData
-  onPlayAgain?: () => void
 }
 
 function QuestionReviewItem({
@@ -52,10 +52,8 @@ function QuestionReviewItem({
   )
 }
 
-export function CompletedQuizState({
-  quizResult,
-  onPlayAgain,
-}: CompletedQuizStateProps) {
+export function CompletedQuizState({ quizResult }: CompletedQuizStateProps) {
+  const navigate = useNavigate()
   const {
     quizTitle,
     score,
@@ -195,9 +193,9 @@ export function CompletedQuizState({
           variant="primary"
           size="lg"
           className="w-full md:w-auto px-10"
-          onClick={onPlayAgain}
+          onClick={() => navigate({ to: '/load-quiz' })}
         >
-          Retry Quiz
+          Back to Play
         </Button>
       </div>
     </section>
