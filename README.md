@@ -1,5 +1,9 @@
 # Quiz Maker: Frontend
 
+![alt text](player.png)
+
+![alt text](builder.png)
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or higher recommended)
