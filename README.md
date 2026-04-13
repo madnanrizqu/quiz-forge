@@ -79,3 +79,9 @@ Example flows:
 
 - **Builder**: Questions created via `Promise.all` → if some fail, remaining are marked and user can retry
 - **Player**: Answers submitted via `Promise.allSettled` → failed answers tracked and can be retried
+
+### Anti-Cheat Design
+
+The quiz player records behavior events (tab switches, paste attempts, window blur, devtools opened, etc.) rather than blocking actions.
+
+**Frontend tracking**: `visibilitychange` and `paste` events (the latter scoped to answer input fields) increment counters in the active quiz Zustand store (persisted to session storage per attempt). After submission, `CompletedQuizState` displays an "Integrity Tracker" summary — a deterrent without enforcement friction.
