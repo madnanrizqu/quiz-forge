@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "quiz-forge",
   "private": true,
   "type": "module",
   "imports": {
