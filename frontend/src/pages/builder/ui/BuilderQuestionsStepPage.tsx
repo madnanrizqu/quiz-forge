@@ -1,10 +1,9 @@
 import { useNavigate } from '@tanstack/react-router'
-import { Button, Icon, NotificationBar, Stepper, Text } from '@/shared/ui'
+import { Button, Icon, NotificationBar, Stepper, SuccessCheckmark, Text } from '@/shared/ui'
 import { QuestionEditor, ValidationErrorList } from '@/pages/builder'
 import { AppShell } from '@/widgets/app-shell'
 import { BuilderHeaderDesktop, BottomNavMobile } from '@/widgets/header'
 import { useQuestionList } from '../model/useQuestionList'
-import { SuccessCheckmark } from './SuccessCheckmark'
 
 interface BuilderQuestionsStepPageProps {
   quizId: string
