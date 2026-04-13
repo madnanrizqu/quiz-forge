@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Icon, ProgressBar, Text } from '@/shared/ui'
+import { ProgressBar, Text } from '@/shared/ui'
 
 export interface PlayerHeaderDesktopProps {
   progress: number
@@ -17,7 +17,7 @@ export function PlayerHeaderDesktop({ progress }: PlayerHeaderDesktopProps) {
         </Link>
 
         <div className="flex items-center gap-6">
-          <div className="hidden md:flex flex-col items-end">
+          <div className="flex flex-col items-end">
             <Text variant="label-small" className="text-on-surface-variant">
               Progress
             </Text>
@@ -28,13 +28,6 @@ export function PlayerHeaderDesktop({ progress }: PlayerHeaderDesktopProps) {
               </span>
             </div>
           </div>
-
-          <button
-            type="button"
-            className="bg-surface-container-high p-2 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-colors size-9"
-          >
-            <Icon name="mi:timer" className="block" />
-          </button>
         </div>
       </div>
     </header>

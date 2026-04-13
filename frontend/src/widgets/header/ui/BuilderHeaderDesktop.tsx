@@ -71,7 +71,7 @@ export function BuilderHeaderDesktop({
                 size="sm"
                 onClick={onPrevious}
                 disabled={disabled}
-                className="text-on-surface-variant hover:text-primary"
+                className="hidden! md:block text-on-surface-variant hover:text-primary"
               >
                 <Icon name="mi:arrow_back" size="sm" className="mr-1" />
                 Previous

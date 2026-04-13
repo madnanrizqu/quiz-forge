@@ -15,8 +15,8 @@ export function BuilderQuestionHeader({
   disabled,
 }: BuilderQuestionHeaderProps) {
   return (
-    <div className="flex justify-between items-start mb-6">
-      <Badge className="bg-primary-fixed text-on-primary-fixed-variant font-bold uppercase tracking-wider text-xs">
+    <div className="flex gap-6 justify-between items-center md:items-start mb-6">
+      <Badge className="bg-primary-fixed shrink-0 text-on-primary-fixed-variant font-bold uppercase tracking-wider text-xs">
         Question {String(questionNumber).padStart(2, '0')}
       </Badge>
       <Select
