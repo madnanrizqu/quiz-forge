@@ -1,4 +1,4 @@
-# Bookipi Quiz Maker — Frontend
+# Quiz Maker: Frontend
 
 ## Prerequisites
 
@@ -40,13 +40,13 @@ App runs at [http://localhost:3000](http://localhost:3000).
 ### Stack & Rationale
 
 | Category         | Choice                | Why                                                                               |
-| ---------------- | --------------------- | --------------------------------------------------------------------------------- | --- |
+| ---------------- | --------------------- | --------------------------------------------------------------------------------- |
 | Routing          | TanStack Router       | Type-safe, file-based route generation, seamless integration with TanStack Query  |
 | Data Fetching    | TanStack Query        | Server state management with caching, retry, and optimistic updates built-in      |
 | State Management | Zustand               | Minimal boilerplate, easy session persistence, clear separation from server state |
 | Styling          | Tailwind CSS          | Rapid UI development, consistent design tokens, zero runtime overhead             |
 | Forms            | React Hook Form + Zod | Type-safe validation, minimal re-renders, great DX                                |
-| UI Primitives    | Radix UI              | Headless (no style conflicts), accessible by default, fully customizable          |     |
+| UI Primitives    | Radix UI              | Headless (no style conflicts), accessible by default, fully customizable          |
 
 ### Design System
 
