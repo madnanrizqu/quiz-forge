@@ -1,13 +1,13 @@
 import { useCallback, useMemo, useState } from 'react'
-import { useQuiz, toQuizPlayData } from '@/entities/quiz'
-import type { QuizPlayData } from '@/entities/quiz'
+import { useQuiz, toQuizPlayData, toQuizResultData } from '@/entities/quiz'
+import type { QuizPlayData, QuizResultData } from '@/entities/quiz'
 import { createActiveQuizStore } from './store'
 import { useSubmitAnswer, useSubmitAttempt } from '@/entities/quiz/api/attempt'
 
 interface UseActiveQuizProps {
   quizId: string
   attemptId: string
-  onComplete?: (answers: Record<string, string>) => void
+  onComplete?: (result: QuizResultData) => void
 }
 
 interface SubmitAnswerState {
@@ -22,7 +22,11 @@ interface SubmitAttemptState {
   isSubmitted: boolean
 }
 
-export function useActiveQuiz({ quizId, attemptId }: UseActiveQuizProps) {
+export function useActiveQuiz({
+  quizId,
+  attemptId,
+  onComplete,
+}: UseActiveQuizProps) {
   const { data, isLoading, error } = useQuiz(Number(quizId))
   const questions: QuizPlayData[] = useMemo(
     () => data?.questions.map((q) => toQuizPlayData(q, quizId)) ?? [],
@@ -56,9 +60,20 @@ export function useActiveQuiz({ quizId, attemptId }: UseActiveQuizProps) {
   const submitAttemptMutation = useSubmitAttempt(numericAttemptId)
 
   const submitAttempt = useCallback(async () => {
+    if (!onComplete) return
+
     try {
-      await submitAttemptMutation.mutateAsync()
+      const response = await submitAttemptMutation.mutateAsync()
       clearSession()
+
+      const result = toQuizResultData(response, {
+        quizId,
+        quizTitle: data?.title ?? '',
+        questions,
+      })
+
+      onComplete(result)
+
       setSubmitAttemptState((prev) => ({
         ...prev,
         isSubmitting: false,
@@ -73,7 +88,14 @@ export function useActiveQuiz({ quizId, attemptId }: UseActiveQuizProps) {
           'Failed to submit attempt. Click retry to try again.',
       }))
     }
-  }, [submitAttemptMutation, clearSession])
+  }, [
+    submitAttemptMutation,
+    clearSession,
+    data?.title,
+    questions,
+    quizId,
+    onComplete,
+  ])
 
   const currentQuestion = questions[currentIndex]
   const isLastQuestion = currentIndex === questions.length - 1

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { QuizState, useQuiz } from '@/entities/quiz'
+import type { QuizResultData } from '@/entities/quiz'
 import { createActiveQuizStore } from './store'
-import { MOCK_QUIZ_RESULTS } from './mock-data'
 
 interface UsePlayQuizPageProps {
   quizId: string
@@ -10,6 +10,7 @@ interface UsePlayQuizPageProps {
 
 export function usePlayQuizPage({ quizId, attemptId }: UsePlayQuizPageProps) {
   const [quizState, setQuizState] = useState<QuizState>(QuizState.Active)
+  const [quizResult, setQuizResult] = useState<QuizResultData | undefined>()
 
   const { data: quizQueryData } = useQuiz(Number(quizId))
 
@@ -19,9 +20,6 @@ export function usePlayQuizPage({ quizId, attemptId }: UsePlayQuizPageProps) {
   )
   const { answers } = store()
 
-  const quizResult = MOCK_QUIZ_RESULTS[quizId] as
-    | (typeof MOCK_QUIZ_RESULTS)[string]
-    | undefined
   const totalQuestions = quizQueryData?.questions.length ?? 0
 
   const getProgress = useCallback(() => {
@@ -33,7 +31,8 @@ export function usePlayQuizPage({ quizId, attemptId }: UsePlayQuizPageProps) {
       : 0
   }, [answers, totalQuestions])
 
-  const handleComplete = useCallback(() => {
+  const handleComplete = useCallback((result: QuizResultData) => {
+    setQuizResult(result)
     setQuizState(QuizState.Completed)
   }, [])
 

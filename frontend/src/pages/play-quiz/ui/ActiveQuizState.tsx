@@ -10,15 +10,20 @@ import {
   PlayerAnswerSection,
   QuestionCard,
 } from '@/entities/quiz'
+import type { QuizResultData } from '@/entities/quiz'
 import { useActiveQuiz } from '../model'
 
 interface ActiveQuizStateProps {
   quizId: string
   attemptId: string
-  onComplete: (answers: Record<string, string>) => void
+  onComplete: (result: QuizResultData) => void
 }
 
-export function ActiveQuizState({ quizId, attemptId }: ActiveQuizStateProps) {
+export function ActiveQuizState({
+  quizId,
+  attemptId,
+  onComplete,
+}: ActiveQuizStateProps) {
   const {
     currentIndex,
     currentQuestion,
@@ -34,7 +39,7 @@ export function ActiveQuizState({ quizId, attemptId }: ActiveQuizStateProps) {
     handlePrevious,
     handleNext,
     handlersSubmitAnswers,
-  } = useActiveQuiz({ quizId, attemptId })
+  } = useActiveQuiz({ quizId, attemptId, onComplete })
 
   if (isLoading) {
     return (

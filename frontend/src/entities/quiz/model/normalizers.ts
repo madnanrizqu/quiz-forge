@@ -1,6 +1,6 @@
-import type { QuestionResponse } from '../api/types'
+import type { QuestionResponse, SubmitResponse } from '../api/types'
 import { QuestionType } from './types'
-import type { QuizPlayData } from './types'
+import type { QuizPlayData, QuizResultData } from './types'
 import { QUESTION_PROMPT_CODE_DELIMITER } from './config'
 
 const TO_QUESTION_TYPE: Record<string, QuestionType> = {
@@ -28,5 +28,34 @@ export function toQuizPlayData(
         id: String(i + 1),
         label: opt,
       })) ?? [],
+  }
+}
+
+export function toQuizResultData(
+  response: SubmitResponse,
+  context: {
+    quizId: string
+    quizTitle: string
+    questions: QuizPlayData[]
+  },
+): QuizResultData {
+  return {
+    quizId: context.quizId,
+    quizTitle: context.quizTitle,
+    score: response.score,
+    totalQuestions: context.questions.length,
+    timeSpent: '0:00',
+    tabSwitches: 0,
+    pastes: 0,
+    questions: response.details.map((detail) => {
+      const question = context.questions.find(
+        (q) => q.questionId === detail.questionId,
+      )
+      return {
+        questionNumber: question?.questionId ?? detail.questionId,
+        questionText: question?.questionText ?? '',
+        isCorrect: detail.correct,
+      }
+    }),
   }
 }
