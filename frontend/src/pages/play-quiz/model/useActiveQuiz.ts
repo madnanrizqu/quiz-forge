@@ -105,10 +105,7 @@ export function useActiveQuiz({
   const currentQuestion = questions[currentIndex]
   const isLastQuestion = currentIndex === questions.length - 1
   const allQuestionsAnswered =
-    questions.length > 0 &&
-    questions.every(
-      (q) => answers[q.questionId] && answers[q.questionId] !== '',
-    )
+    questions.length > 0 && questions.every((q) => answers[q.questionId] !== '')
 
   const handleSetAnswer = (questionId: string, answer: string | number) => {
     setAnswer(questionId, answer)
