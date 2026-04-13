@@ -18,11 +18,7 @@ interface ActiveQuizStateProps {
   onComplete: (answers: Record<string, string>) => void
 }
 
-export function ActiveQuizState({
-  quizId,
-  attemptId,
-  onComplete,
-}: ActiveQuizStateProps) {
+export function ActiveQuizState({ quizId, attemptId }: ActiveQuizStateProps) {
   const {
     currentIndex,
     currentQuestion,
@@ -38,7 +34,7 @@ export function ActiveQuizState({
     handlePrevious,
     handleNext,
     handlersSubmitAnswers,
-  } = useActiveQuiz({ quizId, attemptId, onComplete })
+  } = useActiveQuiz({ quizId, attemptId })
 
   if (isLoading) {
     return (

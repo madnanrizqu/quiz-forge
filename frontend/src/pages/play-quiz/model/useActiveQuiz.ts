@@ -22,11 +22,7 @@ interface SubmitAttemptState {
   isSubmitted: boolean
 }
 
-export function useActiveQuiz({
-  quizId,
-  attemptId,
-  onComplete,
-}: UseActiveQuizProps) {
+export function useActiveQuiz({ quizId, attemptId }: UseActiveQuizProps) {
   const { data, isLoading, error } = useQuiz(Number(quizId))
   const questions: QuizPlayData[] = useMemo(
     () => data?.questions.map((q) => toQuizPlayData(q, quizId)) ?? [],
@@ -73,7 +69,8 @@ export function useActiveQuiz({
         ...prev,
         isSubmitting: false,
         isAttemptSubmitted: false,
-        submitAttemptError: 'Failed to submit attempt. Click retry to try again.',
+        submitAttemptError:
+          'Failed to submit attempt. Click retry to try again.',
       }))
     }
   }, [submitAttemptMutation, clearSession])
@@ -221,14 +218,6 @@ export function useActiveQuiz({
     handleRetrySubmitAttempt,
   }
 
-  const answeredCount = Object.keys(answers).filter(
-    (k) => answers[k] !== '',
-  ).length
-  const progress =
-    questions.length > 0
-      ? Math.round((answeredCount / questions.length) * 100)
-      : 0
-
   return {
     currentIndex,
     currentQuestion,
@@ -236,7 +225,6 @@ export function useActiveQuiz({
     allQuestionsAnswered,
     totalQuestions: questions.length,
     answers,
-    progress,
     isLoading,
     error,
     submitAnswerState,

@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import { AppShell } from '@/widgets/app-shell'
 import { PlayerHeaderDesktop } from '@/widgets/header'
 import { QuizState } from '@/entities/quiz'
-import { useActiveQuiz, MOCK_QUIZ_RESULTS } from '../model'
+import { usePlayQuizPage } from '../model'
 import { ActiveQuizState } from './ActiveQuizState'
 import { CompletedQuizState } from './CompletedQuizState'
 
@@ -12,17 +11,15 @@ interface PlayQuizPageProps {
 }
 
 export function PlayQuizPage({ quizId, attemptId }: PlayQuizPageProps) {
-  const [quizState, setQuizState] = useState<QuizState>(QuizState.Active)
-  const quizResult = MOCK_QUIZ_RESULTS[quizId]
-
-  const { progress } = useActiveQuiz({
-    quizId,
-    attemptId,
-  })
+  const { quizState, quizResult, getProgress, handleComplete } =
+    usePlayQuizPage({
+      quizId,
+      attemptId,
+    })
 
   return (
     <AppShell
-      header={<PlayerHeaderDesktop progress={progress} />}
+      header={<PlayerHeaderDesktop progress={getProgress()} />}
       mobileNav={null}
     >
       <main className="max-w-4xl mx-auto px-6 py-12 md:py-20 min-h-[calc(100vh-80px)] flex flex-col justify-center">
@@ -30,10 +27,10 @@ export function PlayQuizPage({ quizId, attemptId }: PlayQuizPageProps) {
           <ActiveQuizState
             quizId={quizId}
             attemptId={attemptId}
-            onComplete={() => setQuizState(QuizState.Completed)}
+            onComplete={handleComplete}
           />
         )}
-        {quizState === QuizState.Completed && (
+        {quizState === QuizState.Completed && quizResult && (
           <CompletedQuizState quizResult={quizResult} />
         )}
       </main>
