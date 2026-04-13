@@ -22,7 +22,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     options: mockOptions,
-    value: '',
+    value: -1,
     onChange: () => {},
   },
 }
@@ -30,7 +30,7 @@ export const Default: Story = {
 export const WithSelection: Story = {
   args: {
     options: mockOptions,
-    value: '2',
+    value: 2,
     onChange: () => {},
   },
 }
@@ -43,7 +43,7 @@ export const MultipleOptions: Story = {
       { id: 'c', label: 'Option C' },
       { id: 'd', label: 'Option D' },
     ],
-    value: '',
+    value: -1,
     onChange: () => {},
   },
 }

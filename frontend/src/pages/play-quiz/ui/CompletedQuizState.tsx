@@ -117,7 +117,7 @@ export function CompletedQuizState({ quizResult }: CompletedQuizStateProps) {
             Integrity Tracker
           </Text>
           <Text
-            variant="body-small"
+            variant="body-standard"
             className="text-on-surface-variant italic"
           >
             (for informational purposes only)
