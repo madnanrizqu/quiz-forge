@@ -145,7 +145,8 @@ export function ActiveQuizState({
             <PlayerAnswerSection
               questionType={currentQuestion.questionType}
               options={currentQuestion.options}
-              answer={answers[currentQuestion.questionId] || ''}
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              answer={answers[currentQuestion.questionId] ?? ''}
               onSetAnswer={(answer) =>
                 handleSetAnswer(String(currentQuestion.questionId), answer)
               }

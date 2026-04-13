@@ -25,7 +25,14 @@ export function PlayerAnswerSection({
   return (
     <PlayerMultipleChoiceInput
       options={options}
-      value={Number(answer)}
+      value={
+        typeof answer === 'string' && answer.length > 0
+          ? Number(answer)
+          : typeof answer === 'number'
+            ? answer
+            : // initial unselected, also catch all
+              -1
+      }
       onChange={onSetAnswer}
     />
   )
