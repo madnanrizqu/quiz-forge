@@ -2,6 +2,12 @@
 
 See live at: https://quiz-forge.madnanrizqu.com
 
+Here are the list of quizes id available:
+1. id: 1 ; about: JavaScript Fundamentals
+2. id: 2 ; about: Async JavaScript & Promises
+3. id: 3 ; about: HTML & CSS Essentials
+4. id: 4 ; about: Node.js Fundamentals
+
 ![alt text](player.png)
 
 ![alt text](builder.png)
