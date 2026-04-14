@@ -2,13 +2,11 @@ import type { AxiosError } from 'axios'
 import { BaseApiClient, ApiError } from '@/shared/api'
 import type { ApiClient } from '@/shared/api'
 
-const BASE_URL = import.meta.env.VITE_QUIZ_API_URL || 'http://localhost:4000'
-const TOKEN = import.meta.env.VITE_QUIZ_API_TOKEN || 'dev-token'
+const BASE_URL = '/api'
 
 class QuizApiClient extends BaseApiClient {
   constructor() {
     super(BASE_URL, {
-      Authorization: `Bearer ${TOKEN}`,
       'Content-Type': 'application/json',
     })
 

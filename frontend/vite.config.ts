@@ -14,7 +14,6 @@ const dirname =
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url))
 
-// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 const config = defineConfig({
   plugins: [
     devtools(),
@@ -30,6 +29,19 @@ const config = defineConfig({
     }),
     viteReact(),
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: process.env.QUIZ_API_URL || 'http://localhost:4000',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/api/, ''),
+        headers: {
+          Authorization: `Bearer ${process.env.QUIZ_API_TOKEN || 'dev-token'}`,
+        },
+      },
+    },
+  },
+  // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
   test: {
     workspace: [
       {
