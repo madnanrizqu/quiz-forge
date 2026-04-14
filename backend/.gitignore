@@ -1,3 +1,5 @@
 ## Backend
 node_modules
 data.sqlite*
+.wrangler
+worker-configuration.d.ts

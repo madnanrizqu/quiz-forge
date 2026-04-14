@@ -1,0 +1,8 @@
+name = "quiz-maker-api"
+main = "src/index.ts"
+compatibility_date = "2025-07-18"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "quiz-maker-db"
+database_id = "cb0a944b-7037-4c92-9b8d-9c5b1f0856f8"

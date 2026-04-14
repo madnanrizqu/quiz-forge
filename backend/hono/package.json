@@ -1,0 +1,28 @@
+{
+  "name": "quiz-maker-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types",
+    "configure:api-token": "printf '%s' \"$API_TOKEN\" | wrangler secret put API_TOKEN",
+    "d1:local:create": "wrangler d1 create quiz-maker-db --local",
+    "d1:local:delete": "wrangler d1 delete quiz-maker-db --local",
+    "d1:local:schema": "wrangler d1 execute quiz-maker-db --local --file=./sql/d1-schema.sql",
+    "d1:local:seed": "wrangler d1 execute quiz-maker-db --local --file=./sql/seed.sql",
+    "d1:remote:create": "wrangler d1 create quiz-maker-db",
+    "d1:remote:delete": "wrangler d1 delete quiz-maker-db",
+    "d1:remote:schema": "wrangler d1 execute quiz-maker-db --remote --file=./sql/d1-schema.sql",
+    "d1:remote:seed": "wrangler d1 execute quiz-maker-db --remote --file=./sql/seed.sql"
+  },
+  "dependencies": {
+    "hono": "^4.4.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240620.0",
+    "typescript": "^5.4.5",
+    "wrangler": "^4.82.2"
+  }
+}
